@@ -5,14 +5,13 @@ import backgroundImage from "../assets/background.jpg";
 const stripePromise = loadStripe(
   "pk_live_51Rste9GNCTuQ8b5VadpMQGjMg0OOC9ZyZxPDHkpb8mna0u1zZApDEXyLI2aIDOhp5Z1EsGzMnh66YJt8DJwAMnHN0038ohgNyp"
 );
-
 const Consultation = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
-    amount: 50,
+    amount: 50, // Default, can be updated via form if needed
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState("");
@@ -25,55 +24,42 @@ const Consultation = () => {
     e.preventDefault();
     console.log("Submitting form data:", formData);
     setIsSubmitting(true);
-    setStatus(""); // Reset status before submission
-
     try {
-      const response = await fetch(
-        "https://cathy-portfolio-integrated.onrender.com/api/consultations",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      console.log("Response status:", response.status);
+      // Submit consultation
+      const response = await fetch('/api/consultations', { // Relative URL
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: formData.name, email: formData.email, phone: formData.phone, message: formData.message }),
+      });
+      console.log("Consultation response status:", response.status);
       const data = await response.json();
-      console.log("Response data:", data);
-
+      console.log("Consultation response data:", data);
       if (!response.ok) {
         throw new Error(data.error || "Unknown error");
       }
-
       setStatus("Thank you for your request! I will get back to you soon.");
 
-      // Initiate payment after consultation submission
-      const paymentResponse = await fetch(
-        "https://cathy-portfolio-integrated.onrender.com/api/payments",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            amount: formData.amount,
-          }),
-        }
-      );
-
+      // Initiate payment
+      const paymentResponse = await fetch('/api/payments', { // Relative URL
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          amount: formData.amount.toString(), // Ensure string
+        }),
+      });
+      console.log("Payment response status:", paymentResponse.status);
       const paymentData = await paymentResponse.json();
-
+      console.log("Payment response data:", paymentData);
       if (!paymentResponse.ok) {
         throw new Error(paymentData.error || "Payment initiation failed");
       }
 
-      const stripe = await stripePromise; // Ensure the stripe instance is loaded
-
-      // Redirect to Stripe Checkout
+      const stripe = await stripePromise;
       const { error } = await stripe.redirectToCheckout({
-        sessionId: paymentData.id, // Ensure this is the correct session ID from your server
+        sessionId: paymentData.id,
       });
-
       if (error) {
         console.error("Stripe error:", error);
         setStatus("Payment error: " + error.message);
@@ -83,13 +69,12 @@ const Consultation = () => {
       setStatus("Error: " + error.message);
     } finally {
       setIsSubmitting(false);
-      // Reset form if you want after submission
       setFormData({
         name: "",
         email: "",
         phone: "",
         message: "",
-        amount: formData.amount,
+        amount: 50,
       });
     }
   };
