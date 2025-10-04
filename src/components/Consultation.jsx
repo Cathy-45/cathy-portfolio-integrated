@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import backgroundImage from "../assets/background.jpg";
 
-
 const stripePromise = loadStripe(
   "pk_test_51Rste9GNCTuQ8b5VvFoiyW33qLI7t7qHoHwcwq4S7vHcu9CgCtJRhq5nGbwbCm6zJwihJWEkzdwrLSlSTXMoudT9009UNkrut9"
 );
@@ -24,11 +23,14 @@ const Consultation = () => {
     console.log("Submitting form data:", formData);
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://cathy-portfolio-9.onrender.com/api/consultations', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://cathy-portfolio-integrated.onrender.com/api/consultations",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       console.log("Response status:", response.status);
       const data = await response.json();
       console.log("Response data:", data);
@@ -43,7 +45,8 @@ const Consultation = () => {
         message: "",
         amount: formData.amount,
       });
-      const paymentResponse = await fetch ('https://cathy-portfolio-9.onrender.com/api/consultations',
+      const paymentResponse = await fetch(
+        "https://cathy-portfolio-integrated.onrender.com/api/payments",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
