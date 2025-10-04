@@ -115,7 +115,7 @@
         const password = 'Lusaka2025!'; // Change this to match your expected password
         console.log('Using hardcoded password:', password); // Debug log
 
-        fetch(`http://localhost:5003/api/analytics?password=${encodeURIComponent(password)}`)
+        fetch(`https://backend-1g7w.onrender.com/api/analytics?password=${encodeURIComponent(password)}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);

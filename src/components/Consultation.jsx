@@ -24,7 +24,7 @@ const Consultation = () => {
     console.log("Submitting form data:", formData);
     setIsSubmitting(true);
     try {
-      const response = await fetch("http://localhost:5003/api/consultations", {
+      const response = await fetch('https://cathy-portfolio-9.onrender.com/api/consultations', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -43,8 +43,7 @@ const Consultation = () => {
         message: "",
         amount: formData.amount,
       });
-      const paymentResponse = await fetch(
-        "http://localhost:5003/api/payments",
+      const paymentResponse = await fetch ('https://cathy-portfolio-9.onrender.com/api/consultations',
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

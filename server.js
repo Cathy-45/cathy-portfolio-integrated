@@ -69,7 +69,7 @@ app.post('/api/webhook', express.raw({ type: 'application/json' }), async (req, 
 // Middleware (JSON and CORS before API routes) Chunk 2
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:5003', // Localhost for testing
+  origin: 'https://cathy-portfolio-integrated.onrender.com', // Localhost for testing
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type']
 }));
