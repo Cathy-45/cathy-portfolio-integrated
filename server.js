@@ -86,7 +86,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: "https://cathy-portfolio-integrated.onrender.com",
-    methods: ["GET", "POST", "OPTIONS"],
+    methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
 );
@@ -425,9 +425,7 @@ app.post("/api/payments", async (req, res) => {
 
   if (!name || !email || !amount) {
     console.log("Validation failed: Missing name, email, or amount");
-    return res
-      .status(400)
-      .json({ error: "Name, email, and amount are required" });
+    return res.status(400).json({ error: "Name, email, and amount are required" });
   }
 
   let connection;
@@ -435,8 +433,7 @@ app.post("/api/payments", async (req, res) => {
     const pool = await initializeDatabase();
     connection = await pool.getConnection();
 
-    let clientIP =
-      req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+    let clientIP = req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     if (clientIP.includes(",")) clientIP = clientIP.split(",")[0].trim();
     console.log("Client IP:", clientIP);
 
@@ -456,6 +453,7 @@ app.post("/api/payments", async (req, res) => {
     let finalAmount = parseFloat(amount); // Use the input amount as base
     let currency = "usd";
     let equivalentAmount = null;
+
     if (countryCode === "ZM" && parseFloat(amount) !== finalAmount) {
       finalAmount = 35.0; // Zambian pricing
       equivalentAmount = 965; // ZMW equivalent
@@ -471,15 +469,14 @@ app.post("/api/payments", async (req, res) => {
           price_data: {
             currency: currency,
             product_data: { name: "Consultation Fee" },
-            unit_amount: Math.round(finalAmount * 100),
+            unit_amount: Math.round(finalAmount * 100), // Convert to cents
           },
           quantity: 1,
         },
       ],
       mode: "payment",
       success_url: "https://cathy-portfolio-integrated.onrender.com/success",
-      cancel_url:
-        "https://cathy-portfolio-integrated.onrender.com/consultation",
+      cancel_url: "https://cathy-portfolio-integrated.onrender.com/consultation",
       customer_email: email,
       metadata: {
         name,
@@ -497,34 +494,34 @@ app.post("/api/payments", async (req, res) => {
       paymentIntent: session.payment_intent,
     });
 
-    const selectQuery =
-      "SELECT id FROM consultations WHERE email = ? ORDER BY created_at DESC LIMIT 1";
+    // Find the consultation ID
+    const selectQuery = "SELECT id FROM consultations WHERE email = ? ORDER BY created_at DESC LIMIT 1";
     const [results] = await connection.execute(selectQuery, [email]);
+
     if (!results || results.length === 0) {
       console.error("No matching consultation found for email:", email);
       return res.status(404).json({ error: "No matching consultation found" });
     }
+
     const { id } = results[0];
     console.log("Selected consultation:", { id, email });
 
+    // Update the consultation with the session ID
     const updateQuery = "UPDATE consultations SET session_id = ? WHERE id = ?";
-    const [updateResult] = await connection.execute(updateQuery, [
-      session.id,
-      id,
-    ]);
+    const [updateResult] = await connection.execute(updateQuery, [session.id, id]);
+
     console.log("Database update result:", updateResult);
     if (updateResult.affectedRows === 0) {
       console.error("No rows updated for id:", id);
       return res.status(500).json({ error: "Failed to update consultation" });
     }
 
-    return res.json({ id: session.id, url: session.url });
+    // Return the session ID to the client
+    return res.json({ id: session.id, url: session.url }); // Ensure the client understands how to use this
   } catch (error) {
     console.error("Error in /api/payments:", error);
     if (!res.headersSent) {
-      return res
-        .status(500)
-        .json({ error: "Payment initiation failed", details: error.message });
+      return res.status(500).json({ error: "Payment initiation failed", details: error.message });
     }
   } finally {
     if (connection) {
