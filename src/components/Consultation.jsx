@@ -3,8 +3,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import backgroundImage from "../assets/background.jpg";
 
 const stripePromise = loadStripe(
-  "pk_test_51Rste9GNCTuQ8b5VvFoiyW33qLI7t7qHoHwcwq4S7vHcu9CgCtJRhq5nGbwbCm6zJwihJWEkzdwrLSlSTXMoudT9009UNkrut9"
+  "pk_live_51Rste9GNCTuQ8b5VadpMQGjMg0OOC9ZyZxPDHkpb8mna0u1zZApDEXyLI2aIDOhp5Z1EsGzMnh66YJt8DJwAMnHN0038ohgNyp"
 );
+
 const Consultation = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -15,13 +16,17 @@ const Consultation = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState("");
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting form data:", formData);
     setIsSubmitting(true);
+    setStatus(""); // Reset status before submission
+
     try {
       const response = await fetch(
         "https://cathy-portfolio-integrated.onrender.com/api/consultations",
@@ -31,20 +36,18 @@ const Consultation = () => {
           body: JSON.stringify(formData),
         }
       );
+
       console.log("Response status:", response.status);
       const data = await response.json();
       console.log("Response data:", data);
+
       if (!response.ok) {
         throw new Error(data.error || "Unknown error");
       }
+
       setStatus("Thank you for your request! I will get back to you soon.");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
-        amount: formData.amount,
-      });
+
+      // Initiate payment after consultation submission
       const paymentResponse = await fetch(
         "https://cathy-portfolio-integrated.onrender.com/api/payments",
         {
@@ -57,14 +60,20 @@ const Consultation = () => {
           }),
         }
       );
+
       const paymentData = await paymentResponse.json();
+
       if (!paymentResponse.ok) {
         throw new Error(paymentData.error || "Payment initiation failed");
       }
-      const stripe = await stripePromise;
+
+      const stripe = await stripePromise; // Ensure the stripe instance is loaded
+
+      // Redirect to Stripe Checkout
       const { error } = await stripe.redirectToCheckout({
-        sessionId: paymentData.id,
+        sessionId: paymentData.id, // Ensure this is the correct session ID from your server
       });
+
       if (error) {
         console.error("Stripe error:", error);
         setStatus("Payment error: " + error.message);
@@ -74,6 +83,14 @@ const Consultation = () => {
       setStatus("Error: " + error.message);
     } finally {
       setIsSubmitting(false);
+      // Reset form if you want after submission
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+        amount: formData.amount,
+      });
     }
   };
 
