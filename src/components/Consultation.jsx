@@ -10,7 +10,7 @@ const Consultation = () => {
     email: "",
     phone: "",
     message: "",
-    amount: 50, // Default in dollars
+    amount: 50,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState("");
@@ -27,7 +27,7 @@ const Consultation = () => {
 
     try {
       // Submit consultation
-      const response = await fetch('/api/consultations', { // Relative URL
+      const response = await fetch('/api/consultations', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -49,13 +49,13 @@ const Consultation = () => {
       setStatus("Thank you for your request! I will get back to you soon.");
 
       // Initiate payment
-      const paymentResponse = await fetch('/api/payments', { // Relative URL
+      const paymentResponse = await fetch('/api/payments', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          amount: formData.amount * 100, // Convert to cents for Stripe
+          amount: formData.amount.toString(), // Ensure string
         }),
       });
 
@@ -67,27 +67,21 @@ const Consultation = () => {
         throw new Error(paymentData.error || "Payment initiation failed");
       }
 
-      const stripe = await stripePromise;
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: paymentData.id, // Use session ID from response
-      });
+      // Redirect to Stripe Checkout using the URL (new method)
+      window.location.href = paymentData.url; // Use the URL from the response
 
-      if (error) {
-        console.error("Stripe error:", error);
-        setStatus("Payment error: " + error.message);
-      }
     } catch (error) {
       console.error("Fetch error:", error);
       setStatus("Error: " + error.message);
     } finally {
       setIsSubmitting(false);
-      // Reset form
+      // Reset form if you want after submission
       setFormData({
         name: "",
         email: "",
         phone: "",
         message: "",
-        amount: 50,
+        amount: 50,  // Reset to the default amount
       });
     }
   };
