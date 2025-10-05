@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import backgroundImage from "../assets/background.jpg";
 
-const stripePromise = loadStripe(
-  "pk_live_51Rste9GNCTuQ8b5VadpMQGjMg0OOC9ZyZxPDHkpb8mna0u1zZApDEXyLI2aIDOhp5Z1EsGzMnh66YJt8DJwAMnHN0038ohgNyp"
-);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY); // Use env var
+
 const Consultation = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
-    amount: 50, // Default, can be updated via form if needed
+    amount: 50, // Default in dollars
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState("");
@@ -24,19 +23,29 @@ const Consultation = () => {
     e.preventDefault();
     console.log("Submitting form data:", formData);
     setIsSubmitting(true);
+    setStatus(""); // Reset status before submission
+
     try {
       // Submit consultation
       const response = await fetch('/api/consultations', { // Relative URL
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: formData.name, email: formData.email, phone: formData.phone, message: formData.message }),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        }),
       });
-      console.log("Consultation response status:", response.status);
+
+      console.log("Response status:", response.status);
       const data = await response.json();
-      console.log("Consultation response data:", data);
+      console.log("Response data:", data);
+
       if (!response.ok) {
         throw new Error(data.error || "Unknown error");
       }
+
       setStatus("Thank you for your request! I will get back to you soon.");
 
       // Initiate payment
@@ -46,20 +55,23 @@ const Consultation = () => {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          amount: formData.amount.toString(), // Ensure string
+          amount: formData.amount * 100, // Convert to cents for Stripe
         }),
       });
+
       console.log("Payment response status:", paymentResponse.status);
       const paymentData = await paymentResponse.json();
       console.log("Payment response data:", paymentData);
+
       if (!paymentResponse.ok) {
         throw new Error(paymentData.error || "Payment initiation failed");
       }
 
       const stripe = await stripePromise;
       const { error } = await stripe.redirectToCheckout({
-        sessionId: paymentData.id,
+        sessionId: paymentData.id, // Use session ID from response
       });
+
       if (error) {
         console.error("Stripe error:", error);
         setStatus("Payment error: " + error.message);
@@ -69,6 +81,7 @@ const Consultation = () => {
       setStatus("Error: " + error.message);
     } finally {
       setIsSubmitting(false);
+      // Reset form
       setFormData({
         name: "",
         email: "",
