@@ -161,7 +161,7 @@ const Consultation = () => {
             htmlFor="message"
             className="block text-sm sm:text-base font-roboto text-[#9ca3af] mb-2"
           >
-            Message
+            How can I help you?
           </label>
           <textarea
             id="message"
