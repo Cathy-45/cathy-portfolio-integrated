@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import FullStackDevelopment from "./FullStackDevelopment";
-import TechnologyConsulting from "./TechnologyConsulting";
-import SystemIntegration from "./SystemIntegration";
-import SaaS from "./SaaS";
+import FullStackDevelopment from "./FullStackDevelopment.jsx"; // Added .jsx
+import TechnologyConsulting from "./TechnologyConsulting.jsx"; // Added .jsx
+import SystemIntegration from "./SystemIntegration.jsx"; // Added .jsx
+import SaaS from "./SaaS.jsx"; // Added .jsx
 
 const Services = () => {
   return (
