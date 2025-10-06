@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import treeTopBnBImage from '../assets/treeTopBnB.jpg';
 import birthdayPagesImage from '../assets/Birthday-Pages.jpg';
-import cathyPortfolioImage from '../assets/cathy-portfolio.jpg';
+import cathyPortfolioImage from '../assets/Intro.jpg';
 import backgroundImage from '../assets/background.jpg';
 
 const MyPortfolio = () => {
@@ -29,7 +29,7 @@ const MyPortfolio = () => {
       description: 'Personal portfolio showcasing my software projects',
       image: cathyPortfolioImage,
       bgColor: 'bg-[#ff6f61]',
-      path: 'https://github.com/Cathy-45/cathy-portfolio',
+      path: 'https://github.com/Cathy-45/cathy-portfolio-integrated',
     },
   ];
 
