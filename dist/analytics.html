@@ -1,157 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Analytics</title>
     <style>
-        /* Set dark theme background with image */
-        body {
-            background-color: rgba(26, 26, 26, 0.96);
-            background-image: url('~Desktop/cathy-portfolio-integrated-fresh/src/assets/background.jpg'); /* Adjust path based on your server setup */
-            background-size: contain;
-            background-repeat: no-repeat;
-            color: #a67d64; /* Set text color to white for better contrast */
-            font-family: Arial, sans-serif;
-            opacity: 0.3,
-          
-        }
+      /* Set dark theme background with image */
+      body {
+        background-color: rgba(26, 26, 26, 0.96);
+        background-image: url("~Desktop/cathy-portfolio-integrated-fresh/src/assets/background.jpg"); /* Adjust path based on your server setup */
+        background-size: contain;
+        background-repeat: no-repeat;
+        color: #a67d64; /* Set text color to white for better contrast */
+        font-family: Arial, sans-serif;
+        opacity: 0.3;
+      }
 
-        /* Modal styles */
-        #passwordModal {
-            display: none; /* Hidden by default */
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(26, 26, 26, 0.96); /* Light modal background */
-        }
+      /* Modal styles */
+      #passwordModal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(26, 26, 26, 0.96); /* Light modal background */
+      }
 
-        .modal-content {
-            background-color: rgba(85, 82, 78, 0.8); /* Adjust modal background for mix of colors */
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            border-radius: 10px; /* Rounded corners */
-        }
+      .modal-content {
+        background-color: rgba(
+          85,
+          82,
+          78,
+          0.8
+        ); /* Adjust modal background for mix of colors */
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        border-radius: 10px; /* Rounded corners */
+      }
 
-        .close {
-            color: gba(26, 26, 26, 0.96);
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+      .close {
+        color: gba(26, 26, 26, 0.96);
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor:pointer
-        }
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
 
-        /* Table styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+      /* Table styles */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
 
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border: 2px solid 
-            #8e6b54; /* White borders for table */
-        }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border: 2px solid #8e6b54; /* White borders for table */
+      }
 
-        th {
-            background-color: rgba(185, 155, 123, 0.7); /* Header background */
-        }
+      th {
+        background-color: rgba(185, 155, 123, 0.7); /* Header background */
+      }
     </style>
-</head>
-<body>
-
-<div id="passwordModal">
-    <div class="modal-content">
+  </head>
+  <body>
+    <div id="passwordModal">
+      <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Enter Password</h2>
-        <input type="password" id="passwordInput" placeholder="Enter password" />
+        <input
+          type="password"
+          id="passwordInput"
+          placeholder="Enter password"
+        />
         <button onclick="submitPassword()">Submit</button>
+      </div>
     </div>
-</div>
 
-<div>
-    <h3>Analytics Data</h3>
-    <p>Unique Visitors: <span id="uniqueCount">0</span></p>
-    <table id="visitsTable">
+    <div>
+      <h3>Analytics Data</h3>
+      <p>Unique Visitors: <span id="uniqueCount">0</span></p>
+      <table id="visitsTable">
         <tr>
-            <th>IP</th>
-            <th>Name</th>
-            <th>Visit Count</th>
-            <th>First Visit</th>
-            <th>Last Visit</th>
+          <th>IP</th>
+          <th>Name</th>
+          <th>Visit Count</th>
+          <th>First Visit</th>
+          <th>Last Visit</th>
         </tr>
-    </table>
-</div>
+      </table>
+    </div>
 
-<script>
-    // Show modal on page load
-    document.addEventListener("DOMContentLoaded", () => {
+    <script>
+      // Show modal on page load
+      document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("passwordModal").style.display = "block";
-    });
+      });
 
-    // Close modal
-    document.querySelector(".close").addEventListener("click", () => {
+      // Close modal
+      document.querySelector(".close").addEventListener("click", () => {
         document.getElementById("passwordModal").style.display = "none";
-    });
+      });
 
-    // Submit password
-    function submitPassword() {
+      // Submit password
+      function submitPassword() {
         // Hardcoded password for testing
-        const password = 'Lusaka2025!'; // Change this to match your expected password
-        console.log('Using hardcoded password:', password); // Debug log
+        const password = "Lusaka2025!"; // Change this to match your expected password
+        console.log("Using hardcoded password:", password); // Debug log
 
-        fetch(`https://backend-1g7w.onrender.com/api/analytics?password=${encodeURIComponent(password)}`)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log("Fetched data:", data);
-                document.getElementById("uniqueCount").textContent = data.unique_visitors || 0;
-                const table = document.getElementById("visitsTable");
-                table.innerHTML = ""; // Clear existing rows
-                if (data.visits && data.visits.length > 0) {
-                    data.visits.forEach((visit) => {
-                        const row = table.insertRow();
-                        row.insertCell().textContent = visit.ip || "Unknown";
-                        row.insertCell().textContent = visit.name || "Anonymous";
-                        row.insertCell().textContent = visit.visit_count;
-                        row.insertCell().textContent = new Date(visit.first_visit).toLocaleString();
-                        row.insertCell().textContent = new Date(visit.last_visit).toLocaleString();
-                    });
-                } else {
-                    console.log("No visit data available");
-                }
-                document.getElementById("passwordModal").style.display = "none";
-            })
-            .catch((error) => {
-                console.error("Error fetching analytics:", error);
-                alert("Failed to load analytics. Check password or server status.");
-            });
-    }
+        fetch(
+          `https://cathy-portfolio-integrated.onrender.com/analytics?password=${encodeURIComponent(
+            password
+          )}`
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Fetched data:", data);
+            document.getElementById("uniqueCount").textContent =
+              data.unique_visitors || 0;
+            const table = document.getElementById("visitsTable");
+            table.innerHTML = ""; // Clear existing rows
+            if (data.visits && data.visits.length > 0) {
+              data.visits.forEach((visit) => {
+                const row = table.insertRow();
+                row.insertCell().textContent = visit.ip || "Unknown";
+                row.insertCell().textContent = visit.name || "Anonymous";
+                row.insertCell().textContent = visit.visit_count;
+                row.insertCell().textContent = new Date(
+                  visit.first_visit
+                ).toLocaleString();
+                row.insertCell().textContent = new Date(
+                  visit.last_visit
+                ).toLocaleString();
+              });
+            } else {
+              console.log("No visit data available");
+            }
+            document.getElementById("passwordModal").style.display = "none";
+          })
+          .catch((error) => {
+            console.error("Error fetching analytics:", error);
+            alert("Failed to load analytics. Check password or server status.");
+          });
+      }
 
-    // Allow Enter key to submit
-    document.getElementById("passwordInput").addEventListener("keypress", (e) => {
-        if (e.key === "Enter") submitPassword();
-    });
-</script>
-
-</body>
+      // Allow Enter key to submit
+      document
+        .getElementById("passwordInput")
+        .addEventListener("keypress", (e) => {
+          if (e.key === "Enter") submitPassword();
+        });
+    </script>
+  </body>
 </html>

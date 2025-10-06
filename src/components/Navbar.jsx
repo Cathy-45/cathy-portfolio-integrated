@@ -28,8 +28,8 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink to="/products" className="nav-link" data-active={location.pathname === '/products'}>
-            Products
+          <NavLink to="/services" className="nav-link" data-active={location.pathname === '/services'}>
+            Services
           </NavLink>
         </li>
         <li className="nav-item">
