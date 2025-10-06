@@ -10,7 +10,7 @@ const Contact = () => {
         backgroundImage: `url(${backgroundImage})`,
         backgroundBlendMode: "overlay",
         backgroundColor: "rgba(26, 26, 26, 0.96)",
-        opacity: 0.3,
+        opacity: 0.7,
         backgroundPosition: "center top",
         backgroundSize: "contain",
       }}
