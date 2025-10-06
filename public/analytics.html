@@ -106,69 +106,66 @@
     </div>
 
     <script>
-      // Show modal on page load
-      document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("passwordModal").style.display = "block";
-      });
+  // Show modal on page load
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("passwordModal").style.display = "block";
+  });
 
-      // Close modal
-      document.querySelector(".close").addEventListener("click", () => {
-        document.getElementById("passwordModal").style.display = "none";
-      });
+  // Close modal
+  document.querySelector(".close").addEventListener("click", () => {
+    document.getElementById("passwordModal").style.display = "none";
+  });
 
-      // Submit password
-      function submitPassword() {
-        // Hardcoded password for testing
-        const password = "Lusaka2025!"; // Change this to match your expected password
-        console.log("Using hardcoded password:", password); // Debug log
+  // Submit password
+  function submitPassword() {
+    const password = document.getElementById("passwordInput").value; // Dynamic from input
+    if (!password) {
+      alert("Please enter a password.");
+      return;
+    }
+    console.log("Using password:", password); // Debug log
 
-        fetch(
-          `https://cathy-portfolio-integrated.onrender.com/analytics?password=${encodeURIComponent(
-            password
-          )}`
-        )
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log("Fetched data:", data);
-            document.getElementById("uniqueCount").textContent =
-              data.unique_visitors || 0;
-            const table = document.getElementById("visitsTable");
-            table.innerHTML = ""; // Clear existing rows
-            if (data.visits && data.visits.length > 0) {
-              data.visits.forEach((visit) => {
-                const row = table.insertRow();
-                row.insertCell().textContent = visit.ip || "Unknown";
-                row.insertCell().textContent = visit.name || "Anonymous";
-                row.insertCell().textContent = visit.visit_count;
-                row.insertCell().textContent = new Date(
-                  visit.first_visit
-                ).toLocaleString();
-                row.insertCell().textContent = new Date(
-                  visit.last_visit
-                ).toLocaleString();
-              });
-            } else {
-              console.log("No visit data available");
-            }
-            document.getElementById("passwordModal").style.display = "none";
-          })
-          .catch((error) => {
-            console.error("Error fetching analytics:", error);
-            alert("Failed to load analytics. Check password or server status.");
+    fetch(`/api/analytics?password=${encodeURIComponent(password)}`) // Relative URL
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Fetched data:", data);
+        document.getElementById("uniqueCount").textContent =
+          data.unique_visitors || 0;
+        const table = document.getElementById("visitsTable");
+        table.innerHTML = ""; // Clear existing rows
+        if (data.visits && data.visits.length > 0) {
+          data.visits.forEach((visit) => {
+            const row = table.insertRow();
+            row.insertCell().textContent = visit.ip || "Unknown";
+            row.insertCell().textContent = visit.name || "Anonymous";
+            row.insertCell().textContent = visit.visit_count;
+            row.insertCell().textContent = new Date(
+              visit.first_visit
+            ).toLocaleString();
+            row.insertCell().textContent = new Date(
+              visit.last_visit
+            ).toLocaleString();
           });
-      }
+        } else {
+          console.log("No visit data available");
+        }
+        document.getElementById("passwordModal").style.display = "none";
+      })
+      .catch((error) => {
+        console.error("Error fetching analytics:", error);
+        alert("Failed to load analytics. Check password or server status.");
+      });
+  }
 
-      // Allow Enter key to submit
-      document
-        .getElementById("passwordInput")
-        .addEventListener("keypress", (e) => {
-          if (e.key === "Enter") submitPassword();
-        });
-    </script>
-  </body>
-</html>
+  // Allow Enter key to submit
+  document
+    .getElementById("passwordInput")
+    .addEventListener("keypress", (e) => {
+      if (e.key === "Enter") submitPassword();
+    });
+</script>
