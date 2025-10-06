@@ -13,7 +13,7 @@ const Success = () => {
         to="/consultation"
         className="text-sm sm:text-lg font-poppins text-white bg-[#fdba74] hover:bg-[#fb923c] px-4 sm:px-6 py-2 rounded-lg transition-colors"
       >
-        Back to Consultation
+        Back to Services
       </Link>
     </section>
   );
