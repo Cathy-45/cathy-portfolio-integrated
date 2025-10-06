@@ -10,7 +10,7 @@ const Success = () => {
         Thank you for your payment! You will receive a confirmation email soon.
       </p>
       <Link
-        to="/consultation"
+        to="/services"
         className="text-sm sm:text-lg font-poppins text-white bg-[#fdba74] hover:bg-[#fb923c] px-4 sm:px-6 py-2 rounded-lg transition-colors"
       >
         Back to Services
