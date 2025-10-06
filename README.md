@@ -1,5 +1,9 @@
 # Cathy Portfolio Integrated
 
+![Project Banner Image](https://github.com/Cathy-45/cathy-portfolio/blob/452a4e5d92f68e9bc16c51175db17323cc46c1d9/Image%20portfolio.jpg)
+![Project Banner](https://github.com/Cathy-45/cathy-portfolio/blob/b7f6f1baf3e3e600f6d521110fafc6adda610a00/Intro%20page.jpg)
+
+
 A full-stack personal portfolio website for Catherine Sichone, integrating a React frontend with a Node.js/Express backend for consultations, payments (Stripe), analytics, and visit tracking (MySQL).
 
 ## Features
