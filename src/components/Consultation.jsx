@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import backgroundImage from "../assets/background.jpg";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY); // Use env var
 
 const Consultation = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +9,6 @@ const Consultation = () => {
     email: "",
     phone: "",
     message: "",
-    amount: 50,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState("");
@@ -48,14 +46,14 @@ const Consultation = () => {
 
       setStatus("Thank you for your request! I will get back to you soon.");
 
-      // Initiate payment
+      // Initiate payment (fixed $55 rate handled in backend)
       const paymentResponse = await fetch('/api/payments', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          amount: formData.amount.toString(), // Ensure string
+          // No amount—backend uses fixed $55
         }),
       });
 
@@ -67,21 +65,20 @@ const Consultation = () => {
         throw new Error(paymentData.error || "Payment initiation failed");
       }
 
-      // Redirect to Stripe Checkout using the URL (new method)
-      window.location.href = paymentData.url; // Use the URL from the response
+      // Redirect to Stripe Checkout using the URL
+      window.location.href = paymentData.url;
 
     } catch (error) {
       console.error("Fetch error:", error);
       setStatus("Error: " + error.message);
     } finally {
       setIsSubmitting(false);
-      // Reset form if you want after submission
+      // Reset form
       setFormData({
         name: "",
         email: "",
         phone: "",
         message: "",
-        amount: 50,  // Reset to the default amount
       });
     }
   };
@@ -172,23 +169,13 @@ const Consultation = () => {
             className="w-full p-2 rounded bg-[#1a1a1a] text-white border border-[#fdba74] border-opacity-50 focus:outline-none focus:border-[#fdba74]"
           ></textarea>
         </div>
-        <div className="mb-4">
-          <label
-            htmlFor="amount"
-            className="block text-sm sm:text-base font-roboto text-[#9ca3af] mb-2"
-          >
-            Amount (USD)
+        <div className="mb-6">
+          <label className="block text-sm sm:text-base font-roboto text-[#9ca3af] mb-2">
+            Consultation Fee
           </label>
-          <input
-            type="number"
-            id="amount"
-            name="amount"
-            value={formData.amount}
-            onChange={handleChange}
-            required
-            min="1"
-            className="w-full p-2 rounded bg-[#1a1a1a] text-white border border-[#fdba74] border-opacity-50 focus:outline-none focus:border-[#fdba74]"
-          />
+          <div className="w-full p-2 rounded bg-[#1a1a1a] text-white border border-[#fdba74] border-opacity-50 text-center font-bold">
+            $55.00 (Fixed Rate)
+          </div>
         </div>
         <button
           type="submit"
@@ -206,4 +193,6 @@ const Consultation = () => {
     </section>
   );
 };
+
+
 export default Consultation;
