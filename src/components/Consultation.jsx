@@ -173,7 +173,7 @@ const Consultation = () => {
           <label className="block text-sm sm:text-base font-roboto text-[#9ca3af] mb-2">
             Consultation Fee
           </label>
-          <div className="w-full p-2 rounded bg-[#1a1a1a] text-white border border-[#fdba74] border-opacity-50 text-center font-bold">
+          <div className="w-full p-2 rounded bg-[#1a1a1a] text-[#9ca3af] border-[#fdba74] border-opacity-50 text-center font-bold">
             $55.00 (Fixed Rate)
           </div>
         </div>
