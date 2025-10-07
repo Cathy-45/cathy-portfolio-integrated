@@ -447,13 +447,13 @@ app.post('/api/payments', async (req, res) => {
       console.warn('Geolocation failed:', geoErr.message);
     }
 
-    let finalAmount = 55.00; // Fixed rate $55
+    let finalAmount = 75.00; // Fixed rate $55
     let currency = 'usd';
     if (countryCode === 'ZM') {
-      finalAmount = 35.00; // Zambian pricing
-      console.log('Adjusting to Zambian pricing: $35 USD');
+      finalAmount = 55.00; // Zambian pricing
+      console.log('Adjusting to Zambian pricing: $55 USD');
     } else {
-      console.log('Using fixed rate: $55 USD');
+      console.log('Using fixed rate: $75 USD');
     }
 
     const session = await stripe.checkout.sessions.create({
