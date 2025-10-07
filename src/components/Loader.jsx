@@ -1,3 +1,4 @@
+
 import React from 'react';
 import './Loader.css';
 
@@ -7,14 +8,14 @@ const Loader = () => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-[#1a1a1a] z-50 overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center flex-wrap text-center"> {/* Added text-center for better alignment */}
+      <div className="absolute inset-0 flex items-center justify-center flex-wrap text-center transition-all duration-1000"> {/* Added transition for smooth start */}
         {welcomeText.split('').map((letter, index) => (
           <span
             key={index}
-            className="welcome-letter text-[5vw] sm:text-[6vw] md:text-[4rem] lg:text-[5rem]" // Using viewport units for responsive font size
+            className="welcome-letter text-[5vw] sm:text-[6vw] md:text-[4rem] lg:text-[5rem] opacity-0 animate-fade-in" // Added opacity-0 and animation class
             style={{
               color: colors[index % colors.length],
-              animationDelay: `${index * 0.1}s`,
+              animationDelay: `${index * 0.1}s`, // Staggered delay for letter reveal
             }}
           >
             {letter === ' ' ? '\u00A0' : letter}
