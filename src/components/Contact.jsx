@@ -35,7 +35,7 @@ const Contact = () => {
               Email:{" "}
               <a
                 href="mailto:catherine.sichone@gmail.com"
-                className="text-[#fdba74] hover:underline"
+                className="text-[#9ca3af] hover:underline"
               >
                 catherine.sichone@gmail.com
               </a>
@@ -49,7 +49,7 @@ const Contact = () => {
               Phone:{" "}
               <a
                 href="tel:+4694634053"
-                className="text-[#fdba74] hover:underline"
+                className="text-[#9ca3af] hover:underline"
               >
                 +14694634053
               </a>
@@ -64,7 +64,7 @@ const Contact = () => {
                 Email:{" "}
                 <a
                   href="mailto:catherine.sichone@gmail.com"
-                  className="text-[#fdba74] hover:underline"
+                  className="text-[#9ca3af] hover:underline"
                 >
                   catherine.sichone@gmail.com
                 </a>
@@ -73,7 +73,7 @@ const Contact = () => {
                 Phone:{" "}
                 <a
                   href="tel:+4694634053"
-                  className="text-[#fdba74] hover:underline"
+                  className="text-[#9ca3af] hover:underline"
                 >
                   +14694634053
                 </a>
