@@ -31,7 +31,7 @@ const Contact = () => {
         <Route
           path="email"
           element={
-            <p className="text-base sm:text-lg md:text-xl font-roboto text-[#9ca3af] text-center">
+            <p className="text-base sm:text-lg md:text-xl font-roboto text-white text-center">
               Email:{" "}
               <a
                 href="mailto:catherine.sichone@gmail.com"
@@ -45,7 +45,7 @@ const Contact = () => {
         <Route
           path="phone"
           element={
-            <p className="text-base sm:text-lg md:text-xl font-roboto text-[#9ca3af] text-center">
+            <p className="text-base sm:text-lg md:text-xl font-roboto text-white text-center">
               Phone:{" "}
               <a
                 href="tel:+4694634053"
