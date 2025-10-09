@@ -35,7 +35,7 @@ const Contact = () => {
               Email:{" "}
               <a
                 href="mailto:catherine.sichone@gmail.com"
-                className="text-[#9ca3af] hover:underline"
+                className="text-white hover:underline"
               >
                 catherine.sichone@gmail.com
               </a>
@@ -49,7 +49,7 @@ const Contact = () => {
               Phone:{" "}
               <a
                 href="tel:+4694634053"
-                className="text-[#9ca3af] hover:underline"
+                className="text-white hover:underline"
               >
                 +14694634053
               </a>
