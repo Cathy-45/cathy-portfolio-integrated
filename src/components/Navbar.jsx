@@ -17,8 +17,7 @@ const Navbar = () => {
         <NavLink to="/" className="flex items-center space-x-2">
           <img
             src={logo}
-            alt="Cathy Sichone Logo"
-            className="h-10 w-10 sm:h-12 sm:w-12 object-contain drop-shadow-md hover:scale-105 transition-transform"
+            className="h-12 w-12 sm:h-16 sm:w-16 object-contain drop-shadow-md hover:scale-105 transition-transform" // Increased size
           />
           <span className="text-xl sm:text-2xl font-poppins font-bold text-[#fdba74] hidden sm:inline">
             Cathy Sichone
