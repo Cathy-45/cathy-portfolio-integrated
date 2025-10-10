@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import logo from '../assets/logo.png'; 
+import logo from '../assets/logo.png'; // Adjust path to your logo file
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,14 +14,11 @@ const Navbar = () => {
   return (
     <nav className="navbar bg-[#1a1a1a] text-white p-4 sm:p-6 shadow-lg sticky top-0 z-40">
       <div className="container mx-auto flex justify-between items-center">
-        <NavLink to="/" className="flex items-center space-x-2">
+        <NavLink to="/">
           <img
             src={logo}
-            className="h-12 w-12 sm:h-16 sm:w-16 object-contain drop-shadow-md hover:scale-105 transition-transform" // Increased size
+            className="h-16 w-16 sm:h-20 sm:w-20 object-contain drop-shadow-md hover:scale-105 transition-transform"
           />
-          <span className="text-xl sm:text-2xl font-poppins font-bold text-[#fdba74] hidden sm:inline">
-            Cathy Sichone
-          </span>
         </NavLink>
         <button className="hamburger sm:hidden" onClick={() => setIsOpen(!isOpen)}>
           <svg className="w-6 h-6 text-[#fdba74]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
