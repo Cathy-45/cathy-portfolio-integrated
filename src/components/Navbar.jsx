@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png'; // Adjust path to your logo file
@@ -14,10 +15,10 @@ const Navbar = () => {
   return (
     <nav className="navbar bg-[#1a1a1a] text-white p-4 sm:p-6 shadow-lg sticky top-0 z-40">
       <div className="container mx-auto flex justify-between items-center">
-        <NavLink to="/">
+        <NavLink to="/" className="flex items-center">
           <img
             src={logo}
-            className="h-16 w-16 sm:h-20 sm:w-20 object-contain drop-shadow-md hover:scale-105 transition-transform"
+            className="h-20 w-20 sm:h-24 sm:w-24 object-contain drop-shadow-md hover:scale-105 transition-transform" // Larger size: 80px mobile, 96px desktop
           />
         </NavLink>
         <button className="hamburger sm:hidden" onClick={() => setIsOpen(!isOpen)}>
@@ -30,7 +31,7 @@ const Navbar = () => {
             />
           </svg>
         </button>
-        <ul className={`nav-list ${isOpen ? 'open flex flex-col items-center space-y-4' : 'hidden sm:flex sm:space-x-6'}`}>
+        <ul className={`nav-list ${isOpen ? 'open flex flex-col items-center space-y-4 pl-4' : 'hidden sm:flex sm:space-x-6'}`}>
           <li className="nav-item">
             <NavLink
               to="/"
