@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from "../assets/background.jpg";
@@ -13,14 +14,8 @@ const Home = () => {
         opacity: 0.7,
       }}
     >
-      <div className="absolute inset-0 bg-black bg-opacity-50 blur-sm z-0" /> {/* Blurred overlay behind all content */}
-      <div className="relative z-10 flex flex-col items-center text-center space-y-6 px-4 sm:px-6 w-full max-w-4xl">
-        <div className="text-4xl sm:text-6xl animate-wave drop-shadow-lg z-20" style={{ textShadow: '0 0 10px rgba(253, 186, 116, 0.5)' }}>👋</div>
-        <img
-          src={photo}
-          alt="Catherine Sichone"
-          className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover z-10 mb-6 border-4 border-[#fdba74] shadow-lg"
-        />
+      <div className="flex flex-col items-center text-center space-y-6 px-4 sm:px-6 relative z-10"> {/* Removed backdrop-blur-sm */}
+        <div className="text-4xl sm:text-6xl animate-wave drop-shadow-lg mt-4 z-20" style={{ textShadow: '0 0 10px rgba(253, 186, 116, 0.5)' }}>👋</div> {/* Added mt-4 to lower hand */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-poppins font-bold text-[#fdba74] drop-shadow-md z-10">
           Hi, I'm Cathy, a visionary Software Engineer
         </h1>
