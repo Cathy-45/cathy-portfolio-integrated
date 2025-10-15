@@ -81,7 +81,7 @@ app.post(
   }
 );
 
-// Middleware (JSON and CORS before API routes)
+// Middleware (JSON and CORS before API routes) Chunk 2
 app.use(express.json());
 app.use(
   cors({
@@ -93,7 +93,8 @@ app.use(
 
 app.options("*", cors()); // Enable pre-flight for all routes
 
-// Database connection pool
+// Database connection pool-chunk 3
+
 async function initializeDatabase() {
   console.log(
     "Initializing database with environment at:",
@@ -144,7 +145,6 @@ async function initializeDatabase() {
 
   let retries = 20;
   const startTime = Date.now();
-  let pool;
   while (retries > 0) {
     try {
       pool = await mysql.createPool(connectionConfig);
@@ -234,7 +234,7 @@ async function initializeDatabase() {
   return pool;
 }
 
-// Test database connection at startup
+// Test database connection at startup chunk 4
 (async () => {
   let connection;
   try {
@@ -270,7 +270,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Middleware to track visits and revisits with names
+// Middleware to track visits and revisits with names chunk 5
 app.use(async (req, res, next) => {
   const ip =
     req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
@@ -286,7 +286,9 @@ app.use(async (req, res, next) => {
   try {
     connection = await pool.getConnection();
     let name = "Anonymous";
-    if (req.body && req.body.name) name = req.body.name;
+    if (req.body && req.body.name) {
+      name = req.body.name;
+    }
     const [existingVisits] = await connection.execute(
       "SELECT visit_time, name FROM visits WHERE ip = ?",
       [ip]
@@ -301,33 +303,30 @@ app.use(async (req, res, next) => {
     const text = `${subject}\nIP: ${ip}\nName: ${name}\nTime: ${mysqlVisitTime}\nTotal visits for this IP: ${
       existingVisits.length + 1
     }`;
-    try {
-      await transporter.sendMail({
+    await transporter
+      .sendMail({
         from: process.env.EMAIL_USER,
         to: process.env.EMAIL_USER,
         subject: subject,
         text: text,
-      });
-      console.log(`${subject.toLowerCase()} email sent`);
-    } catch (sendErr) {
-      console.warn(
-        `${subject.toLowerCase()} email send failed—Gmail limit exceeded?`,
-        sendErr.message
-      ); // Log warning, don't crash
-    }
+      })
+      .catch((err) => console.error("Visit email error:", err));
+    console.log(`${subject.toLowerCase()} email sent`);
   } catch (err) {
     console.error("Visit tracking error:", err);
   } finally {
-    if (connection)
-      connection
-        .release()
-        .catch((releaseErr) =>
-          console.error("Connection release error:", releaseErr)
-        );
+    if (connection) {
+      try {
+        connection.release();
+      } catch (releaseErr) {
+        console.error("Connection release error:", releaseErr);
+      }
+    }
   }
   next();
 });
-// Analytics endpoint with password protection
+
+// Analytics endpoint with password protection chunk 6
 app.get("/api/analytics", async (req, res) => {
   const password = req.query.password;
   if (!password || password !== process.env.ANALYTICS_PASSWORD) {
@@ -366,7 +365,7 @@ app.get("/api/analytics", async (req, res) => {
   }
 });
 
-// Consultation request endpoint
+// Consultation request endpoint chunk 7
 app.post("/api/consultations", async (req, res) => {
   const { name, email, phone, message } = req.body;
   console.log("Received data:", req.body);
@@ -420,13 +419,13 @@ app.post("/api/consultations", async (req, res) => {
 });
 
 // Payment initiation endpoint
-app.post("/api/payments", async (req, res) => {
-  const { name, email } = req.body;
-  console.log("Received payment request:", { name, email });
+app.post('/api/payments', async (req, res) => {
+  const { name, email } = req.body; // Remove amount from destructuring
+  console.log('Received payment request:', { name, email });
 
   if (!name || !email) {
-    console.log("Validation failed: Missing name or email");
-    return res.status(400).json({ error: "Name and email are required" });
+    console.log('Validation failed: Missing name or email');
+    return res.status(400).json({ error: 'Name and email are required' });
   }
 
   let connection;
@@ -434,99 +433,82 @@ app.post("/api/payments", async (req, res) => {
     const pool = await initializeDatabase();
     connection = await pool.getConnection();
 
-    let clientIP =
-      req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-    if (clientIP.includes(",")) clientIP = clientIP.split(",")[0].trim();
-    console.log("Client IP:", clientIP);
+    let clientIP = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    if (clientIP.includes(',')) clientIP = clientIP.split(',')[0].trim();
+    console.log('Client IP:', clientIP);
 
-    let countryCode = "US";
+    let countryCode = 'US'; 
     try {
-      const axios = require("axios");
-      const response = await axios.get(
-        `https://ipapi.co/${clientIP}/country/`,
-        { timeout: 5000 }
-      );
+      const axios = require('axios');
+      const response = await axios.get(`https://ipapi.co/${clientIP}/country/`, { timeout: 5000 });
       countryCode = response.data.toUpperCase();
-      console.log("Detected country code:", countryCode);
+      console.log('Detected country code:', countryCode);
     } catch (geoErr) {
-      console.warn("Geolocation failed:", geoErr.message);
+      console.warn('Geolocation failed:', geoErr.message);
     }
 
-    let finalAmount = 75.0;
-    let currency = "usd";
-    if (countryCode === "ZM") {
-      finalAmount = 55.0;
-      console.log("Adjusting to Zambian pricing: $55 USD");
+    let finalAmount = 75.00; 
+    let currency = 'usd';
+    if (countryCode === 'ZM') {
+      finalAmount = 55.00; 
+      console.log('Adjusting to Zambian pricing: $55 USD');
     } else {
-      console.log("Using fixed rate: $75 USD");
+      console.log('Using fixed rate: $75 USD');
     }
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
+      payment_method_types: ['card'],
       line_items: [
         {
           price_data: {
             currency: currency,
-            product_data: { name: "Consultation Fee" },
+            product_data: { name: 'Consultation Fee' },
             unit_amount: Math.round(finalAmount * 100),
           },
           quantity: 1,
         },
       ],
-      mode: "payment",
-      success_url: "https://namzeforge.com/success",
-      cancel_url: "https://namzeforge.com/consultation",
+      mode: 'payment',
+      success_url: 'https://namzeforge.com/success',
+      cancel_url: 'https://namzeforge.com/consultation',
       customer_email: email,
-      metadata: {
-        name,
-        email,
-        consultation_id: "",
+      metadata: { 
+        name, 
+        email, 
+        consultation_id: '', 
         country_code: countryCode,
         final_amount: finalAmount,
       },
     });
 
-    console.log("Stripe session created:", {
-      sessionId: session.id,
-      paymentIntent: session.payment_intent,
-    });
+    console.log('Stripe session created:', { sessionId: session.id, paymentIntent: session.payment_intent });
 
-    const selectQuery =
-      "SELECT id FROM consultations WHERE email = ? ORDER BY created_at DESC LIMIT 1";
+    const selectQuery = 'SELECT id FROM consultations WHERE email = ? ORDER BY created_at DESC LIMIT 1';
     const [results] = await connection.execute(selectQuery, [email]);
     if (!results || results.length === 0) {
-      console.error("No matching consultation found for email:", email);
-      return res.status(404).json({ error: "No matching consultation found" });
+      console.error('No matching consultation found for email:', email);
+      return res.status(404).json({ error: 'No matching consultation found' });
     }
     const { id } = results[0];
-    console.log("Selected consultation:", { id, email });
+    console.log('Selected consultation:', { id, email });
 
-    const updateQuery = "UPDATE consultations SET session_id = ? WHERE id = ?";
-    const [updateResult] = await connection.execute(updateQuery, [
-      session.id,
-      id,
-    ]);
-    console.log("Database update result:", updateResult);
+    const updateQuery = 'UPDATE consultations SET session_id = ? WHERE id = ?';
+    const [updateResult] = await connection.execute(updateQuery, [session.id, id]);
+    console.log('Database update result:', updateResult);
     if (updateResult.affectedRows === 0) {
-      console.error("No rows updated for id:", id);
-      return res.status(500).json({ error: "Failed to update consultation" });
+      console.error('No rows updated for id:', id);
+      return res.status(500).json({ error: 'Failed to update consultation' });
     }
 
     return res.json({ id: session.id, url: session.url });
   } catch (error) {
-    console.error("Error in /api/payments:", error);
+    console.error('Error in /api/payments:', error);
     if (!res.headersSent) {
-      return res
-        .status(500)
-        .json({ error: "Payment initiation failed", details: error.message });
+      return res.status(500).json({ error: 'Payment initiation failed', details: error.message });
     }
   } finally {
     if (connection) {
-      connection
-        .release()
-        .catch((releaseErr) =>
-          console.error("Connection release error:", releaseErr)
-        );
+      connection.release().catch(releaseErr => console.error('Connection release error:', releaseErr));
     }
   }
 });
@@ -544,116 +526,4 @@ app.listen(process.env.PORT || 5003, () => {
   console.log(
     `Server running on port ${usedPort} with environment port: ${process.env.PORT}`
   );
-}); // Payment initiation endpoint
-app.post("/api/payments", async (req, res) => {
-  const { name, email } = req.body;
-  console.log("Received payment request:", { name, email });
-
-  if (!name || !email) {
-    console.log("Validation failed: Missing name or email");
-    return res.status(400).json({ error: "Name and email are required" });
-  }
-
-  let connection;
-  try {
-    const pool = await initializeDatabase();
-    connection = await pool.getConnection();
-
-    let clientIP =
-      req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-    if (clientIP.includes(",")) clientIP = clientIP.split(",")[0].trim();
-    console.log("Client IP:", clientIP);
-
-    let countryCode = "US";
-    try {
-      const axios = require("axios");
-      const response = await axios.get(
-        `https://ipapi.co/${clientIP}/country/`,
-        { timeout: 5000 }
-      );
-      countryCode = response.data.toUpperCase();
-      console.log("Detected country code:", countryCode);
-    } catch (geoErr) {
-      console.warn("Geolocation failed:", geoErr.message);
-      // Consider setting a default or handling accordingly
-      // You can choose to continue with the default 'US' or handle it as needed
-    }
-
-    let finalAmount = 75.0;
-    let currency = "usd";
-    if (countryCode === "ZM") {
-      finalAmount = 55.0;
-      console.log("Adjusting to Zambian pricing: $55 USD");
-    } else {
-      console.log("Using fixed rate: $75 USD");
-    }
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price_data: {
-            currency: currency,
-            product_data: { name: "Consultation Fee" },
-            unit_amount: Math.round(finalAmount * 100),
-          },
-          quantity: 1,
-        },
-      ],
-      mode: "payment",
-      success_url: "https://namzeforge.com/success",
-      cancel_url: "https://namzeforge.com/consultation",
-      customer_email: email,
-      metadata: {
-        name,
-        email,
-        consultation_id: "",
-        country_code: countryCode, // Make sure countryCode is valid
-        final_amount: finalAmount,
-      },
-    });
-
-    console.log("Stripe session created:", {
-      sessionId: session.id,
-      paymentIntent: session.payment_intent,
-    });
-
-    const selectQuery =
-      "SELECT id FROM consultations WHERE email = ? ORDER BY created_at DESC LIMIT 1";
-    const [results] = await connection.execute(selectQuery, [email]);
-    if (!results || results.length === 0) {
-      console.error("No matching consultation found for email:", email);
-      return res.status(404).json({ error: "No matching consultation found" });
-    }
-    const { id } = results[0];
-    console.log("Selected consultation:", { id, email });
-
-    const updateQuery = "UPDATE consultations SET session_id = ? WHERE id = ?";
-    const [updateResult] = await connection.execute(updateQuery, [
-      session.id,
-      id,
-    ]);
-    console.log("Database update result:", updateResult);
-    if (updateResult.affectedRows === 0) {
-      console.error("No rows updated for id:", id);
-      return res.status(500).json({ error: "Failed to update consultation" });
-    }
-
-    return res.json({ id: session.id, url: session.url });
-  } catch (error) {
-    console.error("Error in /api/payments:", error);
-    if (!res.headersSent) {
-      return res
-        .status(500)
-        .json({ error: "Payment initiation failed", details: error.message });
-    }
-  } finally {
-    if (connection) {
-      connection
-        .release()
-        .catch((releaseErr) =>
-          console.error("Connection release error:", releaseErr)
-        );
-    }
-  }
 });
