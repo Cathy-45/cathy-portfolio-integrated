@@ -81,7 +81,7 @@ app.post(
   }
 );
 
-// Middleware (JSON and CORS before API routes) Chunk 2
+// Middleware (JSON and CORS before API routes)
 app.use(express.json());
 app.use(
   cors({
@@ -93,8 +93,7 @@ app.use(
 
 app.options("*", cors()); // Enable pre-flight for all routes
 
-// Database connection pool-chunk 3
-
+// Database connection pool
 async function initializeDatabase() {
   console.log(
     "Initializing database with environment at:",
@@ -145,6 +144,7 @@ async function initializeDatabase() {
 
   let retries = 20;
   const startTime = Date.now();
+  let pool;
   while (retries > 0) {
     try {
       pool = await mysql.createPool(connectionConfig);
@@ -234,7 +234,7 @@ async function initializeDatabase() {
   return pool;
 }
 
-// Test database connection at startup chunk 4
+// Test database connection at startup
 (async () => {
   let connection;
   try {
@@ -270,29 +270,24 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Middleware to track visits and revisits with names chunk 5
+// Middleware to track visits and revisits with names
 app.use(async (req, res, next) => {
-  const ip =
-    req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  const ip = req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   const visitTime = new Date().toISOString();
-  const mysqlVisitTime = new Date(visitTime)
-    .toISOString()
-    .slice(0, 19)
-    .replace("T", " ");
+  const mysqlVisitTime = new Date(visitTime).toISOString().slice(0, 19).replace("T", " ");
   console.log(`Visit detected from IP: ${ip} at ${visitTime}`);
 
   const pool = await initializeDatabase();
   let connection;
   try {
     connection = await pool.getConnection();
-    let name = "Anonymous";
-    if (req.body && req.body.name) {
-      name = req.body.name;
-    }
+    let name = req.body?.name || "Anonymous";
+
     const [existingVisits] = await connection.execute(
       "SELECT visit_time, name FROM visits WHERE ip = ?",
       [ip]
     );
+
     const isRevisit = existingVisits.length > 0;
     await connection.execute(
       "INSERT INTO visits (ip, name, visit_time) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE visit_time = ?, name = ?",
@@ -300,17 +295,15 @@ app.use(async (req, res, next) => {
     );
 
     const subject = isRevisit ? "Revisit Detected" : "New Visitor";
-    const text = `${subject}\nIP: ${ip}\nName: ${name}\nTime: ${mysqlVisitTime}\nTotal visits for this IP: ${
-      existingVisits.length + 1
-    }`;
-    await transporter
-      .sendMail({
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER,
-        subject: subject,
-        text: text,
-      })
-      .catch((err) => console.error("Visit email error:", err));
+    const text = `${subject}\nIP: ${ip}\nName: ${name}\nTime: ${mysqlVisitTime}\nTotal visits for this IP: ${existingVisits.length + 1}`;
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: subject,
+      text: text,
+    });
+
     console.log(`${subject.toLowerCase()} email sent`);
   } catch (err) {
     console.error("Visit tracking error:", err);
@@ -326,7 +319,7 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Analytics endpoint with password protection chunk 6
+// Analytics endpoint with password protection
 app.get("/api/analytics", async (req, res) => {
   const password = req.query.password;
   if (!password || password !== process.env.ANALYTICS_PASSWORD) {
@@ -350,9 +343,7 @@ app.get("/api/analytics", async (req, res) => {
   } catch (err) {
     console.error("Analytics error:", err);
     if (!res.headersSent) {
-      res
-        .status(500)
-        .json({ error: "Failed to fetch analytics", details: err.message });
+      res.status(500).json({ error: "Failed to fetch analytics", details: err.message });
     }
   } finally {
     if (connection) {
@@ -365,7 +356,7 @@ app.get("/api/analytics", async (req, res) => {
   }
 });
 
-// Consultation request endpoint chunk 7
+// Consultation request endpoint
 app.post("/api/consultations", async (req, res) => {
   const { name, email, phone, message } = req.body;
   console.log("Received data:", req.body);
@@ -420,7 +411,7 @@ app.post("/api/consultations", async (req, res) => {
 
 // Payment initiation endpoint
 app.post('/api/payments', async (req, res) => {
-  const { name, email } = req.body; // Remove amount from destructuring
+  const { name, email } = req.body;
   console.log('Received payment request:', { name, email });
 
   if (!name || !email) {
