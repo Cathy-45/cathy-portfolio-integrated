@@ -303,14 +303,14 @@ app.use(async (req, res, next) => {
     const text = `${subject}\nIP: ${ip}\nName: ${name}\nTime: ${mysqlVisitTime}\nTotal visits for this IP: ${
       existingVisits.length + 1
     }`;
-    await transporter
-      .sendMail({
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER,
-        subject: subject,
-        text: text,
-      })
-      .catch((err) => console.error("Visit email error:", err));
+   // await transporter
+     // .sendMail({
+       // from: process.env.EMAIL_USER,
+        //to: process.env.EMAIL_USER,
+        //subject: subject,
+        //text: text,
+      //})
+      //.catch((err) => console.error("Visit email error:", err));
     console.log(`${subject.toLowerCase()} email sent`);
   } catch (err) {
     console.error("Visit tracking error:", err);
