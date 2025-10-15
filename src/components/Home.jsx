@@ -1,5 +1,4 @@
 
-
 import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from "../assets/background.jpg";
@@ -21,11 +20,10 @@ const Home = () => {
       <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-poppins font-bold mb-4 sm:mb-6 text-[#fdba74] text-center">
         Hi, I'm Cathy, a visionary Software Engineer
       </h2>
-      <p className="text-base sm:text-lg md:text-xl font-roboto text-[#9ca3af] text-center mb-6 leading-relaxed">
-        With a passion for crafting elegant solutions.<br className="hidden sm:block" />
-        I have a knack for problem-solving.<br className="hidden sm:block" />
-        Bringing ideas to life through code is my strength.<br className="hidden sm:block" />
-        Let’s create something amazing together.
+      <p className="text-xl sm:text-2xl md:text-3xl font-roboto text-[#9ca3af] text-center mb-6 leading-relaxed">
+        With a passion for crafting elegant solutions<br className="hidden sm:block" />
+        I have a knack for problem-solving<br className="hidden sm:block" />
+        Bringing ideas to life through code is my strength
       </p>
       <Link
         to="/services"
