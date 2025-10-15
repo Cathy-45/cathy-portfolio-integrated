@@ -410,6 +410,7 @@ app.post("/api/consultations", async (req, res) => {
 });
 
 // Payment initiation endpoint
+// Payment initiation endpoint
 app.post('/api/payments', async (req, res) => {
   const { name, email } = req.body;
   console.log('Received payment request:', { name, email });
@@ -436,6 +437,8 @@ app.post('/api/payments', async (req, res) => {
       console.log('Detected country code:', countryCode);
     } catch (geoErr) {
       console.warn('Geolocation failed:', geoErr.message);
+      // Consider setting a default or handling accordingly
+      // You can choose to continue with the default 'US' or handle it as needed
     }
 
     let finalAmount = 75.00; 
@@ -467,7 +470,7 @@ app.post('/api/payments', async (req, res) => {
         name, 
         email, 
         consultation_id: '', 
-        country_code: countryCode,
+        country_code: countryCode, // Make sure countryCode is valid
         final_amount: finalAmount,
       },
     });
@@ -517,4 +520,99 @@ app.listen(process.env.PORT || 5003, () => {
   console.log(
     `Server running on port ${usedPort} with environment port: ${process.env.PORT}`
   );
+});// Payment initiation endpoint
+app.post('/api/payments', async (req, res) => {
+  const { name, email } = req.body;
+  console.log('Received payment request:', { name, email });
+
+  if (!name || !email) {
+    console.log('Validation failed: Missing name or email');
+    return res.status(400).json({ error: 'Name and email are required' });
+  }
+
+  let connection;
+  try {
+    const pool = await initializeDatabase();
+    connection = await pool.getConnection();
+
+    let clientIP = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    if (clientIP.includes(',')) clientIP = clientIP.split(',')[0].trim();
+    console.log('Client IP:', clientIP);
+
+    let countryCode = 'US'; 
+    try {
+      const axios = require('axios');
+      const response = await axios.get(`https://ipapi.co/${clientIP}/country/`, { timeout: 5000 });
+      countryCode = response.data.toUpperCase();
+      console.log('Detected country code:', countryCode);
+    } catch (geoErr) {
+      console.warn('Geolocation failed:', geoErr.message);
+      // Consider setting a default or handling accordingly
+      // You can choose to continue with the default 'US' or handle it as needed
+    }
+
+    let finalAmount = 75.00; 
+    let currency = 'usd';
+    if (countryCode === 'ZM') {
+      finalAmount = 55.00; 
+      console.log('Adjusting to Zambian pricing: $55 USD');
+    } else {
+      console.log('Using fixed rate: $75 USD');
+    }
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: currency,
+            product_data: { name: 'Consultation Fee' },
+            unit_amount: Math.round(finalAmount * 100),
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: 'https://namzeforge.com/success',
+      cancel_url: 'https://namzeforge.com/consultation',
+      customer_email: email,
+      metadata: { 
+        name, 
+        email, 
+        consultation_id: '', 
+        country_code: countryCode, // Make sure countryCode is valid
+        final_amount: finalAmount,
+      },
+    });
+
+    console.log('Stripe session created:', { sessionId: session.id, paymentIntent: session.payment_intent });
+
+    const selectQuery = 'SELECT id FROM consultations WHERE email = ? ORDER BY created_at DESC LIMIT 1';
+    const [results] = await connection.execute(selectQuery, [email]);
+    if (!results || results.length === 0) {
+      console.error('No matching consultation found for email:', email);
+      return res.status(404).json({ error: 'No matching consultation found' });
+    }
+    const { id } = results[0];
+    console.log('Selected consultation:', { id, email });
+
+    const updateQuery = 'UPDATE consultations SET session_id = ? WHERE id = ?';
+    const [updateResult] = await connection.execute(updateQuery, [session.id, id]);
+    console.log('Database update result:', updateResult);
+    if (updateResult.affectedRows === 0) {
+      console.error('No rows updated for id:', id);
+      return res.status(500).json({ error: 'Failed to update consultation' });
+    }
+
+    return res.json({ id: session.id, url: session.url });
+  } catch (error) {
+    console.error('Error in /api/payments:', error);
+    if (!res.headersSent) {
+      return res.status(500).json({ error: 'Payment initiation failed', details: error.message });
+    }
+  } finally {
+    if (connection) {
+      connection.release().catch(releaseErr => console.error('Connection release error:', releaseErr));
+    }
+  }
 });
