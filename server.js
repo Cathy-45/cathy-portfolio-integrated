@@ -85,7 +85,7 @@ app.post(
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://cathy-portfolio-integrated.onrender.com",
+    origin: "https://namzeforge.com",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
@@ -469,8 +469,8 @@ app.post('/api/payments', async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: 'https://cathy-portfolio-integrated.onrender.com/success',
-      cancel_url: 'https://cathy-portfolio-integrated.onrender.com/consultation',
+      success_url: 'https://namzeforge.com/success',
+      cancel_url: 'https://namzeforge.com/consultation',
       customer_email: email,
       metadata: { 
         name, 
