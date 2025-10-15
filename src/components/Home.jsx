@@ -1,8 +1,6 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from "../assets/background.jpg";
-import photo from "../assets/your-photo.jpg"; // Replace with your actual photo path
 
 const Home = () => {
   return (
