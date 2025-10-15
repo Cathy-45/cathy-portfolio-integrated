@@ -20,9 +20,10 @@ const Home = () => {
       <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-poppins font-bold mb-4 sm:mb-6 text-[#fdba74] text-center">
         Hi, I'm Cathy, a visionary Software Engineer
       </h2>
-      <p className="text-xl sm:text-2xl md:text-3xl font-roboto text-white text-center mb-6 leading-relaxed">
-        With a passion for crafting elegant solutions and a knack for problem-solving, bringing ideas to life through code.<br className="hidden sm:block" />
-        Let's create something amazing together!
+      <p className="text-xl sm:text-2xl md:text-3xl font-roboto text-white text-center mb-6 leading-relaxed max-w-prose">
+        With a passion for crafting elegant solutions and a knack for problem-solving<br className="hidden sm:block" />
+        bringing ideas to life through code<br className="hidden sm:block" />
+        let's create something amazing together!
       </p>
       <Link
         to="/services"
