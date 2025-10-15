@@ -1,4 +1,5 @@
 
+
 import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from "../assets/background.jpg";
@@ -17,12 +18,14 @@ const Home = () => {
       }}
     >
       <div className="text-4xl sm:text-6xl animate-wave mt-4 text-[#fdba74] drop-shadow-lg" style={{ textShadow: '0 0 10px rgba(253, 186, 116, 0.5)' }}>👋</div>
-      <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-poppins font-bold mb-4 sm:mb-6 text-[#fdba74] text-center">
+      <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-poppins font-bold mb-4 sm:mb-6 text-[#fdba74] text-center">
         Hi, I'm Cathy, a visionary Software Engineer
       </h2>
-      <p className="text-base sm:text-lg md:text-xl font-roboto text-[#9ca3af] text-center mb-6">
-        With a passion for crafting elegant solutions and a knack for
-        problem-solving, bringing ideas to life through code.
+      <p className="text-base sm:text-lg md:text-xl font-roboto text-[#9ca3af] text-center mb-6 leading-relaxed">
+        With a passion for crafting elegant solutions.<br className="hidden sm:block" />
+        I have a knack for problem-solving.<br className="hidden sm:block" />
+        Bringing ideas to life through code is my strength.<br className="hidden sm:block" />
+        Let’s create something amazing together.
       </p>
       <Link
         to="/services"
