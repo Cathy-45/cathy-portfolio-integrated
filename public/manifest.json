@@ -4,18 +4,17 @@
   "short_name": "Cathy Portfolio",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1a1a1a",
-  "theme_color": "#fdba74",
+  "background_color": "#1a1a1a", 
+  "theme_color": "#1a1a1a",     
   "icons": [
-    
-    {
-      "src": "/assets/logo-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
     {
       "src": "/assets/apple-touch-icon.png",
       "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/logo-192.png",
+      "sizes": "192x192",
       "type": "image/png"
     },
     {
