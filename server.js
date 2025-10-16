@@ -21,6 +21,7 @@ app.post(
     const sig = req.headers["stripe-signature"];
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
     let event;
+
     try {
       event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
     } catch (err) {
@@ -35,12 +36,14 @@ app.post(
       });
       const pool = await initializeDatabase();
       let connection;
+
       try {
         connection = await pool.getConnection();
         const [rows] = await connection.execute(
           "SELECT * FROM consultations WHERE session_id = ?",
           [session.id]
         );
+
         console.log("Matching consultations before update:", rows);
         if (rows.length === 0) {
           const [insertResult] = await connection.execute(
@@ -81,7 +84,7 @@ app.post(
   }
 );
 
-// Middleware (JSON and CORS before API routes) Chunk 2
+// Middleware (JSON and CORS before API routes)
 app.use(express.json());
 app.use(
   cors({
@@ -93,8 +96,7 @@ app.use(
 
 app.options("*", cors()); // Enable pre-flight for all routes
 
-// Database connection pool-chunk 3
-
+// Database connection pool
 async function initializeDatabase() {
   console.log(
     "Initializing database with environment at:",
@@ -147,7 +149,7 @@ async function initializeDatabase() {
   const startTime = Date.now();
   while (retries > 0) {
     try {
-      pool = await mysql.createPool(connectionConfig);
+      const pool = await mysql.createPool(connectionConfig);
       console.log(
         "Attempting MySQL connection with config at:",
         new Date().toISOString(),
@@ -234,7 +236,7 @@ async function initializeDatabase() {
   return pool;
 }
 
-// Test database connection at startup chunk 4
+// Test database connection at startup
 (async () => {
   let connection;
   try {
@@ -275,7 +277,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Middleware to track visits and revisits with names chunk 5
+// Middleware to track visits and revisits with names
 app.use(async (req, res, next) => {
   const ip =
     req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
@@ -308,15 +310,18 @@ app.use(async (req, res, next) => {
     const text = `${subject}\nIP: ${ip}\nName: ${name}\nTime: ${mysqlVisitTime}\nTotal visits for this IP: ${
       existingVisits.length + 1
     }`;
-    await transporter
-     .sendMail({
-       from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
+
+    try {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: process.env.EMAIL_USER,
         subject: subject,
         text: text,
-      })
-      .catch((err) => console.error("Visit email error:", err));
-    console.log(`${subject.toLowerCase()} email sent`);
+      });
+      console.log(`${subject.toLowerCase()} email sent`);
+    } catch (err) {
+      console.error("Visit email error:", err);
+    }
   } catch (err) {
     console.error("Visit tracking error:", err);
   } finally {
@@ -331,7 +336,7 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Analytics endpoint with password protection chunk 6
+// Analytics endpoint with password protection
 app.get("/api/analytics", async (req, res) => {
   const password = req.query.password;
   if (!password || password !== process.env.ANALYTICS_PASSWORD) {
@@ -355,7 +360,7 @@ app.get("/api/analytics", async (req, res) => {
   } catch (err) {
     console.error("Analytics error:", err);
     if (!res.headersSent) {
-      res
+      return res
         .status(500)
         .json({ error: "Failed to fetch analytics", details: err.message });
     }
@@ -370,7 +375,7 @@ app.get("/api/analytics", async (req, res) => {
   }
 });
 
-// Consultation request endpoint chunk 7
+// Consultation request endpoint
 app.post("/api/consultations", async (req, res) => {
   const { name, email, phone, message } = req.body;
   console.log("Received data:", req.body);
@@ -513,7 +518,11 @@ app.post('/api/payments', async (req, res) => {
     }
   } finally {
     if (connection) {
-      connection.release().catch(releaseErr => console.error('Connection release error:', releaseErr));
+      try {
+        connection.release();
+      } catch (releaseErr) {
+        console.error("Connection release error:", releaseErr);
+      }
     }
   }
 });
