@@ -1,3 +1,4 @@
+
 require("dotenv").config();
 const path = require("path");
 const express = require("express");
@@ -13,7 +14,7 @@ process.on("unhandledRejection", (reason, promise) => {
   console.error("Unhandled Rejection at:", promise, "reason:", reason);
 });
 
-// Webhook route (must come before express.json())
+// Webhook route
 app.post(
   "/api/webhook",
   express.raw({ type: "application/json" }),
@@ -43,7 +44,6 @@ app.post(
           "SELECT * FROM consultations WHERE session_id = ?",
           [session.id]
         );
-
         console.log("Matching consultations before update:", rows);
         if (rows.length === 0) {
           const [insertResult] = await connection.execute(
@@ -72,7 +72,7 @@ app.post(
       } finally {
         if (connection) {
           try {
-            connection.release();
+            await connection.release();
           } catch (releaseErr) {
             console.error("Connection release error:", releaseErr);
           }
@@ -84,7 +84,7 @@ app.post(
   }
 );
 
-// Middleware (JSON and CORS before API routes)
+// Middleware
 app.use(express.json());
 app.use(
   cors({
@@ -93,8 +93,27 @@ app.use(
     allowedHeaders: ["Content-Type"],
   })
 );
+app.options("*", cors()); // Enable pre-flight
 
-app.options("*", cors()); // Enable pre-flight for all routes
+// Email transporter
+const transporter = nodemailer.createTransport({
+  host: "smtp.office365.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
+
+// Validate email config at startup
+if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+  console.error("Email configuration missing: EMAIL_USER or EMAIL_PASS not set");
+  process.exit(1);
+}
 
 // Database connection pool
 let pool;
@@ -110,13 +129,11 @@ async function initializeDatabase() {
     password: process.env.MYSQL_PASSWORD || "qMDhdbiwMxqvqkgycKcpvVAeXxpRzfDR",
     database: process.env.MYSQL_DATABASE || "railway",
     port: process.env.MYSQL_PORT ? parseInt(process.env.MYSQL_PORT) : 32327,
-    ssl: process.env.MYSQL_HOST?.includes("railway.app")
-      ? { rejectUnauthorized: false }
-      : undefined,
+    ssl: { rejectUnauthorized: false }, 
     waitForConnections: true,
     connectionLimit: 5,
     queueLimit: 0,
-    connectTimeout: 180000,
+    connectTimeout: 300000, 
   };
 
   if (process.env.MYSQL_URL) {
@@ -137,13 +154,11 @@ async function initializeDatabase() {
         ? parsedUrl.pathname.split("/")[1] || "railway"
         : "railway",
       port: parsedUrl.port ? parseInt(parsedUrl.port) : 32327,
-      ssl: parsedUrl.hostname?.includes("railway.app")
-        ? { rejectUnauthorized: false }
-        : undefined,
+      ssl: { rejectUnauthorized: false }, 
       waitForConnections: true,
       connectionLimit: 5,
       queueLimit: 0,
-      connectTimeout: 180000,
+      connectTimeout: 300000,
     };
   }
 
@@ -151,7 +166,7 @@ async function initializeDatabase() {
   const startTime = Date.now();
   while (retries > 0) {
     try {
-      const pool = await mysql.createPool(connectionConfig);
+      pool = await mysql.createPool(connectionConfig);
       console.log(
         "Attempting MySQL connection with config at:",
         new Date().toISOString(),
@@ -185,9 +200,7 @@ async function initializeDatabase() {
           "SHOW COLUMNS FROM visits LIKE 'name'"
         );
         if (columns.length === 0) {
-          await connection.query(
-            "ALTER TABLE visits ADD COLUMN name VARCHAR(255)"
-          );
+          await connection.query("ALTER TABLE visits ADD COLUMN name VARCHAR(255)");
           console.log("Added name column to visits table");
         }
         console.log(
@@ -203,7 +216,7 @@ async function initializeDatabase() {
         );
         throw queryErr;
       } finally {
-        connection.release();
+        if (connection) await connection.release();
       }
       break;
     } catch (err) {
@@ -224,7 +237,7 @@ async function initializeDatabase() {
         );
         process.exit(1);
       }
-      await new Promise((resolve) => setTimeout(resolve, 30000));
+      await new Promise((resolve) => setTimeout(resolve, 5000)); 
     }
   }
   if (!pool) {
@@ -258,7 +271,7 @@ async function initializeDatabase() {
   } finally {
     if (connection) {
       try {
-        connection.release();
+        await connection.release();
       } catch (releaseErr) {
         console.error("Connection release error:", releaseErr);
       }
@@ -266,20 +279,7 @@ async function initializeDatabase() {
   }
 })();
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.office365.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-});
-
-// Middleware to track visits and revisits with names
+// Visit tracking middleware
 app.use(async (req, res, next) => {
   const ip =
     req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
@@ -329,7 +329,7 @@ app.use(async (req, res, next) => {
   } finally {
     if (connection) {
       try {
-        connection.release();
+        await connection.release();
       } catch (releaseErr) {
         console.error("Connection release error:", releaseErr);
       }
@@ -338,7 +338,7 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Analytics endpoint with password protection
+// Analytics endpoint
 app.get("/api/analytics", async (req, res) => {
   const password = req.query.password;
   if (!password || password !== process.env.ANALYTICS_PASSWORD) {
@@ -369,7 +369,7 @@ app.get("/api/analytics", async (req, res) => {
   } finally {
     if (connection) {
       try {
-        connection.release();
+        await connection.release();
       } catch (releaseErr) {
         console.error("Connection release error:", releaseErr);
       }
@@ -377,7 +377,7 @@ app.get("/api/analytics", async (req, res) => {
   }
 });
 
-// Consultation request endpoint
+// Consultation endpoint
 app.post("/api/consultations", async (req, res) => {
   const { name, email, phone, message } = req.body;
   console.log("Received data:", req.body);
@@ -422,7 +422,7 @@ app.post("/api/consultations", async (req, res) => {
   } finally {
     if (connection) {
       try {
-        connection.release();
+        await connection.release();
       } catch (releaseErr) {
         console.error("Connection release error:", releaseErr);
       }
@@ -430,14 +430,14 @@ app.post("/api/consultations", async (req, res) => {
   }
 });
 
-// Payment initiation endpoint
-app.post('/api/payments', async (req, res) => {
-  const { name, email } = req.body; // Remove amount from destructuring
-  console.log('Received payment request:', { name, email });
+// Payment endpoint
+app.post("/api/payments", async (req, res) => {
+  const { name, email } = req.body;
+  console.log("Received payment request:", { name, email });
 
   if (!name || !email) {
-    console.log('Validation failed: Missing name or email');
-    return res.status(400).json({ error: 'Name and email are required' });
+    console.log("Validation failed: Missing name or email");
+    return res.status(400).json({ error: "Name and email are required" });
   }
 
   let connection;
@@ -445,83 +445,92 @@ app.post('/api/payments', async (req, res) => {
     const pool = await initializeDatabase();
     connection = await pool.getConnection();
 
-    let clientIP = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    if (clientIP.includes(',')) clientIP = clientIP.split(',')[0].trim();
-    console.log('Client IP:', clientIP);
+    let clientIP =
+      req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+    if (clientIP.includes(",")) clientIP = clientIP.split(",")[0].trim();
+    console.log("Client IP:", clientIP);
 
-    let countryCode = 'US'; 
+    let countryCode = "US";
     try {
-      const axios = require('axios');
-      const response = await axios.get(`https://ipapi.co/${clientIP}/country/`, { timeout: 5000 });
+      const axios = require("axios");
+      const response = await axios.get(`https://ipapi.co/${clientIP}/country/`, {
+        timeout: 5000,
+      });
       countryCode = response.data.toUpperCase();
-      console.log('Detected country code:', countryCode);
+      console.log("Detected country code:", countryCode);
     } catch (geoErr) {
-      console.warn('Geolocation failed:', geoErr.message);
+      console.warn("Geolocation failed:", geoErr.message);
     }
 
-    let finalAmount = 75.00; 
-    let currency = 'usd';
-    if (countryCode === 'ZM') {
-      finalAmount = 55.00; 
-      console.log('Adjusting to Zambian pricing: $55 USD');
+    let finalAmount = 75.0;
+    let currency = "usd";
+    if (countryCode === "ZM") {
+      finalAmount = 55.0;
+      console.log("Adjusting to Zambian pricing: $55 USD");
     } else {
-      console.log('Using fixed rate: $75 USD');
+      console.log("Using fixed rate: $75 USD");
     }
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ["card"],
       line_items: [
         {
           price_data: {
             currency: currency,
-            product_data: { name: 'Consultation Fee' },
+            product_data: { name: "Consultation Fee" },
             unit_amount: Math.round(finalAmount * 100),
           },
           quantity: 1,
         },
       ],
-      mode: 'payment',
-      success_url: 'https://namzeforge.com/success',
-      cancel_url: 'https://namzeforge.com/consultation',
+      mode: "payment",
+      success_url: "https://namzeforge.com/success",
+      cancel_url: "https://namzeforge.com/consultation",
       customer_email: email,
-      metadata: { 
-        name, 
-        email, 
-        consultation_id: '', 
+      metadata: {
+        name,
+        email,
+        consultation_id: "",
         country_code: countryCode,
         final_amount: finalAmount,
       },
     });
 
-    console.log('Stripe session created:', { sessionId: session.id, paymentIntent: session.payment_intent });
+    console.log("Stripe session created:", {
+      sessionId: session.id,
+      paymentIntent: session.payment_intent,
+    });
 
-    const selectQuery = 'SELECT id FROM consultations WHERE email = ? ORDER BY created_at DESC LIMIT 1';
+    const selectQuery =
+      "SELECT id FROM consultations WHERE email = ? ORDER BY created_at DESC LIMIT 1";
     const [results] = await connection.execute(selectQuery, [email]);
     if (!results || results.length === 0) {
-      console.error('No matching consultation found for email:', email);
-      return res.status(404).json({ error: 'No matching consultation found' });
+      console.error("No matching consultation found for email:", email);
+      return res.status(404).json({ error: "No matching consultation found" });
     }
     const { id } = results[0];
-    console.log('Selected consultation:', { id, email });
+    console.log("Selected consultation:", { id, email });
 
-    const updateQuery = 'UPDATE consultations SET session_id = ? WHERE id = ?';
+    const updateQuery = "UPDATE consultations SET session_id = ? WHERE id = ?";
     const [updateResult] = await connection.execute(updateQuery, [session.id, id]);
-    console.log('Database update result:', updateResult);
+    console.log("Database update result:", updateResult);
     if (updateResult.affectedRows === 0) {
-      console.error('No rows updated for id:', id);
-      return res.status(500).json({ error: 'Failed to update consultation' });
+      console.error("No rows updated for id:", id);
+      return res.status(500).json({ error: "Failed to update consultation" });
     }
 
     return res.json({ id: session.id, url: session.url });
   } catch (error) {
-    console.error('Error in /api/payments:', error);
+    console.error("Error in /api/payments:", error);
     if (!res.headersSent) {
-      return res.status(500).json({ error: 'Payment initiation failed', details: error.message });
+      return res
+        .status(500)
+        .json({ error: "Payment initiation failed", details: error.message });
     }
   } finally {
     if (connection) {
       try {
-        connection.release();
+        await connection.release();
       } catch (releaseErr) {
         console.error("Connection release error:", releaseErr);
       }
@@ -529,14 +538,15 @@ app.post('/api/payments', async (req, res) => {
   }
 });
 
-// Serve static files from dist/
+// Serve static files
 app.use(express.static(path.join(__dirname, "dist")));
 
-// Fallback to index.html for SPA routing
+// Fallback for SPA routing
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
+// Start server
 app.listen(process.env.PORT || 5003, () => {
   const usedPort = process.env.PORT || 5003;
   console.log(
