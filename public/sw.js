@@ -4,7 +4,9 @@ self.addEventListener("install", (event) => {
       return cache.addAll([
         "/",
         "/index.html",
-        "/assets/logo-DtcWBWIZ.png",
+        "/assets/apple-touch-icon.png",
+        "/assets/logo-192.png",
+        "/assets/logo-512.png",
         "/assets/background-DbJyP3uv.jpg",
       ]);
     })
