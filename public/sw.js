@@ -1,14 +1,18 @@
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open("v1").then((cache) => {
-      return cache.addAll([
-        "/",
-        "/index.html",
-        "/assets/apple-touch-icon.png",
-        "/assets/logo-192.png",
-        "/assets/logo-512.png",
-        "/assets/background-DbJyP3uv.jpg",
-      ]);
+      return cache
+        .addAll([
+          "/",
+          "/index.html",
+          "/assets/apple-touch-icon.png",
+          "/assets/logo-192.png",
+          "/assets/logo-512.png",
+          "/assets/background-DbJyP3uv.jpg",
+        ])
+        .catch((err) => {
+          console.error("Cache addAll failed:", err);
+        });
     })
   );
 });
@@ -16,7 +20,7 @@ self.addEventListener("install", (event) => {
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+      return response || fetch(event.request).catch(() => caches.match("/index.html"));
     })
   );
 });
