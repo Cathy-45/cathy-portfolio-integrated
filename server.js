@@ -97,6 +97,8 @@ app.use(
 app.options("*", cors()); // Enable pre-flight for all routes
 
 // Database connection pool
+let pool;
+
 async function initializeDatabase() {
   console.log(
     "Initializing database with environment at:",
