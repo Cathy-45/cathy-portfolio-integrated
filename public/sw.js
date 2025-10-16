@@ -5,6 +5,7 @@ self.addEventListener("install", (event) => {
         .addAll([
           "/",
           "/index.html",
+          "/favicon.ico",
           "/assets/apple-touch-icon.png",
           "/assets/logo-192.png",
           "/assets/logo-512.png",
@@ -15,6 +16,10 @@ self.addEventListener("install", (event) => {
         });
     })
   );
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.clients.claim());
 });
 
 self.addEventListener("fetch", (event) => {
