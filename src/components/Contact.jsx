@@ -1,21 +1,9 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import backgroundImage from "../assets/background.jpg";
 
 const Contact = () => {
-  const [showAnalyticsLink, setShowAnalyticsLink] = useState(false);
-  const correctPassword = "Lusaka2025!"; // Match your analytics password
-
-  const handlePasswordSubmit = () => {
-    const password = prompt("Enter password to access analytics:");
-    if (password === correctPassword) {
-      setShowAnalyticsLink(true);
-    } else {
-      alert("Incorrect password!");
-    }
-  };
-
   return (
     <section
       className="min-h-screen bg-[#1a1a1a] text-white flex flex-col items-center justify-center p-4 sm:p-6 md:p-10"
@@ -51,25 +39,10 @@ const Contact = () => {
       </div>
       <Link
         to="/services"
-        className="bg-[#3f3f46] text-[#fb923c] font-poppins text-sm sm:text-lg py-2 px-4 rounded shadow-lg hover:shadow-xl transition-shadow mb-4"
+        className="bg-[#3f3f46] text-[#fb923c] font-poppins text-sm sm:text-lg py-2 px-4 rounded shadow-lg hover:shadow-xl transition-shadow"
       >
         See How I Can Help
       </Link>
-      {showAnalyticsLink ? (
-        <Link
-          to="/analytics.html"
-          className="text-white hover:underline text-center block"
-        >
-          View Analytics
-        </Link>
-      ) : (
-        <button
-          onClick={handlePasswordSubmit}
-          className="text-[#fdba74] hover:text-[#fb923c] font-roboto text-sm sm:text-base py-1 px-2 rounded transition-colors text-center"
-        >
-          Unlock Analytics
-        </button>
-      )}
     </section>
   );
 };
