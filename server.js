@@ -8,6 +8,8 @@ const nodemailer = require("nodemailer");
 const mysql = require("mysql2/promise");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const url = require("url");
+const axios = require("axios");
+
 
 // Global uncaught exception handler
 process.on("unhandledRejection", (reason, promise) => {
@@ -32,8 +34,7 @@ app.post(
 
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
-      console.log("Webhook received: checkout.session.completed", {
-        sessionId: session.id,
+      console.log("Webhook received: checkout.session.completed", { sessionId: session.id,
       });
       const pool = await initializeDatabase();
       let connection;
@@ -452,7 +453,6 @@ app.post("/api/payments", async (req, res) => {
 
     let countryCode = "US";
     try {
-      const axios = require("axios");
       const response = await axios.get(`https://ipapi.co/${clientIP}/country/`, {
         timeout: 5000,
       });
