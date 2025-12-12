@@ -15,7 +15,7 @@ export default defineConfig({
   },
   // FORCES VITE TO USE WASM ROLLUP 
   optimizeDeps: {
-    exclude: ['rollup', '@rollup/browser'],
+    exclude: ['rollup'],
   },
   define: {
     "import.meta.env.VITE_BUILD_TIME": JSON.stringify(new Date().toISOString()),
