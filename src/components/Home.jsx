@@ -74,7 +74,7 @@ const Home = () => {
                   <span className="text-white font-black text-2xl tracking-wider">
                     LAUNCHING 2026
                   </span>
-                  <span className="text-3xl animate-bounce" role="img" aria-label="rocket">Launch</span>
+                  <span className="text-5xl animate-bounce inline-block drop-shadow-lg" role="img" aria-label="rocket">Launch 🚀🚀</span>
                 </div>
                 <p className="text-gray-300 text-lg mt-5">
                   Currently in closed beta with <strong>2,000+</strong> Zambian farmers
