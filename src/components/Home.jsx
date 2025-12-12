@@ -11,18 +11,18 @@ const Home = () => {
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: "fixed",
         backgroundPosition: "center 20%",
-        backgroundSize: "cover",
+        backgroundSize: "contain",
       }}
     >
       {/* LIGHTER OVERLAY — PERFECT ON MOBILE */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
-
-      {/* LIGHTER + RICHER OVERLAY FOR MOBILE */}
-      <div
-        className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 
-                  md:from-black/80 md:via-black/60 md:to-black/90"
-      />
-
+      {/* BRIGHTER, WARMER OVERLAY — PERFECT FOR MOBILE & DESKTOP */}
+<div className="absolute inset-0 bg-gradient-to-b 
+                from-black/50 
+                via-black/30 
+                to-black/70 
+                md:from-black/60 
+                md:via-black/40 
+                md:to-black/80" />
       {/* rest of your code stays exactly the same */}
 
       {/* MAIN CONTENT */}
