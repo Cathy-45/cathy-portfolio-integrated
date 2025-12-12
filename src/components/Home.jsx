@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from "../assets/background.jpg";
-import agriconnectLogo from "../assets/agriconnect-logo-white.png";
+
 
 const Home = () => {
   return (
@@ -58,12 +58,6 @@ const Home = () => {
               <p className="text-gray-400 uppercase tracking-widest text-sm mb-6">
                 Flagship Product
               </p>
-
-              <img
-                src={agriconnectLogo}
-                alt="AgriConnect"
-                className="mx-auto w-80 drop-shadow-2xl mb-8"
-              />
 
               <h2 className="text-5xl font-black text-white mb-4">AgriConnect</h2>
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
