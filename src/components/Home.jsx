@@ -37,13 +37,9 @@ const Home = () => {
           <p className="text-2xl sm:text-3xl text-gray-300 mb-4">
             Digital Solutions
           </p>
-          <p
-            className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 px-6 
-               leading-relaxed tracking-wide text-balance"
-          >
-            We build beautiful, scalable technology that solves
-            <br className="sm:hidden" />
-            real African problems.
+          <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 px-6 leading-relaxed tracking-wide hyphens-auto break-words">
+            We build beautiful, scalable technology that
+            <br className="hidden sm:block" /> solves real African problems.
           </p>
 
           {/* FLAGSHIP PRODUCT — FLOATING GLASS CARD */}
