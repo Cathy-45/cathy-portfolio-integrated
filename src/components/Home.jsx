@@ -16,13 +16,15 @@ const Home = () => {
     >
       {/* LIGHTER OVERLAY — PERFECT ON MOBILE */}
       {/* BRIGHTER, WARMER OVERLAY — PERFECT FOR MOBILE & DESKTOP */}
-<div className="absolute inset-0 bg-gradient-to-b 
+      <div
+        className="absolute inset-0 bg-gradient-to-b 
                 from-black/50 
                 via-black/30 
                 to-black/70 
                 md:from-black/60 
                 md:via-black/40 
-                md:to-black/80" />
+                md:to-black/80"
+      />
       {/* rest of your code stays exactly the same */}
 
       {/* MAIN CONTENT */}
@@ -43,7 +45,7 @@ const Home = () => {
           <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 px-8 sm:px-12 max-w-4xl mx-auto leading-relaxed">
             We build beautiful, scalable technology that
             <br className="sm:hidden" />
-              solves real African problems.
+            solves real African problems.
           </p>
 
           {/* FLAGSHIP PRODUCT — FLOATING GLASS CARD */}
@@ -95,42 +97,128 @@ const Home = () => {
                 </p>
               </div>
 
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-6 justify-center mt-10 px-8">
-                <Link
-                  to="/agriconnect"
-                  className="bg-gradient-to-r from-[#da6d20] to-[#fd923c] hover:from-[#c75a10] hover:to-[#e07b2a]
-               text-white font-bold text-lg sm:text-xl py-4 px-10 rounded-2xl 
-               shadow-2xl transform hover:-translate-y-1 transition-all"
+              {/* JOIN WAITLIST — LIVE WITH YOUR REAL EMAIL */}
+              <div className="mt-16 max-w-md mx-auto px-6">
+                <p className="text-gray-300 text-center mb-6 text-lg">
+                  Be the first to know when we launch in 2026
+                </p>
+                <form
+                  className="flex flex-col sm:flex-row gap-4"
+                  action="https://formsubmit.co/cathy@namzeforge.com"
+                  method="POST"
                 >
-                  Explore AgriConnect
-                </Link>
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.agriconnect"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border-2 border-white/60 hover:bg-white/10 text-white font-bold text-lg sm:text-xl py-4 px-10 rounded-2xl backdrop-blur-md transition-all"
-                >
-                  Join Waitlist
-                </a>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="your@email.com"
+                    required
+                    className="flex-1 px-6 py-4 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:border-[#da6d20] transition"
+                  />
+                  <input
+                    type="hidden"
+                    name="_subject"
+                    value="New AgriConnect Waitlist Signup!"
+                  />
+                  <input type="hidden" name="_captcha" value="false" />
+                  <input
+                    type="hidden"
+                    name="_next"
+                    value="https://namzeforge.com/thanks"
+                  />
+
+                  <button
+                    type="submit"
+                    className="bg-[#da6d20] hover:bg-[#c75a10] text-white font-bold py-4 px-10 rounded-2xl transition transform hover:scale-105 shadow-xl"
+                  >
+                    Join Waitlist
+                  </button>
+                </form>
+                <p className="text-gray-500 text-xs text-center mt-4">
+                  We respect your privacy • No spam, ever
+                </p>
               </div>
+              {/* SINGLE, POWERFUL CTA — NO DUPLICATES */}
+              <div className="mt-20 px-6">
+                <div className="max-w-2xl mx-auto">
+                  <p className="text-gray-300 text-center text-xl mb-8">
+                    Ready to be part of the future of Zambian agriculture?
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                    <Link
+                      to="/agriconnect"
+                      className="bg-gradient-to-r from-[#da6d20] to-[#fd923c] hover:from-[#c75a10] hover:to-[#e07b2a]
+                   text-white font-bold text-xl py-5 px-12 rounded-2xl 
+                   shadow-2xl transform hover:-translate-y-1 transition-all text-center"
+                    >
+                      Explore AgriConnect
+                    </Link>
+
+                    <button
+                      onClick={() =>
+                        window.scrollTo({
+                          top: document.body.scrollHeight,
+                          behavior: "smooth",
+                        })
+                      }
+                      className="border-2 border-white/60 hover:bg-white/10 text-white font-bold text-xl py-5 px-12 rounded-2xl backdrop-blur-md transition-all"
+                    >
+                      Join Waitlist Below
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* FOUNDER */}
+              <p className="mt-20 text-gray-300 text-lg px-6">
+                Founded & led by
+              </p>
+              <p className="text-3xl sm:text-4xl font-bold text-[#fdba74] mt-2 px-6">
+                Catherine Sichone
+              </p>
+              <p className="text-gray-400 mt-2 px-6 text-lg sm:text-xl">
+                Software Engineer • Builder • Visionary
+              </p>
+
+              <p className="mt-16 text-gray-600 text-sm italic">
+                One company. Many solutions. Africa first.
+              </p>
             </div>
           </div>
-
-          {/* FOUNDER */}
-          <p className="mt-20 text-gray-300 text-lg px-6">Founded & led by</p>
-          <p className="text-3xl sm:text-4xl font-bold text-[#fdba74] mt-2 px-6">
-            Catherine Sichone
-          </p>
-          <p className="text-gray-400 mt-2 px-6 text-lg sm:text-xl">
-            Software Engineer • Builder • Visionary
-          </p>
-
-          <p className="mt-16 text-gray-600 text-sm italic">
-            One company. Many solutions. Africa first.
-          </p>
+          {/* ← closes the glass card */}
         </div>
       </div>
+      {/* ← closes the main content container */}
+
+      {/* FOOTER — CLEAN & PROUD */}
+      <footer className="relative z-10 py-12 px-6 text-center">
+        <p className="text-gray-500 text-sm">
+          © 2025 Namzeforge Digital Solutions LLC
+        </p>
+        <p className="text-gray-400 text-xs mt-2">
+          AgriConnect is a Namzeforge product • All rights reserved.
+        </p>
+        <div className="flex justify-center gap-8 mt-6">
+          <a
+            href="https://twitter.com/namzeforge"
+            className="text-gray-400 hover:text-white transition"
+          >
+            Twitter
+          </a>
+          <a
+            href="https://linkedin.com/company/namzeforge"
+            className="text-gray-400 hover:text-white transition"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="mailto:cathy@namzeforge.com"
+            className="text-gray-400 hover:text-white transition"
+          >
+            Email
+          </a>
+        </div>
+      </footer>
 
       {/* FLOATING PARTICLES */}
       <div className="absolute inset-0 pointer-events-none">
@@ -149,5 +237,4 @@ const Home = () => {
     </section>
   );
 };
-
 export default Home;
