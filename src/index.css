@@ -152,3 +152,20 @@ nav a {
 nav a:hover {
   text-decoration: underline;
 }
+
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 10s ease infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-30px); }
+}
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
