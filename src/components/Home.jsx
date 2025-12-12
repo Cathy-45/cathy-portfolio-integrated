@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from "../assets/background.jpg";
 
-
 const Home = () => {
   return (
     <section
@@ -11,20 +10,17 @@ const Home = () => {
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: "fixed",
-        backgroundPosition: "center 15%",
-        backgroundSize: "contain",
+        backgroundPosition: "center 20%", // pushes your face down
+        backgroundSize: "cover",
       }}
     >
-      {/* DARKENED DEPTH + GLOW */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
-      <div className="absolute inset-0 opacity-20">
-        <div
-          className="h-full w-full animate-pulse"
-          style={{
-            background: "radial-gradient(circle at 30% 70%, #da6d20 0%, transparent 60%)",
-          }}
-        />
-      </div>
+      {/* LIGHTER + RICHER OVERLAY FOR MOBILE */}
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 
+                  md:from-black/80 md:via-black/60 md:to-black/90"
+      />
+
+      {/* rest of your code stays exactly the same */}
 
       {/* MAIN CONTENT */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6">
@@ -38,10 +34,16 @@ const Home = () => {
           >
             NAMZEFORGE
           </h1>
-          <p className="text-2xl sm:text-3xl text-gray-300 mb-4">Digital Solutions</p>
-
-          <p className="text-xl sm:text-2xl text-gray-400 mb-16 max-w-3xl mx-auto leading-relaxed">
-            We build beautiful, scalable technology that solves real African problems.
+          <p className="text-2xl sm:text-3xl text-gray-300 mb-4">
+            Digital Solutions
+          </p>
+          <p
+            className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 px-6 
+               leading-relaxed tracking-wide text-balance"
+          >
+            We build beautiful, scalable technology that solves
+            <br className="sm:hidden" />
+            real African problems.
           </p>
 
           {/* FLAGSHIP PRODUCT — FLOATING GLASS CARD */}
@@ -59,25 +61,37 @@ const Home = () => {
                 Flagship Product
               </p>
 
-              <h2 className="text-5xl font-black text-white mb-4">AgriConnect</h2>
+              <h2 className="text-5xl font-black text-white mb-4">
+                AgriConnect
+              </h2>
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                Connecting farmers directly to buyers.<br />
+                Connecting farmers directly to buyers.
+                <br />
                 Same-day offers. Same-day payments. Real profit.
               </p>
 
               {/* 2026 LAUNCH BADGE */}
               <div className="my-12">
-                <div className="inline-flex items-center gap-4 px-10 py-5 
+                <div
+                  className="inline-flex items-center gap-4 px-10 py-5 
                                 bg-gradient-to-r from-[#da6d20] to-[#fd923c] 
                                 rounded-full shadow-2xl shadow-orange-900/60
-                                border border-white/40">
+                                border border-white/40"
+                >
                   <span className="text-white font-black text-2xl tracking-wider">
                     LAUNCHING 2026
                   </span>
-                  <span className="text-5xl animate-bounce inline-block drop-shadow-lg" role="img" aria-label="rocket">Launch 🚀🚀</span>
+                  <span
+                    className="text-5xl animate-bounce inline-block drop-shadow-lg"
+                    role="img"
+                    aria-label="rocket"
+                  >
+                    Launch 🚀🚀
+                  </span>
                 </div>
                 <p className="text-gray-300 text-lg mt-5">
-                  Currently in closed beta with <strong>2,000+</strong> Zambian farmers
+                  Currently in closed beta with <strong>2,000+</strong> Zambian
+                  farmers
                 </p>
               </div>
 
@@ -104,13 +118,11 @@ const Home = () => {
           </div>
 
           {/* FOUNDER */}
-          <p className="mt-24 text-gray-400 text-lg">
-            Founded & led by
-          </p>
-          <p className="text-4xl font-bold text-[#fdba74] mt-2">
+          <p className="mt-20 text-gray-300 text-lg px-6">Founded & led by</p>
+          <p className="text-3xl sm:text-4xl font-bold text-[#fdba74] mt-2 px-6">
             Catherine Sichone
           </p>
-          <p className="text-gray-400 mt-2">
+          <p className="text-gray-400 mt-2 px-6 text-lg sm:text-xl">
             Software Engineer • Builder • Visionary
           </p>
 
