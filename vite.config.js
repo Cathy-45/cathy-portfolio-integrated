@@ -12,4 +12,8 @@ export default defineConfig({
       '/src': path.resolve(__dirname, 'src'),
     },
   },
+  // KILLS CACHE 
+  define: {
+    'import.meta.env.VITE_BUILD_TIME': JSON.stringify(new Date().toISOString()),
+  },
 });
