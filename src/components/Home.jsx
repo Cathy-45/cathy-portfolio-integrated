@@ -11,21 +11,11 @@ const Home = () => {
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: "fixed",
         backgroundPosition: "center 20%",
-        backgroundSize: "contain",
+        backgroundSize: "cover",
       }}
     >
-      {/* LIGHTER OVERLAY — PERFECT ON MOBILE */}
-      {/* BRIGHTER, WARMER OVERLAY — PERFECT FOR MOBILE & DESKTOP */}
-      <div
-        className="absolute inset-0 bg-gradient-to-b 
-                from-black/50 
-                via-black/30 
-                to-black/70 
-                md:from-black/60 
-                md:via-black/40 
-                md:to-black/80"
-      />
-      {/* rest of your code stays exactly the same */}
+      {/* LIGHTER OVERLAY — PERFECT ON MOBILE & DESKTOP */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70 md:from-black/60 md:via-black/40 md:to-black/80" />
 
       {/* MAIN CONTENT */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6">
@@ -137,6 +127,7 @@ const Home = () => {
                   We respect your privacy • No spam, ever
                 </p>
               </div>
+
               {/* SINGLE, POWERFUL CTA — NO DUPLICATES */}
               <div className="mt-20 px-6">
                 <div className="max-w-2xl mx-auto">
@@ -148,8 +139,8 @@ const Home = () => {
                     <Link
                       to="/agriconnect"
                       className="bg-gradient-to-r from-[#da6d20] to-[#fd923c] hover:from-[#c75a10] hover:to-[#e07b2a]
-                   text-white font-bold text-xl py-5 px-12 rounded-2xl 
-                   shadow-2xl transform hover:-translate-y-1 transition-all text-center"
+                                 text-white font-bold text-xl py-5 px-12 rounded-2xl 
+                                 shadow-2xl transform hover:-translate-y-1 transition-all text-center"
                     >
                       Explore AgriConnect
                     </Link>
@@ -168,57 +159,10 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-
-              {/* FOUNDER */}
-              <p className="mt-20 text-gray-300 text-lg px-6">
-                Founded & led by
-              </p>
-              <p className="text-3xl sm:text-4xl font-bold text-[#fdba74] mt-2 px-6">
-                Catherine Sichone
-              </p>
-              <p className="text-gray-400 mt-2 px-6 text-lg sm:text-xl">
-                Software Engineer • Builder • Visionary
-              </p>
-
-              <p className="mt-16 text-gray-600 text-sm italic">
-                One company. Many solutions. Africa first.
-              </p>
             </div>
           </div>
-          {/* ← closes the glass card */}
         </div>
       </div>
-      {/* ← closes the main content container */}
-
-      {/* FOOTER — CLEAN & PROUD */}
-      <footer className="relative z-10 py-12 px-6 text-center">
-        <p className="text-gray-500 text-sm">
-          © 2025 Namzeforge Digital Solutions LLC
-        </p>
-        <p className="text-gray-400 text-xs mt-2">
-          AgriConnect is a Namzeforge product • All rights reserved.
-        </p>
-        <div className="flex justify-center gap-8 mt-6">
-          <a
-            href="https://twitter.com/namzeforge"
-            className="text-gray-400 hover:text-white transition"
-          >
-            Twitter
-          </a>
-          <a
-            href="https://linkedin.com/company/namzeforge"
-            className="text-gray-400 hover:text-white transition"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="mailto:cathy@namzeforge.com"
-            className="text-gray-400 hover:text-white transition"
-          >
-            Email
-          </a>
-        </div>
-      </footer>
 
       {/* FLOATING PARTICLES */}
       <div className="absolute inset-0 pointer-events-none">
@@ -237,4 +181,5 @@ const Home = () => {
     </section>
   );
 };
+
 export default Home;
