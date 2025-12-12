@@ -30,7 +30,7 @@
     "vite": "^5.4.20"
   },
   "overrides": {
-    "rollup": "npm:@rollup/wasm-node@^4.0.0"
+    "rollup": "npm:@rollup/wasm-node@^4.40.1"
   },
   "main": "server.js",
   "keywords": [],
