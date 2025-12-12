@@ -11,7 +11,7 @@ const Home = () => {
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: "fixed",
         backgroundPosition: "center 20%", // pushes your face down
-        backgroundSize: "cover",
+        backgroundSize: "contain",
       }}
     >
       {/* LIGHTER + RICHER OVERLAY FOR MOBILE */}
