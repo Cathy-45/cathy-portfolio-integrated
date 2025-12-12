@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: namzeforge
+    env: static
+    buildCommand: npm install --no-optional && vite build
+    staticPublishPath: dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-store, no-cache, must-revalidate, max-age=0
+      - path: /index.html
+        name: Cache-Control
+        value: no-store
