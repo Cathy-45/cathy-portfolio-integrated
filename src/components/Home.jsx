@@ -43,7 +43,7 @@ const Home = () => {
           <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 px-8 sm:px-12 max-w-4xl mx-auto leading-relaxed">
             We build beautiful, scalable technology that
             <br className="sm:hidden" />
-            solves real African problems.
+              solves real African problems.
           </p>
 
           {/* FLAGSHIP PRODUCT — FLOATING GLASS CARD */}
