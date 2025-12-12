@@ -10,10 +10,13 @@ const Home = () => {
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: "fixed",
-        backgroundPosition: "center 20%", // pushes your face down
-        backgroundSize: "contain",
+        backgroundPosition: "center 20%",
+        backgroundSize: "cover",
       }}
     >
+      {/* LIGHTER OVERLAY — PERFECT ON MOBILE */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+
       {/* LIGHTER + RICHER OVERLAY FOR MOBILE */}
       <div
         className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 
@@ -37,13 +40,10 @@ const Home = () => {
           <p className="text-2xl sm:text-3xl text-gray-300 mb-4">
             Digital Solutions
           </p>
-          <p
-            className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 px-6 
-               leading-relaxed tracking-wide text-balance"
-          >
-            We build beautiful, scalable technology that solves
+          <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 px-8 sm:px-12 max-w-4xl mx-auto leading-relaxed">
+            We build beautiful, scalable technology that
             <br className="sm:hidden" />
-              real African problems.
+            solves real African problems.
           </p>
 
           {/* FLAGSHIP PRODUCT — FLOATING GLASS CARD */}
@@ -73,16 +73,16 @@ const Home = () => {
               {/* 2026 LAUNCH BADGE */}
               <div className="my-12">
                 <div
-                  className="inline-flex items-center gap-4 px-10 py-5 
-                                bg-gradient-to-r from-[#da6d20] to-[#fd923c] 
-                                rounded-full shadow-2xl shadow-orange-900/60
-                                border border-white/40"
+                  className="inline-flex items-center gap-3 px-8 py-4 sm:gap-4 sm:px-10 sm:py-5 
+                bg-gradient-to-r from-[#da6d20] to-[#fd923c] 
+                rounded-full shadow-2xl shadow-orange-900/60
+                border border-white/40"
                 >
-                  <span className="text-white font-black text-2xl tracking-wider">
+                  <span className="text-white font-black text-xl sm:text-2xl tracking-wider">
                     LAUNCHING 2026
                   </span>
                   <span
-                    className="text-5xl animate-bounce inline-block drop-shadow-lg"
+                    className="text-3xl sm:text-4xl animate-bounce"
                     role="img"
                     aria-label="rocket"
                   >
@@ -96,12 +96,12 @@ const Home = () => {
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-6 justify-center mt-10">
+              <div className="flex flex-col sm:flex-row gap-6 justify-center mt-10 px-8">
                 <Link
                   to="/agriconnect"
                   className="bg-gradient-to-r from-[#da6d20] to-[#fd923c] hover:from-[#c75a10] hover:to-[#e07b2a]
-                             text-white font-bold text-xl py-5 px-12 rounded-2xl 
-                             shadow-2xl transform hover:-translate-y-1 transition-all"
+               text-white font-bold text-lg sm:text-xl py-4 px-10 rounded-2xl 
+               shadow-2xl transform hover:-translate-y-1 transition-all"
                 >
                   Explore AgriConnect
                 </Link>
@@ -109,7 +109,7 @@ const Home = () => {
                   href="https://play.google.com/store/apps/details?id=com.agriconnect"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border-2 border-white/60 hover:bg-white/10 text-white font-bold text-xl py-5 px-12 rounded-2xl backdrop-blur-md transition-all"
+                  className="border-2 border-white/60 hover:bg-white/10 text-white font-bold text-lg sm:text-xl py-4 px-10 rounded-2xl backdrop-blur-md transition-all"
                 >
                   Join Waitlist
                 </a>
