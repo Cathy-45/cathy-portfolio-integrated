@@ -28,12 +28,11 @@ const Home = () => {
                          bg-[length:200%_200%] animate-gradient-x">
             NAMZEFORGE
           </h1>
-          <p className="text-2xl sm:text-3xl text-gray-300 mb-4">Digital Solutions</p>
+          <p className="text-xl sm:text-2xl text-gray-300 mb-4">Digital Solutions</p>
 
-          <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 px-4 leading-relaxed">
             We build beautiful, scalable technology that
-            <br className="sm:hidden" />
-            solves real African problems.
+            <br className="sm:hidden" /> solves real African problems.
           </p>
 
           {/* FLAGSHIP PRODUCT CARD */}
@@ -55,19 +54,23 @@ const Home = () => {
                 Same-day offers. Same-day payments. Real profit.
               </p>
 
-              {/* 2026 LAUNCH BADGE */}
-              <div className="my-10">
-                <div className="inline-flex items-center gap-4 px-10 py-5 bg-gradient-to-r from-[#da6d20] to-[#fd923c] 
-                                rounded-full shadow-2xl shadow-orange-900/60 border border-white/40">
-                  <span className="text-white font-black text-2xl tracking-wider">
-                    LAUNCHING 2026
-                  </span>
-                  <span className="text-5xl animate-bounce">Launch</span>
-                </div>
-                <p className="text-gray-300 text-center mt-6 text-lg">
-                  Currently in closed beta with <strong>2,000+</strong> Zambian farmers
-                </p>
-              </div>
+              {/* 2026 LAUNCH BADGE — MOBILE-FRIENDLY & CENTERED */}
+<div className="my-10">
+  <div className="inline-flex items-center gap-3 px-6 py-4 sm:px-10 sm:py-5 
+                  bg-gradient-to-r from-[#da6d20] to-[#fd923c] 
+                  rounded-full shadow-2xl shadow-orange-900/60
+                  border border-white/40 max-w-full mx-auto">
+    <span className="text-white font-black text-lg sm:text-2xl tracking-wider">
+      LAUNCHING 2026
+    </span>
+    <span className="text-4xl sm:text-5xl animate-bounce" role="img" aria-label="rocket">
+      Launch 🚀🚀
+    </span>
+  </div>
+  <p className="text-gray-300 text-center mt-6 text-base sm:text-lg">
+    Currently in closed beta with <strong>2,000+</strong> Zambian farmers
+  </p>
+</div>
 
               {/* JOIN WAITLIST — ONLY ONE */}
               <div className="mt-16">
@@ -97,7 +100,7 @@ const Home = () => {
                     Join Waitlist
                   </button>
                 </form>
-                <p className="text-gray-500 text-xs text-center mt-4">
+                <p className="text-gray-600 text-xs text-center mt-4">
                   We respect your privacy • No spam, ever
                 </p>
               </div>
