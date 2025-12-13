@@ -1,3 +1,5 @@
+
+// src/components/Home.jsx — FINAL & PERFECT (mobile fixed + cache killed)
 import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from "../assets/background.jpg";
@@ -10,67 +12,70 @@ const Home = () => {
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: "fixed",
         backgroundPosition: "center 20%",
-        backgroundSize: "contain",
+        backgroundSize: "cover",
       }}
     >
       {/* LIGHTER, WARMER OVERLAY */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70 md:from-black/60 md:via-black/40 md:to-black/80" />
 
-      {/* MAIN CONTENT */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-20">
-        <div className="text-center max-w-6xl mx-auto flex-1 flex flex-col justify-center">
+      {/* MAIN CONTENT — PERFECT CENTERING ON ALL DEVICES */}
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8">
+        <div className="w-full max-w-6xl text-center">
           {/* COMPANY NAME */}
-          <h1 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tight mb-6
+          <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight mb-6
                          text-transparent bg-clip-text 
                          bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20] 
                          bg-[length:200%_200%] animate-gradient-x">
             NAMZEFORGE
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-300 mb-4">Digital Solutions</p>
+          <p className="text-2xl sm:text-3xl text-gray-300 mb-4">Digital Solutions</p>
 
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 px-4 leading-relaxed">
+          <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 leading-relaxed">
             We build beautiful, scalable technology that
-            <br className="sm:hidden" /> solves real African problems.
+            <br className="sm:hidden" />
+            solves real African problems.
           </p>
 
           {/* FLAGSHIP PRODUCT CARD */}
-          <div className="my-16 mx-auto max-w-full sm:max-w-4xl">
-            <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-8 sm:p-10 border border-white/20
-                            shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 transition-all duration-700">
+          <div className="my-16">
+            <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-10 sm:p-12 border border-white/20
+                            shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 transition-all duration-700
+                            max-w-4xl mx-auto">
               
               <p className="text-gray-400 uppercase tracking-widest text-sm mb-6">
                 Flagship Product
               </p>
 
-              <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
+              <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
                 AgriConnect
               </h2>
-              <p className="text-lg sm:text-xl text-gray-300 mb-10 leading-relaxed px-4">
-                Connecting farmers directly to buyers.<br />
+              <p className="text-lg sm:text-xl text-gray-300 mb-10 leading-relaxed">
+                Connecting farmers directly to buyers.
+                <br />
                 Same-day offers. Same-day payments. Real profit.
               </p>
 
-              {/* LAUNCHING 2026 BADGE */}
+              {/* 2026 LAUNCH BADGE */}
               <div className="my-10">
-                <div className="inline-flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-[#da6d20] to-[#fd923c] 
+                <div className="inline-flex items-center gap-4 px-10 py-5 bg-gradient-to-r from-[#da6d20] to-[#fd923c] 
                                 rounded-full shadow-2xl shadow-orange-900/60 border border-white/40">
-                  <span className="text-white font-black text-xl tracking-wider">
+                  <span className="text-white font-black text-2xl tracking-wider">
                     LAUNCHING 2026
                   </span>
-                  <span className="text-4xl animate-bounce">Launch 🚀🚀</span>
+                  <span className="text-5xl animate-bounce">Launch</span>
                 </div>
                 <p className="text-gray-300 text-center mt-6 text-lg">
                   Currently in closed beta with <strong>2,000+</strong> Zambian farmers
                 </p>
               </div>
 
-              {/* JOIN WAITLIST — ONLY ONE, PERFECTLY CENTERED */}
-              <div className="max-w-md mx-auto">
+              {/* JOIN WAITLIST — ONLY ONE */}
+              <div className="mt-16">
                 <p className="text-gray-300 text-center mb-6 text-lg">
                   Be the first to know when we launch
                 </p>
                 <form
-                  className="flex flex-col sm:flex-row gap-4"
+                  className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
                   action="https://formsubmit.co/cathy@namzeforge.com"
                   method="POST"
                 >
@@ -97,7 +102,7 @@ const Home = () => {
                 </p>
               </div>
 
-              {/* CLEAN CTA */}
+              {/* EXPLORE BUTTON */}
               <div className="mt-16">
                 <Link
                   to="/agriconnect"
@@ -112,7 +117,7 @@ const Home = () => {
           </div>
 
           {/* FOUNDER */}
-          <div className="mt-24 px-6">
+          <div className="mt-24">
             <p className="text-gray-400 text-lg">Founded & led by</p>
             <p className="text-4xl sm:text-5xl font-bold text-[#fdba74] mt-3">
               Catherine Sichone
@@ -121,37 +126,22 @@ const Home = () => {
               Software Engineer • Builder • Visionary
             </p>
           </div>
+
+          {/* FOOTER */}
+          <footer className="w-full py-12 text-center mt-24">
+            <p className="text-gray-500 text-sm">
+              © 2025 Namzeforge Digital Solutions LLC
+            </p>
+            <p className="text-gray-400 text-xs mt-2">
+              AgriConnect is a Namzeforge product • Made with love in Zambia
+            </p>
+            <div className="flex justify-center gap-8 mt-6">
+              <a href="https://twitter.com/namzeforge" className="text-gray-400 hover:text-white transition">Twitter</a>
+              <a href="https://linkedin.com/company/namzeforge" className="text-gray-400 hover:text-white transition">LinkedIn</a>
+              <a href="mailto:cathy@namzeforge.com" className="text-gray-400 hover:text-white transition">Email</a>
+            </div>
+          </footer>
         </div>
-
-        {/* FOOTER */}
-        <footer className="w-full py-10 px-6 text-center border-t border-white/10 mt-auto">
-          <p className="text-gray-500 text-sm">
-            © 2025 Namzeforge Digital Solutions LLC
-          </p>
-          <p className="text-gray-400 text-xs mt-2">
-            AgriConnect is a product of Namzeforge Digital Solutions LLC © 2025
-          </p>
-          <div className="flex justify-center gap-8 mt-6">
-            <a href="https://twitter.com/namzeforge" className="text-gray-400 hover:text-white transition">Twitter</a>
-            <a href="https://linkedin.com/company/namzeforge" className="text-gray-400 hover:text-white transition">LinkedIn</a>
-            <a href="mailto:cathy@namzeforge.com" className="text-gray-400 hover:text-white transition">Email</a>
-          </div>
-        </footer>
-      </div>
-
-      {/* FLOATING PARTICLES */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-3 h-3 bg-[#da6d20] rounded-full opacity-30 animate-float"
-            style={{
-              top: `${10 + i * 12}%`,
-              left: `${5 + i * 12}%`,
-              animationDelay: `${i * 0.8}s`,
-            }}
-          />
-        ))}
       </div>
     </section>
   );
