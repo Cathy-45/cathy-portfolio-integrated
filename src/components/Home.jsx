@@ -136,11 +136,11 @@ const Home = () => {
               © 2025 Namzeforge Digital Solutions LLC
             </p>
             <p className="text-gray-400 text-xs mt-2">
-              AgriConnect is a Namzeforge product • Made with love in Zambia
+              AgriConnect. Powered by Namzeforge. Made in Zambia, scaling Africa.
             </p>
             <div className="flex justify-center gap-8 mt-6">
               <a href="https://twitter.com/namzeforge" className="text-gray-400 hover:text-white transition">Twitter</a>
-              <a href="https://linkedin.com/company/namzeforge" className="text-gray-400 hover:text-white transition">LinkedIn</a>
+              <a href="https://www.linkedin.com/in/catherine-namonje-4ab353203/" className="text-gray-400 hover:text-white transition">LinkedIn</a>
               <a href="mailto:cathy@namzeforge.com" className="text-gray-400 hover:text-white transition">Email</a>
             </div>
           </footer>
