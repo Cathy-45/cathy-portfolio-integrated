@@ -5,7 +5,6 @@ const Loader = () => {
 
   return (
     <div className="loader-container">
-      {/* GLOBAL STYLES — THIS FIXES THE HIBERNATION */}
       <style global jsx>{`
         @keyframes draw {
           to {
@@ -16,14 +15,14 @@ const Loader = () => {
         @keyframes fill {
           to {
             color: #fdba74;
-            text-shadow: 0 0 40px rgba(253, 186, 116, 0.8);
+            text-shadow: 0 0 50px rgba(253, 186, 116, 0.9);
           }
         }
 
         @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
           }
           to {
             opacity: 1;
@@ -33,7 +32,7 @@ const Loader = () => {
 
         @keyframes float {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
+          50% { transform: translateY(-25px); }
         }
 
         @keyframes spinSlow {
@@ -71,24 +70,24 @@ const Loader = () => {
           background: #da6d20;
           border-radius: 50%;
           opacity: 0.4;
-          animation: float 6s ease-in-out infinite;
+          animation: float 8s ease-in-out infinite;
         }
 
         .namzeforge-letter {
           clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
           color: transparent;
-          -webkit-text-stroke: 2px #fdba74;
-          animation: draw 1.5s ease-out forwards, fill 0.8s ease-out 1.3s forwards;
+          -webkit-text-stroke: 2.5px #fdba74;
+          animation: draw 2.5s ease-out forwards, fill 1.2s ease-out 2.2s forwards;
         }
 
         .digital-solutions {
-          margin-top: 3rem;
+          margin-top: 4rem;
           color: #94a3b8;
-          font-size: 1.5rem;
+          font-size: 1.8rem;
           font-weight: 300;
-          letter-spacing: 0.5em;
+          letter-spacing: 0.6em;
           opacity: 0;
-          animation: fadeInUp 1s ease-out 2.8s forwards;
+          animation: fadeInUp 1.5s ease-out 5.5s forwards;
         }
 
         .orb {
@@ -96,28 +95,26 @@ const Loader = () => {
           bottom: 6rem;
           left: 50%;
           transform: translateX(-50%);
-          width: 9rem;
-          height: 9rem;
+          width: 10rem;
+          height: 10rem;
           background: radial-gradient(circle, rgba(218, 109, 32, 0.4), rgba(253, 146, 60, 0.2));
           border: 2px solid rgba(218, 109, 32, 0.5);
           border-radius: 50%;
-          box-shadow: 0 0 60px rgba(218, 109, 32, 0.7);
-          animation: spinSlow 20s linear infinite;
+          box-shadow: 0 0 70px rgba(218, 109, 32, 0.8);
+          animation: spinSlow 30s linear infinite;
         }
 
         .orb-inner {
           position: absolute;
-          inset: 2rem;
+          inset: 2.5rem;
           background: rgba(218, 109, 32, 0.4);
           border-radius: 50%;
-          animation: pulse 4s ease-in-out infinite;
+          animation: pulse 6s ease-in-out infinite;
         }
       `}</style>
 
-      {/* GLOW */}
       <div className="loader-glow" />
 
-      {/* PARTICLES */}
       {[...Array(8)].map((_, i) => (
         <div
           key={i}
@@ -125,19 +122,18 @@ const Loader = () => {
           style={{
             top: `${10 + i * 11}%`,
             left: `${5 + i * 11}%`,
-            animationDelay: `${i * 0.7}s`,
+            animationDelay: `${i * 0.9}s`,
           }}
         />
       ))}
 
-      {/* NAMZEFORGE */}
       <div className="text-center">
         <h1 className="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-black tracking-tight leading-none">
           {text.split("").map((letter, index) => (
             <span
               key={index}
               className="inline-block namzeforge-letter"
-              style={{ animationDelay: `${index * 0.15}s` }}
+              style={{ animationDelay: `${index * 0.25}s` }}
             >
               {letter === " " ? "\u00A0" : letter}
             </span>
@@ -149,7 +145,6 @@ const Loader = () => {
         </p>
       </div>
 
-      {/* ORB */}
       <div className="orb">
         <div className="orb-inner" />
       </div>
