@@ -1,4 +1,3 @@
-
 // src/components/Home.jsx — FINAL & PERFECT (mobile fixed + cache killed)
 import React from "react";
 import { Link } from "react-router-dom";
@@ -22,13 +21,17 @@ const Home = () => {
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8">
         <div className="w-full max-w-6xl text-center">
           {/* COMPANY NAME */}
-          <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight mb-6
+          <h1
+            className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight mb-6
                          text-transparent bg-clip-text 
                          bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20] 
-                         bg-[length:200%_200%] animate-gradient-x">
+                         bg-[length:200%_200%] animate-gradient-x"
+          >
             NAMZEFORGE
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-300 mb-4">Digital Solutions</p>
+          <p className="text-xl sm:text-2xl text-gray-300 mb-4">
+            Digital Solutions
+          </p>
 
           <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 px-4 leading-relaxed">
             We build beautiful, scalable technology that
@@ -37,10 +40,11 @@ const Home = () => {
 
           {/* FLAGSHIP PRODUCT CARD */}
           <div className="my-16">
-            <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-10 sm:p-12 border border-white/20
+            <div
+              className="backdrop-blur-xl bg-white/10 rounded-3xl p-10 sm:p-12 border border-white/20
                             shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 transition-all duration-700
-                            max-w-4xl mx-auto">
-              
+                            max-w-4xl mx-auto"
+            >
               <p className="text-gray-400 uppercase tracking-widest text-sm mb-6">
                 Flagship Product
               </p>
@@ -55,22 +59,29 @@ const Home = () => {
               </p>
 
               {/* 2026 LAUNCH BADGE — MOBILE-FRIENDLY & CENTERED */}
-<div className="my-10">
-  <div className="inline-flex items-center gap-3 px-6 py-4 sm:px-10 sm:py-5 
+              <div className="my-10">
+                <div
+                  className="inline-flex items-center gap-3 px-6 py-4 sm:px-10 sm:py-5 
                   bg-gradient-to-r from-[#da6d20] to-[#fd923c] 
                   rounded-full shadow-2xl shadow-orange-900/60
-                  border border-white/40 max-w-full mx-auto">
-    <span className="text-white font-black text-lg sm:text-2xl tracking-wider">
-      LAUNCHING 2026
-    </span>
-    <span className="text-4xl sm:text-5xl animate-bounce" role="img" aria-label="rocket">
-      Launch 🚀🚀
-    </span>
-  </div>
-  <p className="text-gray-300 text-center mt-6 text-base sm:text-lg">
-    Currently in closed beta with <strong>2,000+</strong> Zambian farmers
-  </p>
-</div>
+                  border border-white/40 max-w-full mx-auto"
+                >
+                  <span className="text-white font-black text-lg sm:text-2xl tracking-wider">
+                    LAUNCHING 2026
+                  </span>
+                  <span
+                    className="text-4xl sm:text-5xl animate-bounce"
+                    role="img"
+                    aria-label="rocket"
+                  >
+                    Launch 🚀🚀
+                  </span>
+                </div>
+                <p className="text-gray-300 text-center mt-6 text-base sm:text-lg">
+                  Currently in closed beta with <strong>2,000+</strong> Zambian
+                  farmers
+                </p>
+              </div>
 
               {/* JOIN WAITLIST — ONLY ONE */}
               <div className="mt-16">
@@ -89,9 +100,17 @@ const Home = () => {
                     required
                     className="flex-1 px-6 py-4 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:border-[#da6d20] transition"
                   />
-                  <input type="hidden" name="_subject" value="New AgriConnect Waitlist Signup!" />
+                  <input
+                    type="hidden"
+                    name="_subject"
+                    value="New AgriConnect Waitlist Signup!"
+                  />
                   <input type="hidden" name="_captcha" value="false" />
-                  <input type="hidden" name="_next" value="https://namzeforge.com/thanks" />
+                  <input
+                    type="hidden"
+                    name="_next"
+                    value="https://namzeforge.com/thanks"
+                  />
 
                   <button
                     type="submit"
@@ -100,7 +119,7 @@ const Home = () => {
                     Join Waitlist
                   </button>
                 </form>
-                <p className="text-gray-600 text-xs text-center mt-4">
+                <p className="text-gray-400 text-sm sm:text-base text-center mt-6 italic">
                   We respect your privacy • No spam, ever
                 </p>
               </div>
@@ -136,12 +155,28 @@ const Home = () => {
               © 2025 Namzeforge Digital Solutions LLC
             </p>
             <p className="text-gray-400 text-xs mt-2">
-              AgriConnect. Powered by Namzeforge. Made in Zambia, scaling Africa.
+              AgriConnect. Powered by Namzeforge. Made in Zambia, scaling
+              Africa.
             </p>
             <div className="flex justify-center gap-8 mt-6">
-              <a href="https://twitter.com/namzeforge" className="text-gray-400 hover:text-white transition">Twitter</a>
-              <a href="https://www.linkedin.com/in/catherine-namonje-4ab353203/" className="text-gray-400 hover:text-white transition">LinkedIn</a>
-              <a href="mailto:cathy@namzeforge.com" className="text-gray-400 hover:text-white transition">Email</a>
+              <a
+                href="https://twitter.com/namzeforge"
+                className="text-gray-400 hover:text-white transition"
+              >
+                Twitter
+              </a>
+              <a
+                href="https://www.linkedin.com/in/catherine-namonje-4ab353203/"
+                className="text-gray-400 hover:text-white transition"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="mailto:cathy@namzeforge.com"
+                className="text-gray-400 hover:text-white transition"
+              >
+                Email
+              </a>
             </div>
           </footer>
         </div>
