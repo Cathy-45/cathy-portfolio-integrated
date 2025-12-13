@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import backgroundImage from "../assets/background.jpg";
-
+import { loadStripe } from "@stripe/stripe-js";
 
 const Consultation = () => {
   const [formData, setFormData] = useState({
@@ -19,180 +18,177 @@ const Consultation = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form data:", formData);
     setIsSubmitting(true);
-    setStatus(""); // Reset status before submission
+    setStatus("");
 
     try {
-      // Submit consultation
-      const response = await fetch('/api/consultations', {
+      // 1. Submit consultation request
+      const res = await fetch('/api/consultations', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Submission failed");
+
+      // 2. Trigger $75 Stripe Checkout
+      const paymentRes = await fetch('/api/payments', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phone: formData.phone,
-          message: formData.message,
+          amount: 7500, // $75.00 in cents — now explicit
         }),
       });
 
-      console.log("Response status:", response.status);
-      const data = await response.json();
-      console.log("Response data:", data);
+      const paymentData = await paymentRes.json();
+      if (!paymentRes.ok) throw new Error(paymentData.error || "Payment failed");
 
-      if (!response.ok) {
-        throw new Error(data.error || "Unknown error");
-      }
-
-      setStatus("Thank you for your request! I will get back to you soon.");
-
-      // Initiate payment (fixed $55 rate handled in backend)
-      const paymentResponse = await fetch('/api/payments', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          // No amount—backend uses fixed $55
-        }),
-      });
-
-      console.log("Payment response status:", paymentResponse.status);
-      const paymentData = await paymentResponse.json();
-      console.log("Payment response data:", paymentData);
-
-      if (!paymentResponse.ok) {
-        throw new Error(paymentData.error || "Payment initiation failed");
-      }
-
-      // Redirect to Stripe Checkout using the URL
+      // Redirect to Stripe
       window.location.href = paymentData.url;
 
-    } catch (error) {
-      console.error("Fetch error:", error);
-      setStatus("Error: " + error.message);
+      setStatus("Redirecting to secure payment…");
+
+    } catch (err) {
+      setStatus("Error: " + err.message);
     } finally {
       setIsSubmitting(false);
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
-      });
     }
   };
 
   return (
-    <section
-      className="min-h-screen flex flex-col items-center justify-center bg-[#1a1a1a] text-white bg-contain bg-center p-4 sm:p-6 md:p-10"
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundBlendMode: "overlay",
-        backgroundColor: "rgba(26, 26, 26, 0.96)",
-        opacity: 0.7,
-        backgroundPosition: "center top",
-        backgroundSize: "contain",
-      }}
-    >
-      <div className="text-4xl sm:text-6xl animate-wave mb-4 sm:mb-6">👋</div>
-      <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-poppins font-bold mb-6 sm:mb-8 text-center text-[#fdba74]">
-        Book a Consultation
-      </h2>
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-lg w-full bg-[#2a2a2a] rounded-lg p-4 sm:p-6 md:p-8 shadow-xl"
-      >
-        <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-sm sm:text-base font-roboto text-[#9ca3af] mb-2"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="w-full p-2 rounded bg-[#1a1a1a] text-white border border-[#fdba74] border-opacity-50 focus:outline-none focus:border-[#fdba74]"
+    <section className="min-h-screen relative overflow-hidden">
+      {/* SUNRISE GLOW + FLOATING BUBBLES — EXACT SAME AS HOME */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "radial-gradient(circle at 50% 30%, #da6d20 0%, #0f172a 70%)",
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80" />
+
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(10)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-[#da6d20]/20 blur-3xl animate-float"
+            style={{
+              width: `${120 + i * 60}px`,
+              height: `${120 + i * 60}px`,
+              top: `${5 + i * 11}%`,
+              left: `${5 + i * 11}%`,
+              animationDuration: `${8 + i * 2}s`,
+              animationDelay: `${i * 0.8}s`,
+            }}
           />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-sm sm:text-base font-roboto text-[#9ca3af] mb-2"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full p-2 rounded bg-[#1a1a1a] text-white border border-[#fdba74] border-opacity-50 focus:outline-none focus:border-[#fdba74]"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="phone"
-            className="block text-sm sm:text-base font-roboto text-[#9ca3af] mb-2"
-          >
-            Phone
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full p-2 rounded bg-[#1a1a1a] text-white border border-[#fdba74] border-opacity-50 focus:outline-none focus:border-[#fdba74]"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="message"
-            className="block text-sm sm:text-base font-roboto text-[#9ca3af] mb-2"
-          >
-            How can I help you?
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            rows="4"
-            className="w-full p-2 rounded bg-[#1a1a1a] text-white border border-[#fdba74] border-opacity-50 focus:outline-none focus:border-[#fdba74]"
-          ></textarea>
-        </div>
-        <div className="mb-6">
-          <label className="block text-sm sm:text-base font-roboto text-[#9ca3af] mb-2">
-            Consultation Fee
-          </label>
-          <div className="w-full p-2 rounded bg-[#1a1a1a] text-[#9ca3af] border-[#fdba74] border-opacity-50 text-center font-bold">
-            $75.00 (Fixed Rate)
-          </div>
-        </div>
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full text-sm sm:text-lg font-poppins text-white bg-[#fdba74] hover:bg-[#fb923c] px-4 sm:px-6 py-2 rounded-lg transition-colors disabled:opacity-50"
-        >
-          {isSubmitting ? "Processing..." : "Pay and Submit"}
-        </button>
-        {status && (
-          <p className="mt-4 text-center text-sm sm:text-base text-[#fdba74]">
-            {status}
+        ))}
+      </div>
+
+      {/* MAIN CONTENT */}
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-24">
+        <div className="text-center max-w-2xl mx-auto w-full">
+          <div className="text-6xl sm:text-8xl animate-wave mb-8 select-none">👋</div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-8
+                         text-transparent bg-clip-text 
+                         bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]
+                         bg-[length:200%_200%] animate-gradient-x">
+            Book a Consultation
+          </h1>
+
+          <p className="text-xl sm:text-2xl text-gray-300 mb-12">
+            1-hour deep-dive • Strategy • Architecture • Growth
           </p>
-        )}
-      </form>
+
+          {/* 3D GLASS FORM */}
+          <form
+            onSubmit={handleSubmit}
+            className="backdrop-blur-xl bg-white/10 rounded-3xl p-10 border border-white/20
+                       shadow-2xl shadow-black/70 max-w-xl mx-auto w-full"
+          >
+            <div className="grid grid-cols-1 gap-8">
+              <input
+                type="text"
+                name="name"
+                placeholder="Your name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="px-6 py-4 rounded-2xl bg-white/10 border border-white/30 
+                           backdrop-blur-md text-white placeholder-gray-400
+                           focus:outline-none focus:border-[#da6d20] transition"
+              />
+
+              <input
+                type="email"
+                name="email"
+                placeholder="your@email.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="px-6 py-4 rounded-2xl bg-white/10 border border-white/30 
+                           backdrop-blur-md text-white placeholder-gray-400
+                           focus:outline-none focus:border-[#da6d20] transition"
+              />
+
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone (optional)"
+                value={formData.phone}
+                onChange={handleChange}
+                className="px-6 py-4 rounded-2xl bg-white/10 border border-white/30 
+                           backdrop-blur-md text-white placeholder-gray-400
+                           focus:outline-none focus:border-[#da6d20] transition"
+              />
+
+              <textarea
+                name="message"
+                placeholder="Tell me about your project or challenge…"
+                rows={4}
+                value={formData.message}
+                onChange={handleChange}
+                className="px-6 py-4 rounded-2xl bg-white/10 border border-white/30 
+                           backdrop-blur-md text-white placeholder-gray-400 resize-none
+                           focus:outline-none focus:border-[#da6d20] transition"
+              />
+
+              {/* PRICE TAG */}
+              <div className="text-center py-6 bg-gradient-to-r from-[#da6d20]/20 to-[#fd923c]/20 rounded-2xl border border-[#da6d20]/50">
+                <p className="text-gray-400">Consultation Fee</p>
+                <p className="text-4xl font-black text-[#fdba74]">$75</p>
+                <p className="text-sm text-gray-500">One-time • 60 minutes • No hidden fees</p>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-5 px-8 bg-gradient-to-r from-[#da6d20] to-[#fd923c]
+                           hover:from-[#c75a10] hover:to-[#e07b2a] text-white font-bold text-xl
+                           rounded-2xl shadow-2xl transform hover:scale-105 
+                           transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? "Processing…" : "Pay $75 & Book Now"}
+              </button>
+
+              {status && (
+                <p className={`text-center mt-6 text-lg ${status.includes("Error") ? "text-red-400" : "text-[#fdba74]"}`}>
+                  {status}
+                </p>
+              )}
+            </div>
+          </form>
+
+          {/* EMPIRE SIGNATURE */}
+          <p className="mt-20 text-gray-400 text-lg">
+            AgriConnect. Powered by Namzeforge. Made in Zambia, scaling Africa.
+          </p>
+        </div>
+      </div>
     </section>
   );
 };
-
 
 export default Consultation;
