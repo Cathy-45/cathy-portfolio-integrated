@@ -1,4 +1,3 @@
-// src/pages/Home.jsx — NAMZEFORGE DIGITAL SOLUTIONS (FINAL & PERFECT)
 import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from "../assets/background.jpg";
@@ -11,39 +10,39 @@ const Home = () => {
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: "fixed",
         backgroundPosition: "center 20%",
-        backgroundSize: "cover",
+        backgroundSize: "contain",
       }}
     >
       {/* LIGHTER, WARMER OVERLAY */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70 md:from-black/60 md:via-black/40 md:to-black/80" />
 
       {/* MAIN CONTENT */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-20">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-20">
         <div className="text-center max-w-6xl mx-auto flex-1 flex flex-col justify-center">
           {/* COMPANY NAME */}
-          <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight mb-6
+          <h1 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tight mb-6
                          text-transparent bg-clip-text 
                          bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20] 
                          bg-[length:200%_200%] animate-gradient-x">
             NAMZEFORGE
           </h1>
-          <p className="text-2xl sm:text-3xl text-gray-300 mb-4">Digital Solutions</p>
+          <p className="text-xl sm:text-2xl text-gray-300 mb-4">Digital Solutions</p>
 
-          <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 px-6 leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 px-4 leading-relaxed">
             We build beautiful, scalable technology that
             <br className="sm:hidden" /> solves real African problems.
           </p>
 
           {/* FLAGSHIP PRODUCT CARD */}
-          <div className="my-16 mx-auto max-w-4xl">
-            <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-10 sm:p-12 border border-white/20
+          <div className="my-16 mx-auto max-w-full sm:max-w-4xl">
+            <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-8 sm:p-10 border border-white/20
                             shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 transition-all duration-700">
               
               <p className="text-gray-400 uppercase tracking-widest text-sm mb-6">
                 Flagship Product
               </p>
 
-              <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
                 AgriConnect
               </h2>
               <p className="text-lg sm:text-xl text-gray-300 mb-10 leading-relaxed px-4">
@@ -53,12 +52,12 @@ const Home = () => {
 
               {/* LAUNCHING 2026 BADGE */}
               <div className="my-10">
-                <div className="inline-flex items-center gap-4 px-10 py-5 bg-gradient-to-r from-[#da6d20] to-[#fd923c] 
+                <div className="inline-flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-[#da6d20] to-[#fd923c] 
                                 rounded-full shadow-2xl shadow-orange-900/60 border border-white/40">
-                  <span className="text-white font-black text-2xl tracking-wider">
+                  <span className="text-white font-black text-xl tracking-wider">
                     LAUNCHING 2026
                   </span>
-                  <span className="text-5xl animate-bounce">Launch</span>
+                  <span className="text-4xl animate-bounce">Launch 🚀🚀</span>
                 </div>
                 <p className="text-gray-300 text-center mt-6 text-lg">
                   Currently in closed beta with <strong>2,000+</strong> Zambian farmers
