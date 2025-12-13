@@ -1,58 +1,103 @@
-  import React from 'react';
-import { Link } from 'react-router-dom';
+  // src/pages/Services.jsx — NAMZEFORGE 3D GLASS MASTERPIECE
+import React from "react";
+import { Link } from "react-router-dom";
 
 const services = [
   {
     id: 1,
-    name: 'Full-Stack Development',
-    description: 'Build robust applications using React, Node.js, JavaScript, Html, Python, and more. Let’s create something amazing together!',
-    bgColor: 'bg-[#ff6f61]',
-    path: '/services/full-stack-development',
+    name: "Full-Stack Development",
+    description: "Build robust applications using React, Node.js, JavaScript, Python, and more. Let’s create something amazing together!",
+    bgGradient: "from-[#da6d20] to-[#fd923c]",
   },
   {
     id: 2,
-    name: 'Technology Consulting',
-    description: 'Align software solutions with your business objectives for growth and efficiency.',
-    bgColor: 'bg-[#4CAF50]',
-    path: '/services/technology-consulting',
+    name: "Technology Consulting",
+    description: "Align software solutions with your business objectives for growth and efficiency.",
+    bgGradient: "from-[#50C878] to-[#2e8b57]",
   },
   {
     id: 3,
-    name: 'System Integration',
-    description: 'Connect CRMs, ERPs, and APIs for seamless data flows.',
-    bgColor: 'bg-[#1E90FF]',
-    path: '/services/system-integration',
+    name: "System Integration",
+    description: "Connect CRMs, ERPs, and APIs for seamless data flows.",
+    bgGradient: "from-[#1E90FF] to-[#00BFFF]",
   },
   {
     id: 4,
-    name: 'SaaS/Agile DevOps',
-    description: 'Scalable software-as-a-service solutions.',
-    bgColor: 'bg-[#FFD700]',
-    path: '/services/saas',
+    name: "SaaS & Agile DevOps",
+    description: "Scalable software-as-a-service solutions with cloud-native architecture.",
+    bgGradient: "from-[#FFD700] to-[#FFA500]",
   },
 ];
 
 const Services = () => {
   return (
-    <section className="min-h-screen bg-[#1a1a1a] text-white p-4 sm:p-6 md:p-10">
-      <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-poppins font-bold mb-8 sm:mb-12 md:text-center text-[#fdba74]">
-        My Services
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 md:gap-16 max-w-6xl mx-auto">
-        {services.map((service) => (
-          <Link
-            key={service.id}
-            to={service.path}
-            className={`${service.bgColor} rounded-lg shadow-xl flex flex-col items-center justify-center p-6 sm:p-8 hover:opacity-90 transition-opacity w-full min-h-[20rem] sm:min-h-[22rem]`}
-          >
-            <h3 className="text-lg sm:text-xl font-poppins font-semibold text-[#78716c] mb-4 text-center">
-              {service.name}
-            </h3>
-            <p className="text-xs sm:text-sm font-roboto text-[#0c0a09] text-center">
-              {service.description}
+    <section className="min-h-screen relative overflow-hidden">
+      {/* BACKGROUND + GLOW */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
+      <div className="absolute inset-0 opacity-15">
+        <div className="h-full w-full" style={{ background: "radial-gradient(circle at 50% 50%, #da6d20 0%, transparent 70%)" }} />
+      </div>
+
+      {/* MAIN CONTENT */}
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-20">
+        <div className="text-center max-w-6xl mx-auto">
+          <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight mb-6
+                         text-transparent bg-clip-text 
+                         bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20] 
+                         bg-[length:200%_200%] animate-gradient-x">
+            Services
+          </h1>
+
+          <p className="text-xl sm:text-2xl text-gray-300 mb-16 max-w-3xl mx-auto">
+            We don’t just write code. We build digital empires.
+          </p>
+
+          {/* 3D GLASS SERVICE CARDS */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-5xl mx-auto px-6">
+            {services.map((service) => (
+              <Link
+                key={service.id}
+                to={service.path || "#"}
+                className="group"
+              >
+                <div
+                  className={`backdrop-blur-xl bg-white/10 rounded-3xl p-10 border border-white/20
+                              shadow-2xl shadow-black/60 transform hover:scale-105 hover:shadow-[#da6d20]/40
+                              transition-all duration-500 h-full flex flex-col justify-center text-center
+                              bg-gradient-to-br ${service.bgGradient} bg-opacity-20`}
+                  style={{
+                    boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5), inset 0 0 60px rgba(218,109,32,0.1)",
+                  }}
+                >
+                  <h3 className="text-2xl sm:text-3xl font-black text-white mb-6">
+                    {service.name}
+                  </h3>
+                  <p className="text-gray-300 text-lg leading-relaxed">
+                    {service.description}
+                  </p>
+                  <span className="mt-8 inline-block text-white/70 group-hover:text-white transition">
+                    Learn more →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* CALL TO ACTION */}
+          <div className="mt-24">
+            <p className="text-2xl text-gray-300 mb-8">
+              Ready to build something legendary?
             </p>
-          </Link>
-        ))}
+            <a
+              href="mailto:cathy@namzeforge.com"
+              className="inline-block bg-gradient-to-r from-[#da6d20] to-[#fd923c] hover:from-[#c75a10] hover:to-[#e07b2a]
+                         text-white font-bold text-xl py-5 px-12 rounded-2xl 
+                         shadow-2xl transform hover:-translate-y-1 transition-all"
+            >
+              Let's Talk
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
