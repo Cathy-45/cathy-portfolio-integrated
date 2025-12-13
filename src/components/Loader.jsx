@@ -1,12 +1,11 @@
 import React from "react";
-import backgroundImage from "../assets/background.jpg";  // Adjust path if needed
+import backgroundImage from "../assets/background.jpg";
 
 const Loader = () => {
   const text = "NAMZEFORGE";
 
   return (
     <>
-      {/* Inline styles — everything self-contained */}
       <style jsx>{`
         @keyframes draw {
           to {
@@ -17,16 +16,16 @@ const Loader = () => {
         @keyframes fill {
           to {
             color: #fdba74;
-            text-shadow: 0 0 30px rgba(253, 186, 116, 0.7);
+            text-shadow: 0 0 40px rgba(253, 186, 116, 0.8);
           }
         }
 
         @keyframes fadeInUp {
           0% {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
           }
-          70% {
+          50% {
             opacity: 0;
           }
           100% {
@@ -40,7 +39,7 @@ const Loader = () => {
             transform: translateY(0px);
           }
           50% {
-            transform: translateY(-20px);
+            transform: translateY(-25px);
           }
         }
 
@@ -55,37 +54,40 @@ const Loader = () => {
 
         @keyframes pulse {
           0%, 100% {
-            opacity: 0.4;
+            opacity: 0.3;
+            transform: scale(1);
           }
           50% {
-            opacity: 0.8;
+            opacity: 0.7;
+            transform: scale(1.1);
           }
         }
 
         .stroke-text {
           clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
           color: transparent;
-          -webkit-text-stroke: 1.5px #fdba74;
+          -webkit-text-stroke: 2px #fdba74;
         }
 
         .animate-draw-fill {
-          animation: draw 1.4s ease-out forwards, fill 0.6s ease-out 1.4s forwards;
+          animation: draw 2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards,
+                     fill 0.8s ease-out 1.8s forwards;
         }
 
         .animate-fade-in-up {
-          animation: fadeInUp 3.5s ease-out forwards;
+          animation: fadeInUp 4s ease-out forwards;
         }
 
         .animate-float {
-          animation: float 6s ease-in-out infinite;
+          animation: float 7s ease-in-out infinite;
         }
 
         .animate-spin-slow {
-          animation: spinSlow 18s linear infinite;
+          animation: spinSlow 25s linear infinite;
         }
 
         .animate-pulse {
-          animation: pulse 4s ease-in-out infinite;
+          animation: pulse 5s ease-in-out infinite;
         }
       `}</style>
 
@@ -99,7 +101,7 @@ const Loader = () => {
           backgroundRepeat: "repeat",
         }}
       >
-        {/* SAME OVERLAY AS HOME */}
+        {/* OVERLAY */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70 md:from-black/60 md:via-black/40 md:to-black/80" />
 
         {/* FLOATING PARTICLES */}
@@ -117,7 +119,7 @@ const Loader = () => {
           ))}
         </div>
 
-        {/* CONTENT */}
+        {/* MAIN CONTENT */}
         <div className="relative z-10 text-center">
           <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight">
             {text.split("").map((letter, index) => (
@@ -125,7 +127,7 @@ const Loader = () => {
                 key={index}
                 className="inline-block stroke-text"
                 style={{
-                  animationDelay: `${index * 0.12}s`,
+                  animationDelay: `${index * 0.18}s`,  // Slower stagger for dramatic reveal
                 }}
               >
                 <span className="animate-draw-fill inline-block">
@@ -135,15 +137,15 @@ const Loader = () => {
             ))}
           </h1>
 
-          <p className="mt-8 text-gray-400 text-xl sm:text-2xl font-light tracking-widest animate-fade-in-up">
+          <p className="mt-12 text-gray-400 text-xl sm:text-2xl font-light tracking-widest animate-fade-in-up">
             Digital Solutions
           </p>
         </div>
 
-        {/* PULSING ORB */}
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-28 h-28 sm:w-36 sm:h-36">
+        {/* PULSING ORB — SLOWER AND MORE HYPNOTIC */}
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-32 h-32 sm:w-40 sm:h-40">
           <div className="w-full h-full rounded-full bg-gradient-to-br from-[#da6d20]/30 to-[#fd923c]/10 backdrop-blur-md border border-[#da6d20]/40 shadow-2xl shadow-[#da6d20]/60 animate-spin-slow">
-            <div className="absolute inset-6 rounded-full bg-[#da6d20]/30 animate-pulse" />
+            <div className="absolute inset-8 rounded-full bg-[#da6d20]/30 animate-pulse" />
           </div>
         </div>
       </div>
