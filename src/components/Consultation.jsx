@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import backgroundImage from "../../assets/background.jpg";
+import backgroundImage from "../assets/background.jpg";
 import { loadStripe } from "@stripe/stripe-js";
 
 const Consultation = () => {
