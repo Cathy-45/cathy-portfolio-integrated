@@ -61,7 +61,7 @@ const MyPortfolio = () => {
       <div className="relative z-10 min-h-screen flex flex-col justify-center px-6 py-24">
         <div className="text-center max-w-7xl mx-auto w-full">
           {/* EMOJI + TITLE */}
-          <div className="text-6xl sm:text-8xl animate-wave mb-8 select-none">Coding</div>
+          <div className="text-6xl sm:text-8xl animate-wave mb-8 select-none">👨‍💻</div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-12
                          text-transparent bg-clip-text 
