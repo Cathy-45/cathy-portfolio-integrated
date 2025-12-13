@@ -1,5 +1,4 @@
 import React from "react";
-import backgroundImage from "../assets/background.jpg";
 
 const Loader = () => {
   const text = "NAMZEFORGE";
@@ -16,16 +15,16 @@ const Loader = () => {
         @keyframes fill {
           to {
             color: #fdba74;
-            text-shadow: 0 0 40px rgba(253, 186, 116, 0.8);
+            text-shadow: 0 0 50px rgba(253, 186, 116, 0.9);
           }
         }
 
         @keyframes fadeInUp {
           0% {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
           }
-          50% {
+          60% {
             opacity: 0;
           }
           100% {
@@ -36,54 +35,44 @@ const Loader = () => {
 
         @keyframes float {
           0%, 100% {
-            transform: translateY(0px);
+            transform: translateY(0) translateX(0);
           }
           50% {
-            transform: translateY(-25px);
+            transform: translateY(-30px) translateX(10px);
           }
         }
 
         @keyframes spinSlow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
         @keyframes pulse {
-          0%, 100% {
-            opacity: 0.3;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.7;
-            transform: scale(1.1);
-          }
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50% { opacity: 0.8; transform: scale(1.15); }
         }
 
         .stroke-text {
           clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
           color: transparent;
-          -webkit-text-stroke: 2px #fdba74;
+          -webkit-text-stroke: 3px #fdba74;
         }
 
         .animate-draw-fill {
-          animation: draw 2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards,
-                     fill 0.8s ease-out 1.8s forwards;
+          animation: draw 2.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards,
+                     fill 1s ease-out 2.3s forwards;
         }
 
         .animate-fade-in-up {
-          animation: fadeInUp 4s ease-out forwards;
+          animation: fadeInUp 4.5s ease-out forwards;
         }
 
         .animate-float {
-          animation: float 7s ease-in-out infinite;
+          animation: float 8s ease-in-out infinite;
         }
 
         .animate-spin-slow {
-          animation: spinSlow 25s linear infinite;
+          animation: spinSlow 30s linear infinite;
         }
 
         .animate-pulse {
@@ -91,43 +80,35 @@ const Loader = () => {
         }
       `}</style>
 
-      <div
-        className="fixed inset-0 flex flex-col items-center justify-center z-50 overflow-hidden"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundAttachment: "fixed",
-          backgroundPosition: "center 20%",
-          backgroundSize: "contain",
-          backgroundRepeat: "repeat",
-        }}
-      >
-        {/* OVERLAY */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70 md:from-black/60 md:via-black/40 md:to-black/80" />
+      {/* CLEAN DARK EMPIRE BACKGROUND — NO IMAGE */}
+      <div className="fixed inset-0 flex flex-col items-center justify-center bg-[#0f172a] z-50 overflow-hidden">
+        {/* DEEP SUBTLE GRADIENT */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#da6d20]/10 via-transparent to-[#da6d20]/10" />
 
-        {/* FLOATING PARTICLES */}
+        {/* FLOATING PARTICLES — STILL MAGICAL */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(8)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-3 h-3 bg-[#da6d20] rounded-full opacity-30 animate-float"
+              className="absolute w-4 h-4 bg-[#da6d20] rounded-full opacity-40 animate-float"
               style={{
-                top: `${10 + i * 12}%`,
-                left: `${5 + i * 12}%`,
-                animationDelay: `${i * 0.8}s`,
+                top: `${10 + i * 11}%`,
+                left: `${5 + i * 11}%`,
+                animationDelay: `${i * 0.9}s`,
               }}
             />
           ))}
         </div>
 
-        {/* MAIN CONTENT */}
+        {/* NAMZEFORGE REVEAL — NOW IMPOSSIBLE TO MISS */}
         <div className="relative z-10 text-center">
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight">
+          <h1 className="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-black tracking-tight leading-none">
             {text.split("").map((letter, index) => (
               <span
                 key={index}
                 className="inline-block stroke-text"
                 style={{
-                  animationDelay: `${index * 0.18}s`,  // Slower stagger for dramatic reveal
+                  animationDelay: `${index * 0.25}s`,  
                 }}
               >
                 <span className="animate-draw-fill inline-block">
@@ -137,15 +118,16 @@ const Loader = () => {
             ))}
           </h1>
 
-          <p className="mt-12 text-gray-400 text-xl sm:text-2xl font-light tracking-widest animate-fade-in-up">
+          {/* DIGITAL SOLUTIONS — APPEARS ONLY AFTER FULL NAME */}
+          <p className="mt-16 text-gray-500 text-2xl sm:text-3xl font-light tracking-widest animate-fade-in-up">
             Digital Solutions
           </p>
         </div>
 
-        {/* PULSING ORB — SLOWER AND MORE HYPNOTIC */}
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-32 h-32 sm:w-40 sm:h-40">
-          <div className="w-full h-full rounded-full bg-gradient-to-br from-[#da6d20]/30 to-[#fd923c]/10 backdrop-blur-md border border-[#da6d20]/40 shadow-2xl shadow-[#da6d20]/60 animate-spin-slow">
-            <div className="absolute inset-8 rounded-full bg-[#da6d20]/30 animate-pulse" />
+        {/* HYPNOTIC ORB */}
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-36 h-36 sm:w-44 sm:h-44">
+          <div className="w-full h-full rounded-full bg-gradient-to-br from-[#da6d20]/40 to-[#fd923c]/20 backdrop-blur-md border-2 border-[#da6d20]/50 shadow-2xl shadow-[#da6d20]/70 animate-spin-slow">
+            <div className="absolute inset-8 rounded-full bg-[#da6d20]/40 animate-pulse" />
           </div>
         </div>
       </div>
