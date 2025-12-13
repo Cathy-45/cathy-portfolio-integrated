@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import backgroundImage from "../assets/background.jpg";  // Correct path
+import backgroundImage from "../../assets/background.jpg"; 
 
 const FullStackDevelopment = () => {
   return (
