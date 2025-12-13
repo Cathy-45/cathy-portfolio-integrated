@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import backgroundImage from "../assets/background.jpg";
+import backgroundImage from "../../assets/background.jpg";
 import { loadStripe } from "@stripe/stripe-js";
 
 const Consultation = () => {
@@ -22,7 +22,6 @@ const Consultation = () => {
     setStatus("");
 
     try {
-      // 1. Submit consultation request
       const res = await fetch('/api/consultations', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -32,23 +31,20 @@ const Consultation = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Submission failed");
 
-      // 2. Trigger $75 Stripe Checkout
       const paymentRes = await fetch('/api/payments', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          amount: 7500, // $75.00 in cents — now explicit
+          amount: 7500,
         }),
       });
 
       const paymentData = await paymentRes.json();
       if (!paymentRes.ok) throw new Error(paymentData.error || "Payment failed");
 
-      // Redirect to Stripe
       window.location.href = paymentData.url;
-
       setStatus("Redirecting to secure payment…");
 
     } catch (err) {
@@ -59,27 +55,28 @@ const Consultation = () => {
   };
 
   return (
-    <section className="min-h-screen relative overflow-hidden">
-      {/* SUNRISE GLOW + FLOATING BUBBLES — EXACT SAME AS HOME */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "radial-gradient(circle at 50% 30%, #da6d20 0%, #0f172a 70%)",
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80" />
+    <section
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundAttachment: "fixed",
+        backgroundPosition: "center 20%",
+        backgroundSize: "contain",
+        backgroundRepeat: "repeat",
+      }}
+    >
+      {/* EXACT SAME OVERLAY AS HOME */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70 md:from-black/60 md:via-black/40 md:to-black/80" />
 
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(10)].map((_, i) => (
+      {/* FLOATING ORANGE PARTICLES — IDENTICAL TO HOME */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            className="absolute rounded-full bg-[#da6d20]/20 blur-3xl animate-float"
+            className="absolute w-3 h-3 bg-[#da6d20] rounded-full opacity-30 animate-float"
             style={{
-              width: `${120 + i * 60}px`,
-              height: `${120 + i * 60}px`,
-              top: `${5 + i * 11}%`,
-              left: `${5 + i * 11}%`,
-              animationDuration: `${8 + i * 2}s`,
+              top: `${10 + i * 12}%`,
+              left: `${5 + i * 12}%`,
               animationDelay: `${i * 0.8}s`,
             }}
           />
@@ -89,6 +86,7 @@ const Consultation = () => {
       {/* MAIN CONTENT */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-24">
         <div className="text-center max-w-2xl mx-auto w-full">
+          {/* REAL WAVING HAND EMOJI */}
           <div className="text-6xl sm:text-8xl animate-wave mb-8 select-none">👋</div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-8
@@ -102,7 +100,7 @@ const Consultation = () => {
             1-hour deep-dive • Strategy • Architecture • Growth
           </p>
 
-          {/* 3D GLASS FORM */}
+          {/* 3D GLASS FORM — UNCHANGED */}
           <form
             onSubmit={handleSubmit}
             className="backdrop-blur-xl bg-white/10 rounded-3xl p-10 border border-white/20
@@ -155,7 +153,6 @@ const Consultation = () => {
                            focus:outline-none focus:border-[#da6d20] transition"
               />
 
-              {/* PRICE TAG */}
               <div className="text-center py-6 bg-gradient-to-r from-[#da6d20]/20 to-[#fd923c]/20 rounded-2xl border border-[#da6d20]/50">
                 <p className="text-gray-400">Consultation Fee</p>
                 <p className="text-4xl font-black text-[#fdba74]">$75</p>
@@ -181,7 +178,6 @@ const Consultation = () => {
             </div>
           </form>
 
-          {/* EMPIRE SIGNATURE */}
           <p className="mt-20 text-gray-400 text-lg">
             AgriConnect. Powered by Namzeforge. Made in Zambia, scaling Africa.
           </p>
