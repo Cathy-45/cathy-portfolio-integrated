@@ -138,6 +138,21 @@ const Home = () => {
             </div>
           </div>
 
+          {/* FLOATING ORANGE PARTICLES — IDENTICAL TO HOME */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-3 h-3 bg-[#da6d20] rounded-full opacity-30 animate-float"
+            style={{
+              top: `${10 + i * 12}%`,
+              left: `${5 + i * 12}%`,
+              animationDelay: `${i * 0.8}s`,
+            }}
+          />
+        ))}
+      </div>
+
           {/* FOUNDER */}
           <div className="mt-24">
             <p className="text-gray-400 text-lg">Founded & led by</p>
