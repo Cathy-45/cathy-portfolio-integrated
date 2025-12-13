@@ -1,29 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import backgroundImage from "../assets/background.jpg";  // Correct path
 
 const FullStackDevelopment = () => {
   return (
-    <section className="min-h-screen relative overflow-hidden">
-      {/* SUNRISE GLOW + FLOATING ORANGE BUBBLES — EMPIRE STANDARD */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "radial-gradient(circle at 50% 30%, #da6d20 0%, #0f172a 70%)",
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80" />
+    <section
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundAttachment: "fixed",
+        backgroundPosition: "center 20%",
+        backgroundSize: "contain",
+        backgroundRepeat: "repeat",
+      }}
+    >
+      {/* EXACT SAME OVERLAY AS HOME */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70 md:from-black/60 md:via-black/40 md:to-black/80" />
 
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(10)].map((_, i) => (
+      {/* FLOATING ORANGE PARTICLES — IDENTICAL TO HOME */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            className="absolute rounded-full bg-[#da6d20]/20 blur-3xl animate-float"
+            className="absolute w-3 h-3 bg-[#da6d20] rounded-full opacity-30 animate-float"
             style={{
-              width: `${120 + i * 60}px`,
-              height: `${120 + i * 60}px`,
-              top: `${5 + i * 11}%`,
-              left: `${5 + i * 11}%`,
-              animationDuration: `${8 + i * 2}s`,
+              top: `${10 + i * 12}%`,
+              left: `${5 + i * 12}%`,
               animationDelay: `${i * 0.8}s`,
             }}
           />
