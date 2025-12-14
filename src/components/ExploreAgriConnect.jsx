@@ -1,5 +1,5 @@
 import React from "react";
-import backgroundImage from "../assets/background.jpg"; // Same as other pages
+import backgroundImage from "../assets/background.jpg"; // Ensure path matches
 
 const ExploreAgriConnect = () => {
   return (
@@ -28,10 +28,10 @@ const ExploreAgriConnect = () => {
         ))}
       </div>
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-24 text-center">
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-black text-[#fdba74] mb-8">
+        <h1 className="text-6xl sm:text-7xl md:text-8xl font-black text-[#fdba74] mb-8">
           Explore AgriConnect
         </h1>
-        <p className="text-xl sm:text-2xl text-gray-300 mb-12 max-w-2xl">
+        <p className="text-2xl sm:text-3xl text-gray-300 mb-12 max-w-2xl">
           Coming soon: Discover how AgriConnect will connect Zambian farmers to buyers with same-day offers and payments. Launching 2026. Stay tuned!
         </p>
         <a
