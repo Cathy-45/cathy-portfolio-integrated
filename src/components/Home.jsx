@@ -90,7 +90,7 @@ const Home = () => {
                 </p>
                 <form
                   className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
-                  action="https://formsubmit.co/cathy@namzeforge.com"
+                  action="https://formsubmit.co/hello@namzeforge.com"
                   method="POST"
                 >
                   <input
@@ -175,7 +175,7 @@ const Home = () => {
             </p>
             <div className="flex justify-center gap-8 mt-6">
               <a
-                href="https://twitter.com/namzeforge"
+                href="https://x.com/NamzeforgeHQ"
                 className="text-gray-400 hover:text-white transition"
               >
                 Twitter

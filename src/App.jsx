@@ -38,7 +38,7 @@ const App = () => {
             <Route path="/portfolio" element={<Myportfolio />} />
             <Route path="/success" element={<Success />} />
             <Route path="/thanks" element={<Thanks />} /> {/* Add Thanks route */}
-            <Route path="/explore-agriconnect" element={<ExploreAgriConnect />} /> {/* Add Explore AgriConnect route */}
+            <Route path="/agriconnect" element={<ExploreAgriConnect />} /> {/* Add Explore AgriConnect route */}
           </Routes>
         </>
       )}
