@@ -9,9 +9,9 @@ const Contact = () => {
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: "fixed",
-        backgroundPosition: "center 2022%",
+        backgroundPosition: "center 20%", // Fixed from 2022%
         backgroundSize: "contain",
-        backgroundRepeat: "repeat", // your preferred repeating pattern
+        backgroundRepeat: "repeat",
       }}
     >
       {/* LIGHTER, WARMER OVERLAY — MATCHES HOME */}
@@ -33,34 +33,39 @@ const Contact = () => {
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-24">
-        <div className="text-center max-w-4xl mx-auto">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-24 text-center">
+        <div className="text-center max-w-4xl mx-auto w-full">
           <div className="text-6xl sm:text-8xl animate-wave mb-10 select-none">
             👋
           </div>
 
           <h1
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8
-                         text-transparent bg-clip-text 
-                         bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]
-                         bg-[length:200%_200%] animate-gradient-x"
+                       text-transparent bg-clip-text 
+                       bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]
+                       bg-[length:200%_200%] animate-gradient-x"
+            style={{ lineHeight: "1.2", wordBreak: "break-word" }} // Prevent cutoff
           >
             Thank You for Visiting
           </h1>
 
-          <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-16 leading-relaxed">
+          <p
+            className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-16 leading-relaxed"
+            style={{ lineHeight: "1.6", wordBreak: "break-word" }} // Ensure readability
+          >
             Have a project, challenge, or vision? Let’s build the future
             together.
           </p>
 
           {/* CONTACT INFO — NOW WITH PROPER SPACING */}
-          <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-12 border border-white/20 shadow-2xl shadow-black/70 max-w-2xl mx-auto mb-12">
-            <div className="space-y-12 text-center">
+          <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-12 border border-white/20 shadow-2xl shadow-black/70 max-w-2xl mx-auto mb-12 text-center">
+            <div className="space-y-12">
               <div>
                 <p className="text-gray-400 text-lg mb-4">Email me directly</p>
                 <a
                   href="mailto:cathy@namzeforge.com"
                   className="text-3xl sm:text-4xl font-bold text-[#fdba74] hover:text-white transition"
+                  style={{ wordBreak: "break-word" }} // Prevent cutoff
                 >
                   cathy@namzeforge.com
                 </a>
@@ -70,6 +75,7 @@ const Contact = () => {
                 <a
                   href="tel:+14694634053"
                   className="text-3xl sm:text-4xl font-bold text-[#fdba74] hover:text-white transition"
+                  style={{ wordBreak: "break-word" }} // Prevent cutoff
                 >
                   +1 (469) 463-4053
                 </a>
@@ -78,7 +84,7 @@ const Contact = () => {
           </div>
 
           {/* CTAs */}
-          <div className="space-y-8">
+          <div className="space-y-8 text-center">
             <Link
               to="/services"
               className="inline-block bg-gradient-to-r from-[#da6d20] to-[#fd923c]
