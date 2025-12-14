@@ -9,7 +9,7 @@ const Contact = () => {
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: "fixed",
-        backgroundPosition: "center 20%", // Fixed from 2022%
+        backgroundPosition: "center 20%",
         backgroundSize: "contain",
         backgroundRepeat: "repeat",
       }}
@@ -35,7 +35,10 @@ const Contact = () => {
       {/* MAIN CONTENT */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-24 text-center">
         <div className="text-center max-w-4xl mx-auto w-full">
-          <div className="text-6xl sm:text-8xl animate-wave mb-10 select-none">
+          <div
+            className="text-6xl sm:text-8xl animate-wave mb-16 select-none" // Increased margin
+            style={{ marginTop: "-10rem" }} // Adjust vertically to avoid eye
+          >
             👋
           </div>
 
@@ -44,14 +47,14 @@ const Contact = () => {
                        text-transparent bg-clip-text 
                        bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]
                        bg-[length:200%_200%] animate-gradient-x"
-            style={{ lineHeight: "1.2", wordBreak: "break-word" }} // Prevent cutoff
+            style={{ lineHeight: "1.2", wordBreak: "break-word" }}
           >
             Thank You for Visiting
           </h1>
 
           <p
             className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-16 leading-relaxed"
-            style={{ lineHeight: "1.6", wordBreak: "break-word" }} // Ensure readability
+            style={{ lineHeight: "1.6", wordBreak: "break-word" }}
           >
             Have a project, challenge, or vision? Let’s build the future
             together.
@@ -64,8 +67,8 @@ const Contact = () => {
                 <p className="text-gray-400 text-lg mb-4">Email me directly</p>
                 <a
                   href="mailto:cathy@namzeforge.com"
-                  className="text-3xl sm:text-4xl font-bold text-[#fdba74] hover:text-white transition"
-                  style={{ wordBreak: "break-word" }} // Prevent cutoff
+                  className="text-2xl sm:text-3xl font-bold text-[#fdba74] hover:text-white transition" // Reduced font
+                  style={{ whiteSpace: "nowrap", wordBreak: "break-word" }} // Prevent wrapping
                 >
                   cathy@namzeforge.com
                 </a>
@@ -74,8 +77,8 @@ const Contact = () => {
                 <p className="text-gray-400 text-lg mb-4">Call or WhatsApp</p>
                 <a
                   href="tel:+14694634053"
-                  className="text-3xl sm:text-4xl font-bold text-[#fdba74] hover:text-white transition"
-                  style={{ wordBreak: "break-word" }} // Prevent cutoff
+                  className="text-2xl sm:text-3xl font-bold text-[#fdba74] hover:text-white transition"
+                  style={{ wordBreak: "break-word" }}
                 >
                   +1 (469) 463-4053
                 </a>
