@@ -51,7 +51,7 @@ const Thanks = () => {
         <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-10 border border-white/20 shadow-2xl max-w-2xl">
           <p className="text-gray-400 mb-6">In the meantime, follow the journey:</p>
           <div className="flex justify-center gap-8">
-            <a href="https://twitter.com/namzeforge" className="text-[#fdba74] hover:text-white text-2xl transition">
+            <a href="https://x.com/NamzeforgeHQ" className="text-[#fdba74] hover:text-white text-2xl transition">
               <i className="fab fa-twitter"></i>
             </a>
             <a href="https://linkedin.com/company/namzeforge" className="text-[#fdba74] hover:text-white text-2xl transition">

@@ -12,6 +12,8 @@ import SystemIntegration from './components/Services/SystemIntegration';
 import SaaS from './components/Services/SaaS';
 import Myportfolio from './components/MyPortfolio';
 import Success from './components/Success';
+import Thanks from "./components/Thanks"; // Import the Thanks component
+import ExploreAgriConnect from "./components/ExploreAgriConnect"; // Placeholder for future AgriConnect page
 const App = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -35,6 +37,8 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/portfolio" element={<Myportfolio />} />
             <Route path="/success" element={<Success />} />
+            <Route path="/thanks" element={<Thanks />} /> {/* Add Thanks route */}
+            <Route path="/explore-agriconnect" element={<ExploreAgriConnect />} /> {/* Add Explore AgriConnect route */}
           </Routes>
         </>
       )}
