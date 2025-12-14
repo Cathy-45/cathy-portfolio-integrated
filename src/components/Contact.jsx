@@ -37,7 +37,7 @@ const Contact = () => {
         <div className="text-center max-w-4xl mx-auto w-full">
           <div
             className="text-6xl sm:text-8xl animate-wave mb-16 select-none" // Increased margin
-            style={{ marginTop: "-10rem" }} // Adjust vertically to avoid eye
+            style={{ marginTop: "-30rem" }} // Adjust vertically to avoid eye
           >
             👋
           </div>
