@@ -198,15 +198,6 @@ const sendEmail = async ({ to, subject, text = "", html = "" }) => {
   return data;
 };
 
-// Optional: Add debug logging temporarily to confirm auth
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("SMTP Connection Error:", error);
-  } else {
-    console.log("SMTP Server is ready to take our messages");
-  }
-});
-
 // Validate Resend email config at startup
 if (!process.env.RESEND_API_KEY || !process.env.EMAIL_FROM) {
   console.error(
