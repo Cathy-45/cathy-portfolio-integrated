@@ -511,27 +511,66 @@ app.post("/api/consultations", async (req, res) => {
     ]);
     console.log("Insert result:", result);
 
-    // === CUSTOMER CONFIRMATION EMAIL ===
+        // === CUSTOMER CONFIRMATION EMAIL (Upgraded) ===
     try {
       await sendEmail({
         to: email,
-        subject: "Consultation Request Received 🚀",
-        text: `Dear ${name},\n\nThank you for your consultation request!\nDetails:\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\nMessage: ${message || "Not provided"}\n\nI will get back to you soon.\n\nBest regards,\nCathy\nNamzeforge Digital Solutions`,
-        html: `<p>Dear <strong>${name}</strong>,</p>
-               <p>Thank you for your consultation request!</p>
-               <hr>
-               <p><strong>Details:</strong><br>
-               Name: ${name}<br>
-               Email: ${email}<br>
-               Phone: ${phone || "Not provided"}<br>
-               Message: ${message || "Not provided"}</p>
-               <p>I will get back to you soon.</p>
-               <p>Best regards,<br><strong>Cathy</strong><br>Namzeforge Digital Solutions</p>`,
+        subject: "Your Consultation Request – Received & Confirmed 🚀",
+        text: `
+Dear ${name},
+
+Thank you for reaching out and taking the first step toward transforming your vision!
+
+We've received your consultation request and I'm personally reviewing it.
+
+Here are the details we received:
+• Name: ${name}
+• Email: ${email}
+• Phone: ${phone || "Not provided"}
+• Message: ${message || "Not provided"}
+
+I will contact you within the next 24 hours to schedule your session and discuss how Namzeforge can support your goals.
+
+Excited to connect soon!
+
+Best regards,  
+Cathy Sichone  
+CEO & Founder  
+Namzeforge Digital Solutions LLC  
+Made in Zambia, scaling Africa 🌍🚀
+        `.trim(),
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #333;">
+            <h2 style="color: #cbb293;">Your Consultation Request – Received & Confirmed 🚀</h2>
+            <p>Dear <strong>${name}</strong>,</p>
+            <p>Thank you for reaching out and taking the first step toward transforming your vision!</p>
+            <p>We've received your consultation request and I'm personally reviewing it.</p>
+            
+            <hr style="border: 1px solid #eee; margin: 20px 0;">
+            <p><strong>Your details:</strong></p>
+            <ul>
+              <li><strong>Name:</strong> ${name}</li>
+              <li><strong>Email:</strong> ${email}</li>
+              <li><strong>Phone:</strong> ${phone || "Not provided"}</li>
+              <li><strong>Message:</strong> ${message ? message.replace(/\n/g, "<br>") : "Not provided"}</li>
+            </ul>
+            <hr style="border: 1px solid #eee; margin: 20px 0;">
+            
+            <p>I will contact you <strong>within the next 24 hours</strong> to schedule your session and discuss how Namzeforge can support your goals.</p>
+            
+            <p>Excited to connect soon!</p>
+            
+            <p>Best regards,<br>
+            <strong>Cathy Sichone</strong><br>
+            CEO & Founder<br>
+            Namzeforge Digital Solutions LLC<br>
+            <em>Made in Zambia, scaling Africa 🌍🚀</em></p>
+          </div>
+        `.trim(),
       });
-      console.log("Customer confirmation email sent");
+      console.log("Customer confirmation email sent (upgraded)");
     } catch (emailErr) {
       console.error("Failed to send customer confirmation:", emailErr);
-      // Non-blocking — lead is already saved
     }
 
     // === ADMIN NOTIFICATION: New Free Consultation Request ===
