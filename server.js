@@ -3,7 +3,6 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const nodemailer = require("nodemailer");
 const mysql = require("mysql2/promise");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const url = require("url");
@@ -77,8 +76,8 @@ app.post(
               : "Unknown";
 
             const paidAdminMailOptions = {
-              from: process.env.EMAIL_USER,
-              to: process.env.EMAIL_USER,
+              from: process.env.EMAIL_FROM,
+              to: process.env.EMAIL_FROM, // inbox:
               subject: "💰 Paid Consultation – Revenue Secured",
               text: `
 PAID CONSULTATION COMPLETED
@@ -167,33 +166,37 @@ app.use(
 app.options("*", cors()); // Enable pre-flight
 
 // Email transporter - Google Workspace / Gmail SMTP (2025 compatible)
-const transporter = nodemailer.createTransport({
-  service: "gmail", // This auto-configures host/port/tls
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // Must be 16-char app password
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
-
-// Temporary test route - remove after fix confirmed
-app.get("/test-email", async (req, res) => {
-  try {
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: "🧪 SMTP Test Successful",
-      text: "If you receive this, Gmail SMTP is working perfectly. Empire emails are live. 🚀",
-    });
-    res.send("Test email sent! Check your inbox.");
-  } catch (err) {
-    res.status(500).send("Email failed: " + err.message);
+// Resend Email Function - Modern, reliable delivery
+const sendEmail = async ({ to, subject, text = "", html = "" }) => {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("RESEND_API_KEY not configured");
   }
-});
 
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+    },
+    body: JSON.stringify({
+      from: process.env.EMAIL_FROM,
+      to,
+      subject,
+      text,
+      html: html || text, // fallback to text if no html
+    }),
+  });
 
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    console.error("Resend API error:", errorData);
+    throw new Error(`Resend failed: ${errorData.message || res.statusText}`);
+  }
+
+  const data = await res.json();
+  console.log("Email sent via Resend:", data.id);
+  return data;
+};
 
 // Optional: Add debug logging temporarily to confirm auth
 transporter.verify((error, success) => {
@@ -204,13 +207,30 @@ transporter.verify((error, success) => {
   }
 });
 
-// Validate email config at startup
-if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+// Validate Resend email config at startup
+if (!process.env.RESEND_API_KEY || !process.env.EMAIL_FROM) {
   console.error(
-    "Email configuration missing: EMAIL_USER or EMAIL_PASS not set"
+    "Email configuration missing: RESEND_API_KEY or EMAIL_FROM not set in .env"
   );
   process.exit(1);
 }
+
+// Test Resend connection on startup (non-blocking)
+(async () => {
+  try {
+    await sendEmail({
+      to: process.env.EMAIL_FROM,
+      subject: "🚀 Namzeforge Server Started – Email System Live",
+      text: `Server successfully started on ${new Date().toLocaleString("en-GB", { timeZone: "Africa/Lusaka" })} (Zambia Time).\n\nResend email system is active and ready.\n\nEmpire online. Zambia rises. 🔥`,
+    });
+    console.log("Startup test email sent successfully via Resend");
+  } catch (err) {
+    console.error("Failed to send startup test email:", err.message);
+    // Don't exit — just warn
+  }
+})();
+
+
 
 // Database connection pool
 let pool;
@@ -428,8 +448,8 @@ A fresh lead just landed on the site. Empire expanding. Zambia rises. 🚀
 
       try {
         await transporter.sendMail({
-          from: process.env.EMAIL_USER,
-          to: process.env.EMAIL_USER,
+          from: process.env.EMAIL_FROM,
+          to: process.env.EMAIL_FROM, // inbox:
           subject: subject,
           text: text,
         });
@@ -513,7 +533,7 @@ app.post("/api/consultations", async (req, res) => {
     ]);
     console.log("Insert result:", result);
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: process.env.EMAIL_FROM,
       to: email,
       subject: "Consultation Request Received",
       text: `Dear ${name},\n\nThank you for your consultation request!\nDetails:\nName: ${name}\nEmail: ${email}\nPhone: ${
@@ -527,8 +547,8 @@ app.post("/api/consultations", async (req, res) => {
 
     // === ADMIN NOTIFICATION: New Free Consultation Request ===
     const adminMailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER, // Your inbox: cathy@namzeforge.com
+      from: process.env.EMAIL_FROM,
+      to: process.env.EMAIL_FROM, // Your inbox: cathy@namzeforge.com
       subject: "🔔 New Free Consultation Request",
       text: `
 NEW FREE CONSULTATION REQUEST
