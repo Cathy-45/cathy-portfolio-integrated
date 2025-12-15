@@ -166,18 +166,42 @@ app.use(
 );
 app.options("*", cors()); // Enable pre-flight
 
-// Email transporter
+// Email transporter - Google Workspace / Gmail SMTP (2025 compatible)
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+  service: "gmail", // This auto-configures host/port/tls
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    pass: process.env.EMAIL_PASS, // Must be 16-char app password
   },
   tls: {
     rejectUnauthorized: false,
   },
+});
+
+// Temporary test route - remove after fix confirmed
+app.get("/test-email", async (req, res) => {
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: "🧪 SMTP Test Successful",
+      text: "If you receive this, Gmail SMTP is working perfectly. Empire emails are live. 🚀",
+    });
+    res.send("Test email sent! Check your inbox.");
+  } catch (err) {
+    res.status(500).send("Email failed: " + err.message);
+  }
+});
+
+
+
+// Optional: Add debug logging temporarily to confirm auth
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("SMTP Connection Error:", error);
+  } else {
+    console.log("SMTP Server is ready to take our messages");
+  }
 });
 
 // Validate email config at startup
