@@ -2,6 +2,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from "../assets/background.jpg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import {
+  faXTwitter,
+  faLinkedinIn,
+} from '@fortawesome/free-brands-svg-icons';
+
+
 
 const Home = () => {
   return (
@@ -164,7 +172,7 @@ const Home = () => {
             </p>
           </div>
 
-          {/* FOOTER */}
+                    {/* FOOTER */}
           <footer className="w-full py-12 text-center mt-24">
             <p className="text-gray-500 text-sm">
               © 2025 Namzeforge Digital Solutions LLC
@@ -173,31 +181,49 @@ const Home = () => {
               AgriConnect. Powered by Namzeforge. Made in Zambia, scaling
               Africa.
             </p>
-            <div className="flex justify-center gap-8 mt-6">
+
+            {/* Social Icons - Font Awesome (matching your index.html style) */}
+            <div className="flex justify-center items-center gap-10 mt-8">
+              {/* X / Twitter */}
               <a
                 href="https://x.com/NamzeforgeHQ"
-                className="text-gray-400 hover:text-white transition"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+                aria-label="Follow Namzeforge on X"
+                title="X (Twitter)"
               >
-                Twitter
+                <FontAwesomeIcon icon={faXTwitter} className="text-xl" />
               </a>
+
+              {/* LinkedIn */}
               <a
                 href="https://www.linkedin.com/in/catherine-namonje-4ab353203/"
-                className="text-gray-400 hover:text-white transition"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+                aria-label="Catherine Namonje on LinkedIn"
+                title="LinkedIn"
               >
-                LinkedIn
+                <FontAwesomeIcon icon={faLinkedinIn} className="text-xl" />
               </a>
+
+              {/* Email */}
               <a
                 href="mailto:cathy@namzeforge.com"
-                className="text-gray-400 hover:text-white transition"
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+                aria-label="Email Namzeforge"
+                title="Email"
               >
-                Email
+                <FontAwesomeIcon icon={faEnvelope} className="text-xl" />
               </a>
             </div>
           </footer>
+  
         </div>
       </div>
     </section>
   );
-};
+}
 
 export default Home;
