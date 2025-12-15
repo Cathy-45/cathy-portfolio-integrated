@@ -68,18 +68,18 @@ app.post(
           );
           console.log("Updated consultation state:", updatedRows);
 
-          // === ADMIN NOTIFICATION: Paid Consultation Completed ===
+                    // === ADMIN NOTIFICATION: Paid Consultation Completed ===
           if (updatedRows && updatedRows.length > 0) {
             const consultation = updatedRows[0];
             const amountPaid = session.amount_total
               ? (session.amount_total / 100).toFixed(2)
               : "Unknown";
 
-            const paidAdminMailOptions = {
-              from: process.env.EMAIL_FROM,
-              to: process.env.EMAIL_FROM, // inbox:
-              subject: "💰 Paid Consultation – Revenue Secured",
-              text: `
+            try {
+              await sendEmail({
+                to: process.env.EMAIL_FROM,
+                subject: "💰 Paid Consultation – Revenue Secured",
+                text: `
 PAID CONSULTATION COMPLETED
 
 Name: ${consultation.name}
@@ -92,46 +92,32 @@ Session ID: ${session.id}
 Payment Intent: ${session.payment_intent || "N/A"}
 
 Submitted: ${new Date(consultation.created_at).toLocaleString("en-GB", {
-                timeZone: "Africa/Lusaka",
-              })} (Zambia Time)
+                  timeZone: "Africa/Lusaka",
+                })} (Zambia Time)
 
 Client has paid in full. Schedule their premium session immediately.
 
 Revenue flows. Empire strengthens. Zambia leads Africa. 🏆🚀
-              `.trim(),
-              html: `
-                <h2 style="color: #cbb293;">💰 Paid Consultation – Revenue Secured</h2>
-                <p><strong>Name:</strong> ${consultation.name}</p>
-                <p><strong>Email:</strong> <a href="mailto:${
-                  consultation.email
-                }">${consultation.email}</a></p>
-                <p><strong>Phone:</strong> ${
-                  consultation.phone || "Not provided"
-                }</p>
-                <p><strong>Amount Paid:</strong> $${amountPaid} USD</p>
-                <p><strong>Message:</strong><br>${(
-                  consultation.message || "No message provided"
-                ).replace(/\n/g, "<br>")}</p>
-                <hr>
-                <p><strong>Submitted:</strong> ${new Date(
-                  consultation.created_at
-                ).toLocaleString("en-GB", { timeZone: "Africa/Lusaka" })}</p>
-                <br>
-                <p style="font-style: italic;">
-                  Client has paid in full. Schedule their premium session immediately.<br>
-                  Revenue flows. Empire strengthens. Zambia leads Africa. 🏆🚀
-                </p>
-              `.trim(),
-            };
-
-            try {
-              await transporter.sendMail(paidAdminMailOptions);
+                `.trim(),
+                html: `
+                  <h2 style="color: #cbb293;">💰 Paid Consultation – Revenue Secured</h2>
+                  <p><strong>Name:</strong> ${consultation.name}</p>
+                  <p><strong>Email:</strong> <a href="mailto:${consultation.email}">${consultation.email}</a></p>
+                  <p><strong>Phone:</strong> ${consultation.phone || "Not provided"}</p>
+                  <p><strong>Amount Paid:</strong> $${amountPaid} USD</p>
+                  <p><strong>Message:</strong><br>${(consultation.message || "No message provided").replace(/\n/g, "<br>")}</p>
+                  <hr>
+                  <p><strong>Submitted:</strong> ${new Date(consultation.created_at).toLocaleString("en-GB", { timeZone: "Africa/Lusaka" })}</p>
+                  <br>
+                  <p style="font-style: italic;">
+                    Client has paid in full. Schedule their premium session immediately.<br>
+                    Revenue flows. Empire strengthens. Zambia leads Africa. 🏆🚀
+                  </p>
+                `.trim(),
+              });
               console.log("Admin notification sent: paid consultation");
             } catch (adminErr) {
-              console.error(
-                "Failed to send paid consultation admin email:",
-                adminErr
-              );
+              console.error("Failed to send paid consultation admin email:", adminErr);
               // Non-blocking – webhook must still succeed
             }
           }
@@ -503,6 +489,7 @@ app.get("/api/analytics", async (req, res) => {
 });
 
 // Consultation endpoint
+
 app.post("/api/consultations", async (req, res) => {
   const { name, email, phone, message } = req.body;
   console.log("Received data:", req.body);
@@ -519,29 +506,40 @@ app.post("/api/consultations", async (req, res) => {
     const [result] = await connection.execute(query, [
       name,
       email,
-      phone,
-      message,
+      phone || null, // Safe for optional fields
+      message || null,
     ]);
     console.log("Insert result:", result);
-    const mailOptions = {
-      from: process.env.EMAIL_FROM,
-      to: email,
-      subject: "Consultation Request Received",
-      text: `Dear ${name},\n\nThank you for your consultation request!\nDetails:\nName: ${name}\nEmail: ${email}\nPhone: ${
-        phone || "Not provided"
-      }\nMessage: ${
-        message || "Not provided"
-      }\n\nI will get back to you soon.\n\nBest regards,\nCathy`,
-    };
-    await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully");
+
+    // === CUSTOMER CONFIRMATION EMAIL ===
+    try {
+      await sendEmail({
+        to: email,
+        subject: "Consultation Request Received 🚀",
+        text: `Dear ${name},\n\nThank you for your consultation request!\nDetails:\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\nMessage: ${message || "Not provided"}\n\nI will get back to you soon.\n\nBest regards,\nCathy\nNamzeforge Digital Solutions`,
+        html: `<p>Dear <strong>${name}</strong>,</p>
+               <p>Thank you for your consultation request!</p>
+               <hr>
+               <p><strong>Details:</strong><br>
+               Name: ${name}<br>
+               Email: ${email}<br>
+               Phone: ${phone || "Not provided"}<br>
+               Message: ${message || "Not provided"}</p>
+               <p>I will get back to you soon.</p>
+               <p>Best regards,<br><strong>Cathy</strong><br>Namzeforge Digital Solutions</p>`,
+      });
+      console.log("Customer confirmation email sent");
+    } catch (emailErr) {
+      console.error("Failed to send customer confirmation:", emailErr);
+      // Non-blocking — lead is already saved
+    }
 
     // === ADMIN NOTIFICATION: New Free Consultation Request ===
-    const adminMailOptions = {
-      from: process.env.EMAIL_FROM,
-      to: process.env.EMAIL_FROM, // Your inbox: cathy@namzeforge.com
-      subject: "🔔 New Free Consultation Request",
-      text: `
+    try {
+      await sendEmail({
+        to: process.env.EMAIL_FROM,
+        subject: "🔔 New Free Consultation Request",
+        text: `
 NEW FREE CONSULTATION REQUEST
 
 Name: ${name}
@@ -550,35 +548,26 @@ Phone: ${phone || "Not provided"}
 Message: 
 ${message || "No message provided"}
 
-Submitted: ${new Date().toLocaleString("en-GB", {
-        timeZone: "Africa/Lusaka",
-      })} (Zambia Time)
+Submitted: ${new Date().toLocaleString("en-GB", { timeZone: "Africa/Lusaka" })} (Zambia Time)
 
 Action: Reach out promptly to convert this lead.
 The empire attracts visionaries. Zambia rises. 🚀
-      `.trim(),
-      html: `
-        <h2 style="color: #cbb293;">🔔 New Free Consultation Request</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-        <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
-        <p><strong>Message:</strong><br>${(
-          message || "No message provided"
-        ).replace(/\n/g, "<br>")}</p>
-        <hr>
-        <p><strong>Submitted:</strong> ${new Date().toLocaleString("en-GB", {
-          timeZone: "Africa/Lusaka",
-        })} (Zambia Time)</p>
-        <br>
-        <p style="font-style: italic;">
-          Action: Reach out promptly to nurture and convert.<br>
-          The empire attracts visionaries. Zambia rises. 🚀
-        </p>
-      `.trim(),
-    };
-
-    try {
-      await transporter.sendMail(adminMailOptions);
+        `.trim(),
+        html: `
+          <h2 style="color: #cbb293;">🔔 New Free Consultation Request</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+          <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
+          <p><strong>Message:</strong><br>${(message || "No message provided").replace(/\n/g, "<br>")}</p>
+          <hr>
+          <p><strong>Submitted:</strong> ${new Date().toLocaleString("en-GB", { timeZone: "Africa/Lusaka" })} (Zambia Time)</p>
+          <br>
+          <p style="font-style: italic;">
+            Action: Reach out promptly to nurture and convert.<br>
+            The empire attracts visionaries. Zambia rises. 🚀
+          </p>
+        `.trim(),
+      });
       console.log("Admin notification sent: free consultation");
     } catch (adminErr) {
       console.error("Failed to send free consultation admin email:", adminErr);
@@ -605,7 +594,6 @@ The empire attracts visionaries. Zambia rises. 🚀
     }
   }
 });
-
 // Payment endpoint
 app.post("/api/payments", async (req, res) => {
   const { name, email } = req.body;
