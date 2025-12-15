@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 const path = require("path");
 const express = require("express");
@@ -9,7 +8,6 @@ const mysql = require("mysql2/promise");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const url = require("url");
 const axios = require("axios");
-
 
 // Global uncaught exception handler
 process.on("unhandledRejection", (reason, promise) => {
@@ -34,7 +32,8 @@ app.post(
 
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
-      console.log("Webhook received: checkout.session.completed", { sessionId: session.id,
+      console.log("Webhook received: checkout.session.completed", {
+        sessionId: session.id,
       });
       const pool = await initializeDatabase();
       let connection;
@@ -46,6 +45,7 @@ app.post(
           [session.id]
         );
         console.log("Matching consultations before update:", rows);
+
         if (rows.length === 0) {
           const [insertResult] = await connection.execute(
             "INSERT INTO consultations (name, email, session_id, created_at) VALUES (?, ?, ?, NOW())",
@@ -62,11 +62,81 @@ app.post(
             [session.payment_intent, "paid", session.id]
           );
           console.log("Webhook database update result:", updateResult);
+
           const [updatedRows] = await connection.execute(
             "SELECT * FROM consultations WHERE session_id = ?",
             [session.id]
           );
           console.log("Updated consultation state:", updatedRows);
+
+          // === ADMIN NOTIFICATION: Paid Consultation Completed ===
+          if (updatedRows && updatedRows.length > 0) {
+            const consultation = updatedRows[0];
+            const amountPaid = session.amount_total
+              ? (session.amount_total / 100).toFixed(2)
+              : "Unknown";
+
+            const paidAdminMailOptions = {
+              from: process.env.EMAIL_USER,
+              to: process.env.EMAIL_USER,
+              subject: "💰 Paid Consultation – Revenue Secured",
+              text: `
+PAID CONSULTATION COMPLETED
+
+Name: ${consultation.name}
+Email: ${consultation.email}
+Phone: ${consultation.phone || "Not provided"}
+Message: ${consultation.message || "No message provided"}
+
+Amount Paid: $${amountPaid} USD
+Session ID: ${session.id}
+Payment Intent: ${session.payment_intent || "N/A"}
+
+Submitted: ${new Date(consultation.created_at).toLocaleString("en-GB", {
+                timeZone: "Africa/Lusaka",
+              })} (Zambia Time)
+
+Client has paid in full. Schedule their premium session immediately.
+
+Revenue flows. Empire strengthens. Zambia leads Africa. 🏆🚀
+              `.trim(),
+              html: `
+                <h2 style="color: #cbb293;">💰 Paid Consultation – Revenue Secured</h2>
+                <p><strong>Name:</strong> ${consultation.name}</p>
+                <p><strong>Email:</strong> <a href="mailto:${
+                  consultation.email
+                }">${consultation.email}</a></p>
+                <p><strong>Phone:</strong> ${
+                  consultation.phone || "Not provided"
+                }</p>
+                <p><strong>Amount Paid:</strong> $${amountPaid} USD</p>
+                <p><strong>Message:</strong><br>${(
+                  consultation.message || "No message provided"
+                ).replace(/\n/g, "<br>")}</p>
+                <hr>
+                <p><strong>Submitted:</strong> ${new Date(
+                  consultation.created_at
+                ).toLocaleString("en-GB", { timeZone: "Africa/Lusaka" })}</p>
+                <br>
+                <p style="font-style: italic;">
+                  Client has paid in full. Schedule their premium session immediately.<br>
+                  Revenue flows. Empire strengthens. Zambia leads Africa. 🏆🚀
+                </p>
+              `.trim(),
+            };
+
+            try {
+              await transporter.sendMail(paidAdminMailOptions);
+              console.log("Admin notification sent: paid consultation");
+            } catch (adminErr) {
+              console.error(
+                "Failed to send paid consultation admin email:",
+                adminErr
+              );
+              // Non-blocking – webhook must still succeed
+            }
+          }
+          // === END PAID ADMIN NOTIFICATION ===
         }
       } catch (err) {
         console.error("Webhook database error:", err);
@@ -98,7 +168,7 @@ app.options("*", cors()); // Enable pre-flight
 
 // Email transporter
 const transporter = nodemailer.createTransport({
-  host: "smtp.office365.com",
+  host: "smtp.gmail.com",
   port: 587,
   secure: false,
   auth: {
@@ -112,7 +182,9 @@ const transporter = nodemailer.createTransport({
 
 // Validate email config at startup
 if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-  console.error("Email configuration missing: EMAIL_USER or EMAIL_PASS not set");
+  console.error(
+    "Email configuration missing: EMAIL_USER or EMAIL_PASS not set"
+  );
   process.exit(1);
 }
 
@@ -130,11 +202,11 @@ async function initializeDatabase() {
     password: process.env.MYSQL_PASSWORD || "qMDhdbiwMxqvqkgycKcpvVAeXxpRzfDR",
     database: process.env.MYSQL_DATABASE || "railway",
     port: process.env.MYSQL_PORT ? parseInt(process.env.MYSQL_PORT) : 32327,
-    ssl: { rejectUnauthorized: false }, 
+    ssl: { rejectUnauthorized: false },
     waitForConnections: true,
     connectionLimit: 5,
     queueLimit: 0,
-    connectTimeout: 300000, 
+    connectTimeout: 300000,
   };
 
   if (process.env.MYSQL_URL) {
@@ -155,7 +227,7 @@ async function initializeDatabase() {
         ? parsedUrl.pathname.split("/")[1] || "railway"
         : "railway",
       port: parsedUrl.port ? parseInt(parsedUrl.port) : 32327,
-      ssl: { rejectUnauthorized: false }, 
+      ssl: { rejectUnauthorized: false },
       waitForConnections: true,
       connectionLimit: 5,
       queueLimit: 0,
@@ -201,7 +273,9 @@ async function initializeDatabase() {
           "SHOW COLUMNS FROM visits LIKE 'name'"
         );
         if (columns.length === 0) {
-          await connection.query("ALTER TABLE visits ADD COLUMN name VARCHAR(255)");
+          await connection.query(
+            "ALTER TABLE visits ADD COLUMN name VARCHAR(255)"
+          );
           console.log("Added name column to visits table");
         }
         console.log(
@@ -238,7 +312,7 @@ async function initializeDatabase() {
         );
         process.exit(1);
       }
-      await new Promise((resolve) => setTimeout(resolve, 5000)); 
+      await new Promise((resolve) => setTimeout(resolve, 5000));
     }
   }
   if (!pool) {
@@ -279,8 +353,7 @@ async function initializeDatabase() {
     }
   }
 })();
-
-// Visit tracking middleware
+// Visit tracking middleware - Only email on NEW visitors
 app.use(async (req, res, next) => {
   const ip =
     req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
@@ -299,31 +372,47 @@ app.use(async (req, res, next) => {
     if (req.body && req.body.name) {
       name = req.body.name;
     }
+
+    // Check if this IP has visited before
     const [existingVisits] = await connection.execute(
-      "SELECT visit_time, name FROM visits WHERE ip = ?",
+      "SELECT id FROM visits WHERE ip = ?",
       [ip]
     );
-    const isRevisit = existingVisits.length > 0;
+
+    const isNewVisitor = existingVisits.length === 0;
+
+    // Always log the visit (for future analytics if needed)
     await connection.execute(
       "INSERT INTO visits (ip, name, visit_time) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE visit_time = ?, name = ?",
       [ip, name, mysqlVisitTime, mysqlVisitTime, name]
     );
 
-    const subject = isRevisit ? "Revisit Detected" : "New Visitor";
-    const text = `${subject}\nIP: ${ip}\nName: ${name}\nTime: ${mysqlVisitTime}\nTotal visits for this IP: ${
-      existingVisits.length + 1
-    }`;
+    // ONLY send email if it's a BRAND NEW visitor
+    if (isNewVisitor) {
+      const subject = "🌟 New Visitor Detected";
+      const text = `
+NEW VISITOR ALERT
 
-    try {
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER,
-        subject: subject,
-        text: text,
-      });
-      console.log(`${subject.toLowerCase()} email sent`);
-    } catch (err) {
-      console.error("Visit email error:", err);
+IP: ${ip}
+Name: ${name || "Anonymous"}
+Time: ${new Date().toLocaleString("en-GB", {
+        timeZone: "Africa/Lusaka",
+      })} (Zambia Time)
+
+A fresh lead just landed on the site. Empire expanding. Zambia rises. 🚀
+      `;
+
+      try {
+        await transporter.sendMail({
+          from: process.env.EMAIL_USER,
+          to: process.env.EMAIL_USER,
+          subject: subject,
+          text: text,
+        });
+        console.log("New visitor email sent");
+      } catch (err) {
+        console.error("New visitor email error:", err);
+      }
     }
   } catch (err) {
     console.error("Visit tracking error:", err);
@@ -411,6 +500,57 @@ app.post("/api/consultations", async (req, res) => {
     };
     await transporter.sendMail(mailOptions);
     console.log("Email sent successfully");
+
+    // === ADMIN NOTIFICATION: New Free Consultation Request ===
+    const adminMailOptions = {
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER, // Your inbox: cathy@namzeforge.com
+      subject: "🔔 New Free Consultation Request",
+      text: `
+NEW FREE CONSULTATION REQUEST
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone || "Not provided"}
+Message: 
+${message || "No message provided"}
+
+Submitted: ${new Date().toLocaleString("en-GB", {
+        timeZone: "Africa/Lusaka",
+      })} (Zambia Time)
+
+Action: Reach out promptly to convert this lead.
+The empire attracts visionaries. Zambia rises. 🚀
+      `.trim(),
+      html: `
+        <h2 style="color: #cbb293;">🔔 New Free Consultation Request</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+        <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
+        <p><strong>Message:</strong><br>${(
+          message || "No message provided"
+        ).replace(/\n/g, "<br>")}</p>
+        <hr>
+        <p><strong>Submitted:</strong> ${new Date().toLocaleString("en-GB", {
+          timeZone: "Africa/Lusaka",
+        })} (Zambia Time)</p>
+        <br>
+        <p style="font-style: italic;">
+          Action: Reach out promptly to nurture and convert.<br>
+          The empire attracts visionaries. Zambia rises. 🚀
+        </p>
+      `.trim(),
+    };
+
+    try {
+      await transporter.sendMail(adminMailOptions);
+      console.log("Admin notification sent: free consultation");
+    } catch (adminErr) {
+      console.error("Failed to send free consultation admin email:", adminErr);
+      // Non-blocking — customer already confirmed
+    }
+    // === END ADMIN NOTIFICATION ===
+
     return res.status(201).json({
       message: "Consultation request submitted successfully",
       data: { id: result.insertId, name, email, phone, message },
@@ -453,9 +593,12 @@ app.post("/api/payments", async (req, res) => {
 
     let countryCode = "US";
     try {
-      const response = await axios.get(`https://ipapi.co/${clientIP}/country/`, {
-        timeout: 5000,
-      });
+      const response = await axios.get(
+        `https://ipapi.co/${clientIP}/country/`,
+        {
+          timeout: 5000,
+        }
+      );
       countryCode = response.data.toUpperCase();
       console.log("Detected country code:", countryCode);
     } catch (geoErr) {
@@ -512,7 +655,10 @@ app.post("/api/payments", async (req, res) => {
     console.log("Selected consultation:", { id, email });
 
     const updateQuery = "UPDATE consultations SET session_id = ? WHERE id = ?";
-    const [updateResult] = await connection.execute(updateQuery, [session.id, id]);
+    const [updateResult] = await connection.execute(updateQuery, [
+      session.id,
+      id,
+    ]);
     console.log("Database update result:", updateResult);
     if (updateResult.affectedRows === 0) {
       console.error("No rows updated for id:", id);
