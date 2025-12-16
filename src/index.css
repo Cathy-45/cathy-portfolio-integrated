@@ -145,12 +145,14 @@ body {
   }
 }
 nav a {
-  margin: 0 10px;
-  color: #3b5998; /* Facebook blue */
+  margin: 0 15px; /* Matches your index.html spacing */
+  color: white;   /* Now white by default */
   text-decoration: none;
+  transition: color 0.3s ease;
 }
+
 nav a:hover {
-  text-decoration: underline;
+  color: #cbb293; /* Gold hover for premium feel */
 }
 
 @keyframes gradient-x {
