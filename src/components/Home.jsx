@@ -133,14 +133,14 @@ const Home = () => {
 
                       <button
                         type="submit"
-                        className="bg-[#da6d20] hover:bg-[#c75a10] text-white font-bold py-4 px-10 rounded-2xl transition transform hover:scale-105 shadow-xl whitespace-nowrap"
+                        className="bg-[#da6d20] hover:bg-[#c75a10] text-[#c75a10] font-bold py-4 px-10 rounded-2xl transition transform hover:scale-105 shadow-xl whitespace-nowrap"
                       >
                         Join Beta
                       </button>
                     </form>
                   </div>
 
-                  <p className="text-gray-400 text-sm text-center mt-6 italic">
+                  <p className="text-gray-800 text-sm text-center mt-10 italic">
                     We respect your privacy • No spam, ever
                   </p>
 

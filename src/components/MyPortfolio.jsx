@@ -117,7 +117,7 @@ const MyPortfolio = () => {
 
           {/* EMPIRE SIGNATURE */}
           <p className="mt-32 text-gray-400 text-lg text-center">
-            AgriConnect. Powered by Namzeforge. Made in Zambia, scaling Africa.
+            AgriConnect. Powered by Namzeforge. Scaling Africa.
           </p>
         </div>
       </div>
