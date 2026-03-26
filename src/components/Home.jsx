@@ -216,10 +216,10 @@ const Home = () => {
           {/* FOOTER */}
           <footer className="w-full py-12 text-center mt-24">
             <p className="text-gray-500 text-sm">
-              © 2025 Namzeforge Digital Solutions LLC
+              © 2025 Namzeforge Digital Solutions Limited
             </p>
             <p className="text-gray-400 text-xs mt-2">
-              AgriConnect. Powered by Namzeforge. Made in Zambia, scaling
+              AgriConnect. Powered by Namzeforge.  Scaling
               Africa.
             </p>
 
