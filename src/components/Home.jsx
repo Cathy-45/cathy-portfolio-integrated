@@ -144,23 +144,30 @@ const Home = () => {
                     We respect your privacy • No spam, ever
                   </p>
 
-                  {/* Links to Checklists */}
-                  <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12 text-sm">
+                  {/* TRIPLED SIZE - HIGHLY VISIBLE TESTING CHECKLISTS */}
+                  <div className="flex flex-col sm:flex-row gap-6 justify-center mt-10">
                     <a
                       href="https://docs.google.com/document/d/1fQfkS53WPzJAI13gi0TmDZJEHlHJRqftBgQoGKMa30Y/edit?tab=t.0"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#da6d20] hover:text-orange-400 underline flex items-center gap-2"
+                      className="group flex items-center justify-center gap-4 px-12 py-8 bg-white/15 backdrop-blur-2xl border-2 border-white/40 rounded-3xl text-white font-bold text-2xl hover:bg-white/25 hover:border-[#da6d20] hover:shadow-[0_0_30px_rgba(218,109,32,0.6)] transition-all duration-300 active:scale-95"
                     >
                       📋 Buyer Testing Checklist
+                      <span className="text-[#da6d20] text-3xl group-hover:translate-x-2 transition-transform">
+                        →
+                      </span>
                     </a>
+
                     <a
                       href="https://docs.google.com/document/d/1lf2X4NZlMWc71Ij4hC8F6Z4Rjsl6OJn3M-5hTFqrvr4/edit?tab=t.0"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#da6d20] hover:text-orange-400 underline flex items-center gap-2"
+                      className="group flex items-center justify-center gap-4 px-12 py-8 bg-white/15 backdrop-blur-2xl border-2 border-white/40 rounded-3xl text-white font-bold text-2xl hover:bg-white/25 hover:border-[#da6d20] hover:shadow-[0_0_30px_rgba(218,109,32,0.6)] transition-all duration-300 active:scale-95"
                     >
                       📋 Farmer Testing Checklist
+                      <span className="text-[#da6d20] text-3xl group-hover:translate-x-2 transition-transform">
+                        →
+                      </span>
                     </a>
                   </div>
                 </div>
