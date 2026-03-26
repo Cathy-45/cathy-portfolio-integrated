@@ -1,4 +1,4 @@
-  import React from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const services = [
@@ -37,27 +37,28 @@ const services = [
 const Services = () => {
   return (
     <section className="min-h-screen relative overflow-hidden">
-      {/* SUNRISE GLOW + FLOATING BUBBLES — EXACTLY LIKE HOME */}
+      {/* BACKGROUND - EXACT MATCH TO HOME PAGE */}
       <div
         className="absolute inset-0"
         style={{
           background: "radial-gradient(circle at 50% 30%, #da6d20 0%, #0f172a 70%)",
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80" />
 
+      {/* FLOATING BUBBLES - SAME AS HOME */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(10)].map((_, i) => (
+        {[...Array(12)].map((_, i) => (
           <div
             key={i}
             className="absolute rounded-full bg-[#da6d20]/20 blur-3xl animate-float"
             style={{
-              width: `${120 + i * 60}px`,
-              height: `${120 + i * 60}px`,
-              top: `${5 + i * 11}%`,
-              left: `${5 + i * 11}%`,
-              animationDuration: `${8 + i * 2}s`,
-              animationDelay: `${i * 0.8}s`,
+              width: `${100 + i * 50}px`,
+              height: `${100 + i * 50}px`,
+              top: `${Math.random() * 80 + 10}%`,
+              left: `${Math.random() * 80 + 10}%`,
+              animationDuration: `${10 + i * 2}s`,
+              animationDelay: `-${i * 1.2}s`,
             }}
           />
         ))}
@@ -66,9 +67,9 @@ const Services = () => {
       {/* MAIN CONTENT */}
       <div className="relative z-10 min-h-screen flex flex-col justify-center px-6 py-24">
         <div className="text-center max-w-7xl mx-auto w-full">
-          {/* TITLE — SAME SIZES AS YOUR ORIGINAL */}
+          {/* TITLE - SAME GRADIENT & ANIMATION AS HOME */}
           <h2
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-12 md:mb-20 
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-16
                        text-transparent bg-clip-text 
                        bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]
                        bg-[length:200%_200%] animate-gradient-x"
@@ -76,41 +77,44 @@ const Services = () => {
             My Services
           </h2>
 
-          {/* 3D GLASS CARDS GRID — FULLY CLICKABLE WITH YOUR ORIGINAL PATHS */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-6xl mx-auto">
+          {/* GLASS CARDS - MATCHING HOME PAGE STYLE */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {services.map((service) => (
               <Link
                 key={service.id}
                 to={service.path}
-                className="group block backdrop-blur-xl bg-white/10 rounded-3xl p-10 border border-white/20
-                           shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/50
-                           transform hover:scale-105 hover:border-[#da6d20]/50
-                           transition-all duration-500 min-h-[20rem] sm:min-h-[22rem] flex-col justify-center"
+                className="group block backdrop-blur-2xl bg-white/10 border border-white/30 
+                           rounded-3xl p-10 shadow-2xl shadow-black/60 
+                           hover:bg-white/15 hover:border-[#da6d20]/60 hover:shadow-[0_0_40px_rgba(218,109,32,0.4)]
+                           transition-all duration-500 min-h-[22rem] flex flex-col justify-between relative overflow-hidden"
               >
-                {/* Gradient accent bar on hover */}
+                {/* HOVER GRADIENT OVERLAY */}
                 <div
-                  className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 
-                              bg-gradient-to-br ${service.bgColor} transition-opacity duration-500 -z-10`}
+                  className={`absolute inset-0 bg-gradient-to-br ${service.bgColor} opacity-0 
+                              group-hover:opacity-10 transition-opacity duration-500 -z-10`}
                 />
 
-                <h3 className="text-lg sm:text-xl font-semibold text-[#fdba74] mb-6 text-center">
-                  {service.name}
-                </h3>
-                <p className="text-gray-300 text-sm sm:text-base leading-relaxed text-center">
-                  {service.description}
-                </p>
+                <div>
+                  <h3 className="text-2xl font-bold text-white mb-6 text-center tracking-tight">
+                    {service.name}
+                  </h3>
+                  <p className="text-gray-200 text-base leading-relaxed text-center">
+                    {service.description}
+                  </p>
+                </div>
 
-                <div className="mt-8 text-center">
-                  <span className="text-[#fdba74] font-bold group-hover:text-white transition">
-                    Explore this service →
+                <div className="mt-10 text-center">
+                  <span className="inline-flex items-center gap-2 text-[#fdba74] font-semibold group-hover:text-white transition-colors">
+                    Explore this service 
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </span>
                 </div>
               </Link>
             ))}
           </div>
 
-          {/* EMPIRE SIGNATURE */}
-          <p className="mt-32 text-gray-400 text-lg text-center">
+          {/* SIGNATURE - MATCHING HOME FOOTER STYLE */}
+          <p className="mt-24 text-gray-400 text-lg tracking-wide">
             AgriConnect. Powered by Namzeforge. Made in Zambia, scaling Africa.
           </p>
         </div>
