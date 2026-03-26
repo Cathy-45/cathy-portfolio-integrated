@@ -219,8 +219,7 @@ const Home = () => {
               © 2025 Namzeforge Digital Solutions Limited
             </p>
             <p className="text-gray-400 text-xs mt-2">
-              AgriConnect. Powered by Namzeforge.  Scaling
-              Africa.
+              AgriConnect. Powered by Namzeforge.  Scaling Africa.
             </p>
 
             {/* Social Icons - Font Awesome (matching your index.html style) */}
