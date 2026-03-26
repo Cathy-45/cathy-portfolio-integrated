@@ -2,14 +2,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from "../assets/background.jpg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import {
-  faXTwitter,
-  faLinkedinIn,
-} from '@fortawesome/free-brands-svg-icons';
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faXTwitter, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 
 const Home = () => {
   return (
@@ -91,45 +86,84 @@ const Home = () => {
                 </p>
               </div>
 
-              {/* JOIN WAITLIST — ONLY ONE */}
-              <div className="mt-16">
-                <p className="text-gray-300 text-center mb-6 text-lg">
-                  Be the first to know when we launch
-                </p>
-                <form
-                  className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
-                  action="https://formsubmit.co/hello@namzeforge.com"
-                  method="POST"
-                >
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="your@email.com"
-                    required
-                    className="flex-1 px-6 py-4 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:border-[#da6d20] transition"
-                  />
-                  <input
-                    type="hidden"
-                    name="_subject"
-                    value="New AgriConnect Waitlist Signup!"
-                  />
-                  <input type="hidden" name="_captcha" value="false" />
-                  <input
-                    type="hidden"
-                    name="_next"
-                    value="https://namzeforge.com/thanks"
-                  />
+              {/* IMPROVED WAITLIST SECTION - WITH LIVE LINKS */}
+              <div className="my-16">
+                <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-10 sm:p-12 border border-white/20 shadow-2xl shadow-black/60 max-w-4xl mx-auto">
+                  <p className="text-gray-400 uppercase tracking-widest text-sm mb-4 text-center">
+                    Closed Beta Testing
+                  </p>
 
-                  <button
-                    type="submit"
-                    className="bg-[#da6d20] hover:bg-[#c75a10] text-white font-bold py-4 px-10 rounded-2xl transition transform hover:scale-105 shadow-xl"
-                  >
-                    Join Waitlist
-                  </button>
-                </form>
-                <p className="text-gray-400 text-sm sm:text-base text-center mt-6 italic">
-                  We respect your privacy • No spam, ever
-                </p>
+                  <h2 className="text-4xl sm:text-5xl font-black text-white text-center mb-6">
+                    Join AgriConnect Beta
+                  </h2>
+
+                  <p className="text-lg sm:text-xl text-gray-300 text-center mb-10 leading-relaxed max-w-2xl mx-auto">
+                    Be among the first Zambian farmers and buyers to test the
+                    platform.
+                    <br />
+                    Help shape the future of agricultural trade in Zambia.
+                  </p>
+
+                  {/* Email Waitlist Form */}
+                  <div className="max-w-md mx-auto">
+                    <form
+                      className="flex flex-col sm:flex-row gap-4"
+                      action="https://formsubmit.co/hello@namzeforge.com"
+                      method="POST"
+                    >
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="your@email.com"
+                        required
+                        className="flex-1 px-6 py-4 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:border-[#da6d20] transition"
+                      />
+
+                      <input
+                        type="hidden"
+                        name="_subject"
+                        value="New AgriConnect Beta Signup!"
+                      />
+                      <input type="hidden" name="_captcha" value="false" />
+                      <input
+                        type="hidden"
+                        name="_next"
+                        value="https://namzeforge.com/thanks"
+                      />
+
+                      <button
+                        type="submit"
+                        className="bg-[#da6d20] hover:bg-[#c75a10] text-white font-bold py-4 px-10 rounded-2xl transition transform hover:scale-105 shadow-xl whitespace-nowrap"
+                      >
+                        Join Beta
+                      </button>
+                    </form>
+                  </div>
+
+                  <p className="text-gray-400 text-sm text-center mt-6 italic">
+                    We respect your privacy • No spam, ever
+                  </p>
+
+                  {/* Links to Checklists */}
+                  <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12 text-sm">
+                    <a
+                      href="https://docs.google.com/document/d/1fQfkS53WPzJAI13gi0TmDZJEHlHJRqftBgQoGKMa30Y/edit?tab=t.0"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#da6d20] hover:text-orange-400 underline flex items-center gap-2"
+                    >
+                      📋 Buyer Testing Checklist
+                    </a>
+                    <a
+                      href="https://docs.google.com/document/d/1lf2X4NZlMWc71Ij4hC8F6Z4Rjsl6OJn3M-5hTFqrvr4/edit?tab=t.0"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#da6d20] hover:text-orange-400 underline flex items-center gap-2"
+                    >
+                      📋 Farmer Testing Checklist
+                    </a>
+                  </div>
+                </div>
               </div>
 
               {/* EXPLORE BUTTON */}
@@ -147,19 +181,19 @@ const Home = () => {
           </div>
 
           {/* FLOATING ORANGE PARTICLES — IDENTICAL TO HOME */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-3 h-3 bg-[#da6d20] rounded-full opacity-30 animate-float"
-            style={{
-              top: `${10 + i * 12}%`,
-              left: `${5 + i * 12}%`,
-              animationDelay: `${i * 0.8}s`,
-            }}
-          />
-        ))}
-      </div>
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-3 h-3 bg-[#da6d20] rounded-full opacity-30 animate-float"
+                style={{
+                  top: `${10 + i * 12}%`,
+                  left: `${5 + i * 12}%`,
+                  animationDelay: `${i * 0.8}s`,
+                }}
+              />
+            ))}
+          </div>
 
           {/* FOUNDER */}
           <div className="mt-24">
@@ -172,7 +206,7 @@ const Home = () => {
             </p>
           </div>
 
-                    {/* FOOTER */}
+          {/* FOOTER */}
           <footer className="w-full py-12 text-center mt-24">
             <p className="text-gray-500 text-sm">
               © 2025 Namzeforge Digital Solutions LLC
@@ -219,11 +253,10 @@ const Home = () => {
               </a>
             </div>
           </footer>
-  
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default Home;
