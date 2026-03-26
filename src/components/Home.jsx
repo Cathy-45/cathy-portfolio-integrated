@@ -116,7 +116,7 @@ const Home = () => {
                         name="email"
                         placeholder="your@email.com"
                         required
-                        className="flex-1 px-6 py-4 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:border-[#da6d20] transition"
+                        className="flex-1 px-6 py-4 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-[#c75a10] placeholder-gray-400 focus:outline-none focus:border-[#da6d20] transition"
                       />
 
                       <input
