@@ -115,7 +115,7 @@ const Services = () => {
 
           {/* SIGNATURE - MATCHING HOME FOOTER STYLE */}
           <p className="mt-24 text-gray-400 text-lg tracking-wide">
-            AgriConnect. Powered by Namzeforge. Made in Zambia, scaling Africa.
+            AgriConnect. Powered by Namzeforge. Scaling Africa.
           </p>
         </div>
       </div>
