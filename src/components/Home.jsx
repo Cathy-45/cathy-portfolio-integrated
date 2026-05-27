@@ -17,131 +17,136 @@ const Home = () => {
         backgroundSize: "cover",
       }}
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70 md:from-black/60 md:via-black/40 md:to-black/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
 
-      {/* Main Content */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-12">
         <div className="w-full max-w-6xl text-center">
-
-          {/* NAMZEFORGE TITLE */}
-          <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20] bg-[length:200%_200%] animate-gradient-x">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]">
             NAMZEFORGE
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-300 mb-4">Digital Solutions</p>
+          <p className="text-lg sm:text-xl text-gray-300 mb-4">
+            Digital Solutions
+          </p>
 
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 px-4 leading-relaxed">
-            We build beautiful, scalable technology that solves real African problems.
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-12 px-4 leading-relaxed">
+            We build beautiful, scalable technology that solves real African
+            problems.
           </p>
 
           {/* ==================== AGRICONNECT SECTION ==================== */}
           <div className="my-16">
-            <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-10 sm:p-12 border border-white/20 shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 transition-all duration-700 max-w-4xl mx-auto">
-              
+            <div className="backdrop-blur-2xl bg-white/10 rounded-3xl p-8 sm:p-12 border border-white/30 shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 transition-all duration-700 max-w-4xl mx-auto">
               <p className="text-gray-400 uppercase tracking-widest text-sm mb-6 text-center">
                 Flagship Product
               </p>
 
-              <h2 className="text-4xl sm:text-5xl font-black text-white text-center mb-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white text-center mb-4">
                 AgriConnect
               </h2>
 
-              <p className="text-lg sm:text-xl text-gray-300 mb-10 leading-relaxed text-center">
-                Connecting Zambian farmers directly to buyers for livestock, fresh & dry produce.
+              <p className="text-base sm:text-lg text-gray-300 mb-10 leading-relaxed text-center">
+                Connecting Zambian farmers directly to buyers for livestock,
+                fresh & dry produce.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
                 <div className="bg-white/10 rounded-2xl p-6 text-center">
-                  <p className="text-[#fdba74] font-bold text-xl">📱 Easy Listing</p>
-                  <p className="text-gray-300 mt-2">In under 60 seconds</p>
+                  <span className="text-5xl mb-3 block">📱</span>
+                  <p className="text-[#fdba74] font-bold">Easy Listing</p>
+                  <p className="text-gray-300 text-sm mt-1">Under 60 seconds</p>
                 </div>
                 <div className="bg-white/10 rounded-2xl p-6 text-center">
-                  <p className="text-[#fdba74] font-bold text-xl">💰 Instant Payments</p>
-                  <p className="text-gray-300 mt-2">Via PawaPay (Airtel & MTN)</p>
+                  <span className="text-5xl mb-3 block">💰</span>
+                  <p className="text-[#fdba74] font-bold">Instant Payments</p>
+                  <p className="text-gray-300 text-sm mt-1">
+                    Via PawaPay (Airtel & MTN)
+                  </p>
                 </div>
                 <div className="bg-white/10 rounded-2xl p-6 text-center">
-                  <p className="text-[#fdba74] font-bold text-xl">📊 Smart Tools</p>
-                  <p className="text-gray-300 mt-2">Tax calculator + AI insights</p>
+                  <span className="text-5xl mb-3 block">📊</span>
+                  <p className="text-[#fdba74] font-bold">Smart Tools</p>
+                  <p className="text-gray-300 text-sm mt-1">
+                    Tax calculator + AI insights
+                  </p>
                 </div>
               </div>
 
               <div className="my-10 text-center">
                 <div className="inline-flex items-center gap-3 px-8 py-5 bg-gradient-to-r from-[#da6d20] to-[#fd923c] rounded-full shadow-2xl shadow-orange-900/60 border border-white/40 mx-auto">
-                  <span className="text-white font-black text-2xl tracking-wider">LAUNCHING 2026</span>
+                  <span className="text-white font-black text-xl">
+                    LAUNCHING 2026
+                  </span>
                   <span className="text-4xl animate-bounce">🚀</span>
                 </div>
-                <p className="text-gray-300 mt-6 text-lg">
+                <p className="text-gray-300 mt-6 text-base">
                   Currently in closed beta with 2,000+ Zambian farmers
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                <Link
-                  to="/agriconnect"
-                  className="bg-white text-[#0b3d2e] font-bold text-xl py-5 px-12 rounded-2xl hover:bg-gray-100 transition"
-                >
-                  Explore AgriConnect
-                </Link>
+              {/* Beta Signup */}
+              <div className="my-12">
+                <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-8 border border-white/20">
+                  <p className="text-gray-400 uppercase tracking-widest text-sm mb-4 text-center">
+                    Closed Beta Testing
+                  </p>
+                  <h3 className="text-2xl font-bold text-white text-center mb-6">
+                    Join AgriConnect Beta
+                  </h3>
 
+                  <form
+                    className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+                    action="https://formsubmit.co/hello@namzeforge.com"
+                    method="POST"
+                  >
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="your@email.com"
+                      required
+                      className="flex-1 px-6 py-4 rounded-2xl bg-white/20 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:border-[#da6d20]"
+                    />
+                    <button
+                      type="submit"
+                      className="bg-[#da6d20] hover:bg-[#c75a10] text-white font-bold py-4 px-10 rounded-2xl transition"
+                    >
+                      Join Beta
+                    </button>
+                  </form>
+
+                  <p className="text-xs text-gray-400 text-center mt-6">
+                    We respect your privacy • No spam, ever
+                  </p>
+                </div>
+              </div>
+
+              {/* Role Designated Checklists */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="#join-beta"
-                  className="bg-[#da6d20] hover:bg-[#c75a10] text-white font-bold text-xl py-5 px-12 rounded-2xl transition"
+                  href="https://docs.google.com/document/d/1fQfkS53WPzJAI13gi0TmDZJEHlHJRqftBgQoGKMa30Y/edit?tab=t.0"
+                  target="_blank"
+                  className="text-center text-white hover:text-[#fdba74] transition text-lg"
                 >
-                  Join Beta Now
+                  📋 Buyer Testing Checklist
+                </a>
+                <a
+                  href="https://docs.google.com/document/d/1lf2X4NZlMWc71Ij4hC8F6Z4Rjsl6OJn3M-5hTFqrvr4/edit?tab=t.0"
+                  target="_blank"
+                  className="text-center text-white hover:text-[#fdba74] transition text-lg"
+                >
+                  📋 Farmer Testing Checklist
                 </a>
               </div>
             </div>
           </div>
           {/* ==================== END AGRICONNECT SECTION ==================== */}
 
-          {/* FLOATING PARTICLES */}
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(8)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-3 h-3 bg-[#da6d20] rounded-full opacity-30 animate-float"
-                style={{
-                  top: `${10 + i * 12}%`,
-                  left: `${5 + i * 12}%`,
-                  animationDelay: `${i * 0.8}s`,
-                }}
-              />
-            ))}
-          </div>
-
-          {/* FOUNDER */}
-          <div className="mt-24">
-            <p className="text-gray-400 text-lg">Founded & led by</p>
-            <p className="text-4xl sm:text-5xl font-bold text-[#fdba74] mt-3">
+          {/* Founder */}
+          <div className="mt-20">
+            <p className="text-gray-400">Founded & led by</p>
+            <p className="text-3xl font-bold text-[#fdba74] mt-2">
               Catherine Sichone
             </p>
-            <p className="text-gray-400 mt-2 text-lg">
-              Software Engineer • Builder • Visionary
-            </p>
           </div>
-
-          {/* FOOTER */}
-          <footer className="w-full py-12 text-center mt-24">
-            <p className="text-gray-500 text-sm">
-              © 2025 Namzeforge Digital Solutions Limited
-            </p>
-            <p className="text-gray-400 text-xs mt-2">
-              AgriConnect. Powered by Namzeforge. Scaling Africa.
-            </p>
-
-            <div className="flex justify-center items-center gap-10 mt-8">
-              <a href="https://x.com/NamzeforgeHQ" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors duration-300">
-                <FontAwesomeIcon icon={faXTwitter} className="text-xl" />
-              </a>
-              <a href="https://www.linkedin.com/in/catherine-namonje-4ab353203/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors duration-300">
-                <FontAwesomeIcon icon={faLinkedinIn} className="text-xl" />
-              </a>
-              <a href="mailto:cathy@namzeforge.com" className="text-gray-400 hover:text-white transition-colors duration-300">
-                <FontAwesomeIcon icon={faEnvelope} className="text-xl" />
-              </a>
-            </div>
-          </footer>
-
         </div>
       </div>
     </section>
