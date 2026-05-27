@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import logo from '../assets/logo2.png'; 
+import logo from '../assets/logo.png'; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,7 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <nav className="navbar bg-[#1a1a1a] text-white p-4 sm:p-6 shadow-lg sticky top-0 z-40">
+    <nav className="navbar bg-[#272020] text-white p-4 sm:p-6 shadow-lg sticky top-0 z-40">
       <div className="container mx-auto flex justify-between items-center">
         <NavLink to="/" className="flex items-center">
           <img

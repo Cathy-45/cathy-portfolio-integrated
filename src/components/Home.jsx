@@ -21,21 +21,20 @@ const Home = () => {
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-12">
         <div className="w-full max-w-6xl text-center">
+
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]">
             NAMZEFORGE
           </h1>
-          <p className="text-lg sm:text-xl text-gray-300 mb-4">
-            Digital Solutions
-          </p>
+          <p className="text-lg sm:text-xl text-gray-300 mb-4">Digital Solutions</p>
 
           <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-12 px-4 leading-relaxed">
-            We build beautiful, scalable technology that solves real African
-            problems.
+            We build beautiful, scalable technology that solves real African problems.
           </p>
 
           {/* ==================== AGRICONNECT SECTION ==================== */}
           <div className="my-16">
             <div className="backdrop-blur-2xl bg-white/10 rounded-3xl p-8 sm:p-12 border border-white/30 shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 transition-all duration-700 max-w-4xl mx-auto">
+              
               <p className="text-gray-400 uppercase tracking-widest text-sm mb-6 text-center">
                 Flagship Product
               </p>
@@ -45,8 +44,7 @@ const Home = () => {
               </h2>
 
               <p className="text-base sm:text-lg text-gray-300 mb-10 leading-relaxed text-center">
-                Connecting Zambian farmers directly to buyers for livestock,
-                fresh & dry produce.
+                Connecting Zambian farmers directly to buyers for livestock, fresh & dry produce.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
@@ -58,24 +56,18 @@ const Home = () => {
                 <div className="bg-white/10 rounded-2xl p-6 text-center">
                   <span className="text-5xl mb-3 block">💰</span>
                   <p className="text-[#fdba74] font-bold">Instant Payments</p>
-                  <p className="text-gray-300 text-sm mt-1">
-                    Via PawaPay (Airtel & MTN)
-                  </p>
+                  <p className="text-gray-300 text-sm mt-1">Via PawaPay (Airtel & MTN)</p>
                 </div>
                 <div className="bg-white/10 rounded-2xl p-6 text-center">
                   <span className="text-5xl mb-3 block">📊</span>
                   <p className="text-[#fdba74] font-bold">Smart Tools</p>
-                  <p className="text-gray-300 text-sm mt-1">
-                    Tax calculator + AI insights
-                  </p>
+                  <p className="text-gray-300 text-sm mt-1">Tax calculator + AI insights</p>
                 </div>
               </div>
 
               <div className="my-10 text-center">
                 <div className="inline-flex items-center gap-3 px-8 py-5 bg-gradient-to-r from-[#da6d20] to-[#fd923c] rounded-full shadow-2xl shadow-orange-900/60 border border-white/40 mx-auto">
-                  <span className="text-white font-black text-xl">
-                    LAUNCHING 2026
-                  </span>
+                  <span className="text-white font-black text-xl">LAUNCHING 2026</span>
                   <span className="text-4xl animate-bounce">🚀</span>
                 </div>
                 <p className="text-gray-300 mt-6 text-base">
@@ -83,21 +75,15 @@ const Home = () => {
                 </p>
               </div>
 
-              {/* Beta Signup */}
+              {/* Beta Signup Form */}
               <div className="my-12">
                 <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-8 border border-white/20">
                   <p className="text-gray-400 uppercase tracking-widest text-sm mb-4 text-center">
                     Closed Beta Testing
                   </p>
-                  <h3 className="text-2xl font-bold text-white text-center mb-6">
-                    Join AgriConnect Beta
-                  </h3>
+                  <h3 className="text-2xl font-bold text-white text-center mb-6">Join AgriConnect Beta</h3>
 
-                  <form
-                    className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
-                    action="https://formsubmit.co/hello@namzeforge.com"
-                    method="POST"
-                  >
+                  <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" action="https://formsubmit.co/hello@namzeforge.com" method="POST">
                     <input
                       type="email"
                       name="email"
@@ -113,26 +99,16 @@ const Home = () => {
                     </button>
                   </form>
 
-                  <p className="text-xs text-gray-400 text-center mt-6">
-                    We respect your privacy • No spam, ever
-                  </p>
+                  <p className="text-xs text-gray-400 text-center mt-6">We respect your privacy • No spam, ever</p>
                 </div>
               </div>
 
               {/* Role Designated Checklists */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="https://docs.google.com/document/d/1fQfkS53WPzJAI13gi0TmDZJEHlHJRqftBgQoGKMa30Y/edit?tab=t.0"
-                  target="_blank"
-                  className="text-center text-white hover:text-[#fdba74] transition text-lg"
-                >
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="https://docs.google.com/document/d/1fQfkS53WPzJAI13gi0TmDZJEHlHJRqftBgQoGKMa30Y/edit?tab=t.0" target="_blank" className="text-center text-white hover:text-[#fdba74] transition text-lg">
                   📋 Buyer Testing Checklist
                 </a>
-                <a
-                  href="https://docs.google.com/document/d/1lf2X4NZlMWc71Ij4hC8F6Z4Rjsl6OJn3M-5hTFqrvr4/edit?tab=t.0"
-                  target="_blank"
-                  className="text-center text-white hover:text-[#fdba74] transition text-lg"
-                >
+                <a href="https://docs.google.com/document/d/1lf2X4NZlMWc71Ij4hC8F6Z4Rjsl6OJn3M-5hTFqrvr4/edit?tab=t.0" target="_blank" className="text-center text-white hover:text-[#fdba74] transition text-lg">
                   📋 Farmer Testing Checklist
                 </a>
               </div>
@@ -140,13 +116,75 @@ const Home = () => {
           </div>
           {/* ==================== END AGRICONNECT SECTION ==================== */}
 
-          {/* Founder */}
-          <div className="mt-20">
-            <p className="text-gray-400">Founded & led by</p>
-            <p className="text-3xl font-bold text-[#fdba74] mt-2">
+          {/* FLOATING PARTICLES */}
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-3 h-3 bg-[#da6d20] rounded-full opacity-30 animate-float"
+                style={{
+                  top: `${10 + i * 12}%`,
+                  left: `${5 + i * 12}%`,
+                  animationDelay: `${i * 0.8}s`,
+                }}
+              />
+            ))}
+          </div>
+
+          {/* FOUNDER */}
+          <div className="mt-24">
+            <p className="text-gray-400 text-lg">Founded & led by</p>
+            <p className="text-4xl sm:text-5xl font-bold text-[#fdba74] mt-3">
               Catherine Sichone
             </p>
+            <p className="text-gray-400 mt-2 text-lg">
+              Software Engineer • Builder • Visionary
+            </p>
           </div>
+
+          {/* ORIGINAL FOOTER WITH SOCIAL LINKS */}
+          <footer className="w-full py-12 text-center mt-24">
+            <p className="text-gray-500 text-sm">
+              © 2025 Namzeforge Digital Solutions Limited
+            </p>
+            <p className="text-gray-400 text-xs mt-2">
+              AgriConnect. Powered by Namzeforge. Scaling Africa.
+            </p>
+
+            <div className="flex justify-center items-center gap-10 mt-8">
+              <a
+                href="https://x.com/NamzeforgeHQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+                aria-label="Follow Namzeforge on X"
+                title="X (Twitter)"
+              >
+                <FontAwesomeIcon icon={faXTwitter} className="text-xl" />
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/catherine-namonje-4ab353203/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+                aria-label="Catherine Namonje on LinkedIn"
+                title="LinkedIn"
+              >
+                <FontAwesomeIcon icon={faLinkedinIn} className="text-xl" />
+              </a>
+
+              <a
+                href="mailto:cathy@namzeforge.com"
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+                aria-label="Email Namzeforge"
+                title="Email"
+              >
+                <FontAwesomeIcon icon={faEnvelope} className="text-xl" />
+              </a>
+            </div>
+          </footer>
+
         </div>
       </div>
     </section>
