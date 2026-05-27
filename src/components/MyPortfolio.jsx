@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import backgroundImage from "../assets/background.jpg";
 import treeTopBnBImage from "../assets/treeTopBnB.jpg";
 import birthdayPagesImage from "../assets/Birthday-Pages.jpg";
 import cathyPortfolioImage from "../assets/Intro.jpg";
@@ -10,7 +11,7 @@ const MyPortfolio = () => {
       id: 1,
       name: "AgriConnect Zambia",
       description: "Farmer-to-buyer marketplace connecting smallholder farmers directly to buyers. Features easy listing, instant PawaPay payments, ZRA tax calculator, and AI market insights. Currently in closed beta.",
-      image: "https://via.placeholder.com/800x600/0f4c3a/ffffff?text=AgriConnect+Zambia", // Replace with real screenshot later
+      image: "https://via.placeholder.com/800x600/0f4c3a/ffffff?text=AgriConnect+Zambia",
       path: "https://namzeforge.com",
       highlight: true,
     },
@@ -38,8 +39,16 @@ const MyPortfolio = () => {
   ];
 
   return (
-    <section className="min-h-screen relative overflow-hidden">
-      {/* Matching Home Page Background */}
+    <section
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundAttachment: "fixed",
+        backgroundPosition: "center 20%",
+        backgroundSize: "cover",
+      }}
+    >
+      {/* Matching Home Page Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
 
       <div className="relative z-10 min-h-screen flex flex-col justify-center px-6 py-24">
