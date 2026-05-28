@@ -12,7 +12,7 @@ const MyPortfolio = () => {
       id: 1,
       name: "AgriConnect Zambia",
       description:
-        "Farmer-to-buyer marketplace connecting smallholder farmers directly to buyers across Zambia. Features easy listing, instant PawaPay payments, ZRA tax calculator, AI market insights, and real-time challenges. Currently in closed beta with 2,000+ active farmers.",
+        "Direct farmer-to-buyer platform connecting smallholder farmers to buyers with instant PawaPay payments, ZRA tax tools, and AI market insights. Currently in closed beta.",
       image:
         agriconnectHomeImage,
       path: "https://github.com/Cathy-45/AgriConnect-Zambia-Frontend",
