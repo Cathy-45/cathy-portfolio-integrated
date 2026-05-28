@@ -10,29 +10,34 @@ const MyPortfolio = () => {
     {
       id: 1,
       name: "AgriConnect Zambia",
-      description: "Farmer-to-buyer marketplace connecting smallholder farmers directly to buyers. Features easy listing, instant PawaPay payments, ZRA tax calculator, and AI market insights. Currently in closed beta.",
-      image: "https://via.placeholder.com/800x600/0f4c3a/ffffff?text=AgriConnect+Zambia",
-      path: "https://namzeforge.com",
+      description:
+        "Farmer-to-buyer marketplace connecting smallholder farmers directly to buyers across Zambia. Features easy listing, instant PawaPay payments, ZRA tax calculator, AI market insights, and real-time challenges. Currently in closed beta with 2,000+ active farmers.",
+      image:
+        "https://raw.githubusercontent.com/Cathy-45/AgriConnect-Zambia-Frontend/main/assets/screenshots/home.png",
+      path: "https://github.com/Cathy-45/AgriConnect-Zambia-Frontend",
       highlight: true,
     },
     {
       id: 2,
       name: "treeTopBnB",
-      description: "AirBnB-inspired platform with full user authentication, booking system, and responsive design",
+      description:
+        "AirBnB-inspired platform with full user authentication, booking system, and responsive design",
       image: treeTopBnBImage,
       path: "https://github.com/Cathy-45/treeTopBnB",
     },
     {
       id: 3,
       name: "Birthday-Pages",
-      description: "Interactive birthday celebration site with confetti explosions, music, and personalized animations",
+      description:
+        "Interactive birthday celebration site with confetti explosions, music, and personalized animations",
       image: birthdayPagesImage,
       path: "https://github.com/Cathy-45/Birthday-Pages",
     },
     {
       id: 4,
       name: "cathy-portfolio",
-      description: "The very first version of this empire — my personal portfolio journey begins here",
+      description:
+        "The very first version of this empire — my personal portfolio journey begins here",
       image: cathyPortfolioImage,
       path: "https://github.com/Cathy-45/cathy-portfolio-integrated",
     },
@@ -53,18 +58,22 @@ const MyPortfolio = () => {
 
       <div className="relative z-10 min-h-screen flex flex-col justify-center px-6 py-24">
         <div className="text-center max-w-7xl mx-auto w-full">
-          
-          <div className="text-6xl sm:text-8xl animate-wave mb-8 select-none">👨‍💻</div>
+          <div className="text-6xl sm:text-8xl animate-wave mb-8 select-none">
+            👨‍💻
+          </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-12
+          <h1
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-12
                          text-transparent bg-clip-text 
                          bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]
-                         bg-[length:200%_200%] animate-gradient-x">
+                         bg-[length:200%_200%] animate-gradient-x"
+          >
             Early Projects
           </h1>
 
           <p className="text-xl sm:text-2xl text-gray-300 mb-16 max-w-3xl mx-auto">
-            Where the empire began. These projects laid the foundation for Namzeforge.
+            Where the empire began. These projects laid the foundation for
+            Namzeforge.
           </p>
 
           {/* Glassmorphism Project Cards */}
@@ -77,7 +86,7 @@ const MyPortfolio = () => {
                 rel="noopener noreferrer"
                 className={`group block backdrop-blur-2xl bg-white/10 rounded-3xl overflow-hidden border border-white/30
                            shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 hover:-translate-y-2 
-                           transition-all duration-500 ${project.highlight ? 'ring-2 ring-[#fdba74] scale-105' : ''}`}
+                           transition-all duration-500 ${project.highlight ? "ring-2 ring-[#fdba74] scale-105" : ""}`}
               >
                 <div className="relative h-64 overflow-hidden">
                   <img
