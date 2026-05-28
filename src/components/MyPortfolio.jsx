@@ -4,6 +4,7 @@ import backgroundImage from "../assets/background.jpg";
 import treeTopBnBImage from "../assets/treeTopBnB.jpg";
 import birthdayPagesImage from "../assets/Birthday-Pages.jpg";
 import cathyPortfolioImage from "../assets/Intro.jpg";
+import agriconnectHomeImage from "../assets/agriconnect-home.png";
 
 const MyPortfolio = () => {
   const projects = [
@@ -13,7 +14,7 @@ const MyPortfolio = () => {
       description:
         "Farmer-to-buyer marketplace connecting smallholder farmers directly to buyers across Zambia. Features easy listing, instant PawaPay payments, ZRA tax calculator, AI market insights, and real-time challenges. Currently in closed beta with 2,000+ active farmers.",
       image:
-        "https://raw.githubusercontent.com/Cathy-45/AgriConnect-Zambia-Frontend/main/assets/screenshots/home.png",
+        agriconnectHomeImage,
       path: "https://github.com/Cathy-45/AgriConnect-Zambia-Frontend",
       highlight: true,
     },
