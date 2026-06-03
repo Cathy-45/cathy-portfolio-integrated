@@ -45,9 +45,9 @@ const Home = () => {
               </h2>
 
               <p className="text-base sm:text-lg text-gray-300 mb-10 leading-relaxed text-center">
-                Bridging Fields and Markets — connecting Zambian farmers
+                Bridging Fields and Markets — Connecting Zambian Farmers
                 directly to serious buyers for livestock, fresh produce, and dry
-                goods.
+                Produce.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
@@ -137,7 +137,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          {/* ==================== END AGRICONNECT SECTION ==================== */}
+          {/* ==================== END FARMLINK SECTION ==================== */}
 
           {/* FLOATING PARTICLES */}
           <div className="absolute inset-0 pointer-events-none">
