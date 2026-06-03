@@ -1,7 +1,7 @@
 import React from "react";
-import backgroundImage from "../assets/background.jpg"; // Ensure path matches
+import backgroundImage from "../assets/background.jpg";
 
-const ExploreAgriConnect = () => {
+const ExploreFarmLink = () => {
   return (
     <section
       className="min-h-screen relative overflow-hidden"
@@ -14,6 +14,8 @@ const ExploreAgriConnect = () => {
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
+
+      {/* Floating Particles */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(8)].map((_, i) => (
           <div
@@ -27,13 +29,17 @@ const ExploreAgriConnect = () => {
           />
         ))}
       </div>
+
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-24 text-center">
         <h1 className="text-6xl sm:text-7xl md:text-8xl font-black text-[#fdba74] mb-8">
-          Explore AgriConnect
+          Explore FarmLink
         </h1>
+        
         <p className="text-2xl sm:text-3xl text-gray-300 mb-12 max-w-2xl">
-          Coming soon: Discover how AgriConnect will connect Zambian farmers to buyers with same-day offers and payments. Launching 2026. Stay tuned!
+          Coming soon: Zambia’s Smart Farming Platform.<br />
+          Bridging Fields and Markets — connecting farmers directly to buyers.
         </p>
+
         <a
           href="/consultation"
           className="bg-[#da6d20] hover:bg-[#c75a10] text-white font-bold py-4 px-10 rounded-2xl transition transform hover:scale-105 shadow-xl"
@@ -45,4 +51,4 @@ const ExploreAgriConnect = () => {
   );
 };
 
-export default ExploreAgriConnect;
+export default ExploreFarmLink;

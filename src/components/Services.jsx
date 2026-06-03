@@ -85,7 +85,7 @@ const Services = () => {
 
           {/* Signature */}
           <p className="mt-24 text-gray-400 text-lg tracking-wide">
-            AgriConnect. Powered by Namzeforge. Scaling Africa.
+            FarmLink. Powered by Namzeforge. Scaling Africa.
           </p>
         </div>
       </div>

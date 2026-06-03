@@ -10,12 +10,12 @@ const MyPortfolio = () => {
   const projects = [
     {
       id: 1,
-      name: "AgriConnect Zambia",
+      name: "FarmLink Zambia",
       description:
         "Direct farmer-to-buyer platform connecting smallholder farmers to buyers with instant PawaPay payments, ZRA tax tools, and AI market insights. Currently in closed beta.",
       image:
         agriconnectHomeImage,
-      path: "https://github.com/Cathy-45/AgriConnect-Zambia-Frontend",
+      path: "https://github.com/Cathy-45/FarmLink-Zambia-Frontend",
       highlight: true,
     },
     {
@@ -116,7 +116,7 @@ const MyPortfolio = () => {
           </div>
 
           <p className="mt-24 text-gray-400 text-lg text-center">
-            AgriConnect. Powered by Namzeforge. Scaling Africa.
+            FarmLink. Powered by Namzeforge. Scaling Africa.
           </p>
         </div>
       </div>

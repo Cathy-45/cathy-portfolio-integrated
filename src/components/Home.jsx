@@ -21,30 +21,33 @@ const Home = () => {
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-12">
         <div className="w-full max-w-6xl text-center">
-
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]">
             NAMZEFORGE
           </h1>
-          <p className="text-lg sm:text-xl text-gray-300 mb-4">Digital Solutions</p>
-
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-12 px-4 leading-relaxed">
-            We build beautiful, scalable technology that solves real African problems.
+          <p className="text-lg sm:text-xl text-gray-300 mb-4">
+            Digital Solutions
           </p>
 
-          {/* ==================== AGRICONNECT SECTION ==================== */}
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-12 px-4 leading-relaxed">
+            We build beautiful, scalable technology that solves real African
+            problems.
+          </p>
+
+          {/* ==================== FARM LINK SECTION ==================== */}
           <div className="my-16">
             <div className="backdrop-blur-2xl bg-white/10 rounded-3xl p-8 sm:p-12 border border-white/30 shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 transition-all duration-700 max-w-4xl mx-auto">
-              
               <p className="text-gray-400 uppercase tracking-widest text-sm mb-6 text-center">
                 Flagship Product
               </p>
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white text-center mb-4">
-                AgriLink
+                FarmLink
               </h2>
 
               <p className="text-base sm:text-lg text-gray-300 mb-10 leading-relaxed text-center">
-                Connecting Zambian farmers directly to buyers for livestock, fresh & dry produce.
+                Bridging Fields and Markets — connecting Zambian farmers
+                directly to serious buyers for livestock, fresh produce, and dry
+                goods.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
@@ -61,13 +64,17 @@ const Home = () => {
                 <div className="bg-white/10 rounded-2xl p-6 text-center">
                   <span className="text-5xl mb-3 block">📊</span>
                   <p className="text-[#fdba74] font-bold">Smart Tools</p>
-                  <p className="text-gray-300 text-sm mt-1">Tax calculator + AI insights</p>
+                  <p className="text-gray-300 text-sm mt-1">
+                    Tax calculator + AI insights
+                  </p>
                 </div>
               </div>
 
               <div className="my-10 text-center">
                 <div className="inline-flex items-center gap-3 px-8 py-5 bg-gradient-to-r from-[#da6d20] to-[#fd923c] rounded-full shadow-2xl shadow-orange-900/60 border border-white/40 mx-auto">
-                  <span className="text-white font-black text-xl">LAUNCHING 2026</span>
+                  <span className="text-white font-black text-xl">
+                    LAUNCHING 2026
+                  </span>
                   <span className="text-4xl animate-bounce">🚀</span>
                 </div>
                 <p className="text-gray-300 mt-6 text-base">
@@ -81,9 +88,15 @@ const Home = () => {
                   <p className="text-gray-400 uppercase tracking-widest text-sm mb-4 text-center">
                     Closed Beta Testing
                   </p>
-                  <h3 className="text-2xl font-bold text-white text-center mb-6">Join AgriLink Beta</h3>
+                  <h3 className="text-2xl font-bold text-white text-center mb-6">
+                    Join FarmLink Beta
+                  </h3>
 
-                  <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" action="https://formsubmit.co/hello@namzeforge.com" method="POST">
+                  <form
+                    className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+                    action="https://formsubmit.co/hello@namzeforge.com"
+                    method="POST"
+                  >
                     <input
                       type="email"
                       name="email"
@@ -99,16 +112,26 @@ const Home = () => {
                     </button>
                   </form>
 
-                  <p className="text-xs text-gray-400 text-center mt-6">We respect your privacy • No spam, ever</p>
+                  <p className="text-xs text-gray-400 text-center mt-6">
+                    We respect your privacy • No spam, ever
+                  </p>
                 </div>
               </div>
 
               {/* Role Designated Checklists */}
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <a href="https://docs.google.com/document/d/1fQfkS53WPzJAI13gi0TmDZJEHlHJRqftBgQoGKMa30Y/edit?tab=t.0" target="_blank" className="text-center text-white hover:text-[#fdba74] transition text-lg">
+                <a
+                  href="https://docs.google.com/document/d/1fQfkS53WPzJAI13gi0TmDZJEHlHJRqftBgQoGKMa30Y/edit?tab=t.0"
+                  target="_blank"
+                  className="text-center text-white hover:text-[#fdba74] transition text-lg"
+                >
                   📋 Buyer Testing Checklist
                 </a>
-                <a href="https://docs.google.com/document/d/1lf2X4NZlMWc71Ij4hC8F6Z4Rjsl6OJn3M-5hTFqrvr4/edit?tab=t.0" target="_blank" className="text-center text-white hover:text-[#fdba74] transition text-lg">
+                <a
+                  href="https://docs.google.com/document/d/1lf2X4NZlMWc71Ij4hC8F6Z4Rjsl6OJn3M-5hTFqrvr4/edit?tab=t.0"
+                  target="_blank"
+                  className="text-center text-white hover:text-[#fdba74] transition text-lg"
+                >
                   📋 Farmer Testing Checklist
                 </a>
               </div>
@@ -148,7 +171,7 @@ const Home = () => {
               © 2025 Namzeforge Digital Solutions Limited
             </p>
             <p className="text-gray-400 text-xs mt-2">
-              AgriLink. Powered by Namzeforge. Scaling Africa.
+              FarmLink. Powered by Namzeforge. Scaling Africa.
             </p>
 
             <div className="flex justify-center items-center gap-10 mt-8">
@@ -184,7 +207,6 @@ const Home = () => {
               </a>
             </div>
           </footer>
-
         </div>
       </div>
     </section>

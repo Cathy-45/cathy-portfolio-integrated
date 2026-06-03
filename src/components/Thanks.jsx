@@ -47,10 +47,9 @@ const Thanks = () => {
           <strong className="text-[#fdba74]">AgriConnect waitlist</strong>.
         </p>
 
-        <p className="text-lg sm:text-xl text-gray-300 mb-12 max-w-2xl leading-relaxed">
-          We'll notify you first when we launch in 2026 — connecting Zambian
-          farmers directly to buyers with same-day offers and same-day payments.
-          Real profit, real change.
+      <p className="text-lg sm:text-xl text-gray-300 mb-12 max-w-2xl leading-relaxed">
+          We will notify you as soon as FarmLink officially launches.<br />
+          Bridging Fields and Markets — connecting Zambian farmers directly to buyers.
         </p>
 
         <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-10 border border-white/20 shadow-2xl max-w-2xl">
@@ -80,7 +79,7 @@ const Thanks = () => {
         </div>
 
         <p className="mt-20 text-gray-400 text-lg">
-          AgriConnect. Powered by Namzeforge. Scaling Africa.
+          FarmLink. Powered by Namzeforge. Scaling Africa.
         </p>
       </div>
     </section>
