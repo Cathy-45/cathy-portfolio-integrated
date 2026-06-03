@@ -40,7 +40,7 @@ const Home = () => {
               </p>
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white text-center mb-4">
-                AgriConnect
+                AgriLink
               </h2>
 
               <p className="text-base sm:text-lg text-gray-300 mb-10 leading-relaxed text-center">
@@ -56,7 +56,7 @@ const Home = () => {
                 <div className="bg-white/10 rounded-2xl p-6 text-center">
                   <span className="text-5xl mb-3 block">💰</span>
                   <p className="text-[#fdba74] font-bold">Instant Payments</p>
-                  <p className="text-gray-300 text-sm mt-1">Via PawaPay (Airtel & MTN)</p>
+                  <p className="text-gray-300 text-sm mt-1">(Airtel & MTN)</p>
                 </div>
                 <div className="bg-white/10 rounded-2xl p-6 text-center">
                   <span className="text-5xl mb-3 block">📊</span>
@@ -81,7 +81,7 @@ const Home = () => {
                   <p className="text-gray-400 uppercase tracking-widest text-sm mb-4 text-center">
                     Closed Beta Testing
                   </p>
-                  <h3 className="text-2xl font-bold text-white text-center mb-6">Join AgriConnect Beta</h3>
+                  <h3 className="text-2xl font-bold text-white text-center mb-6">Join AgriLink Beta</h3>
 
                   <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" action="https://formsubmit.co/hello@namzeforge.com" method="POST">
                     <input
@@ -148,7 +148,7 @@ const Home = () => {
               © 2025 Namzeforge Digital Solutions Limited
             </p>
             <p className="text-gray-400 text-xs mt-2">
-              AgriConnect. Powered by Namzeforge. Scaling Africa.
+              AgriLink. Powered by Namzeforge. Scaling Africa.
             </p>
 
             <div className="flex justify-center items-center gap-10 mt-8">
