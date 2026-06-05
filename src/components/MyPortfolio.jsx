@@ -4,7 +4,7 @@ import backgroundImage from "../assets/background.jpg";
 import treeTopBnBImage from "../assets/treeTopBnB.jpg";
 import birthdayPagesImage from "../assets/Birthday-Pages.jpg";
 import cathyPortfolioImage from "../assets/Intro.jpg";
-import farmlinkLoginImage from "../assets/farmLink-login.png";
+import farmlinkLoginImage from "../assets/farmLink-login.png";   // ← Your new image
 
 const MyPortfolio = () => {
   const projects = [
@@ -13,8 +13,7 @@ const MyPortfolio = () => {
       name: "FarmLink Zambia",
       description:
         "Direct farmer-to-buyer platform connecting smallholder farmers to buyers with instant PawaPay payments, ZRA tax tools, and AI market insights. Currently in closed beta.",
-      image:
-        agriconnectHomeImage,
+      image: farmlinkLoginImage,           // ← Fixed here
       path: "https://github.com/Cathy-45/FarmLink-Zambia-Frontend",
       highlight: true,
     },
