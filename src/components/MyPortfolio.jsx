@@ -4,7 +4,7 @@ import backgroundImage from "../assets/background.jpg";
 import treeTopBnBImage from "../assets/treeTopBnB.jpg";
 import birthdayPagesImage from "../assets/Birthday-Pages.jpg";
 import cathyPortfolioImage from "../assets/Intro.jpg";
-import farmlinkLoginImage from "../assets/agriconnect-home.png";
+import farmlinkLoginImage from "../assets/farmLink-login.png";
 
 const MyPortfolio = () => {
   const projects = [
