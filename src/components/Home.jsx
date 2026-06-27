@@ -77,9 +77,6 @@ const Home = () => {
                   </span>
                   <span className="text-4xl animate-bounce">🚀</span>
                 </div>
-                <p className="text-gray-300 mt-6 text-base">
-                  Currently in closed beta with 2,000+ Zambian farmers
-                </p>
               </div>
 
               {/* Beta Signup Form */}
@@ -168,7 +165,7 @@ const Home = () => {
           {/* ORIGINAL FOOTER WITH SOCIAL LINKS */}
           <footer className="w-full py-12 text-center mt-24">
             <p className="text-gray-500 text-sm">
-              © 2025 Namzeforge Digital Solutions Limited
+              © 2026 Namzeforge Digital Solutions Limited
             </p>
             <p className="text-gray-400 text-xs mt-2">
               FarmLink. Powered by Namzeforge. Scaling Africa.
