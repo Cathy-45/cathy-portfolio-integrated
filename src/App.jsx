@@ -17,7 +17,7 @@ import ExploreAgriConnect from "./components/ExploreAgriConnect"; // Placeholder
 const App = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setTimeout(() => setLoading(false), 5000);
+    setTimeout(() => setLoading(false), 1500);
   }, []);
   return (
     <>
