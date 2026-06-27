@@ -21,7 +21,7 @@ const Home = () => {
 
       <div className="relative z-10 flex flex-col items-center px-4 sm:px-6 md:px-8 pt-16 pb-10">
         <div className="w-full max-w-5xl text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]">
             NAMZEFORGE
           </h1>
           <p className="text-base sm:text-lg text-gray-300 mb-2">
@@ -40,7 +40,7 @@ const Home = () => {
                 Flagship Product
               </p>
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white text-center mb-4">
+              <h2 className="text-2xl sm:text-3xl font-black text-white text-center mb-3">
                 FarmLink
               </h2>
 
@@ -51,18 +51,18 @@ const Home = () => {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                <div className="bg-white/10 rounded-2xl p-6 text-center">
-                  <span className="text-5xl mb-3 block">📱</span>
+                <div className="bg-white/10 rounded-2xl p-4 text-center">
+                  <span className="text-3xl mb-2 block">📱</span>
                   <p className="text-[#fdba74] font-bold">Easy Listing</p>
                   <p className="text-gray-300 text-sm mt-1">Under 60 seconds</p>
                 </div>
-                <div className="bg-white/10 rounded-2xl p-6 text-center">
-                  <span className="text-5xl mb-3 block">💰</span>
+                <div className="bg-white/10 rounded-2xl p-4 text-center">
+                  <span className="text-3xl mb-2 block">💰</span>
                   <p className="text-[#fdba74] font-bold">Instant Payments</p>
                   <p className="text-gray-300 text-sm mt-1">(Airtel & MTN)</p>
                 </div>
-                <div className="bg-white/10 rounded-2xl p-6 text-center">
-                  <span className="text-5xl mb-3 block">📊</span>
+                <div className="bg-white/10 rounded-2xl p-4 text-center">
+                  <span className="text-3xl mb-2 block">📊</span>
                   <p className="text-[#fdba74] font-bold">Smart Tools</p>
                   <p className="text-gray-300 text-sm mt-1">
                     Tax calculator + AI insights

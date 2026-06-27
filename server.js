@@ -375,7 +375,8 @@ async function initializeDatabase() {
   }
 })();
 // Visit tracking middleware - Only email on NEW visitors
-app.use(async (req, res, next) => {
+app.use((req, res, next) => {
+  next(); // serve immediately — tracking runs in background
   const ip =
     req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   const visitTime = new Date().toISOString();
@@ -385,68 +386,38 @@ app.use(async (req, res, next) => {
     .replace("T", " ");
   console.log(`Visit detected from IP: ${ip} at ${visitTime}`);
 
-  const pool = await initializeDatabase();
-  let connection;
-  try {
-    connection = await pool.getConnection();
-    let name = "Anonymous";
-    if (req.body && req.body.name) {
-      name = req.body.name;
-    }
+  // Fire-and-forget — does not block page serving
+  (async () => {
+    const pool = await initializeDatabase();
+    let connection;
+    try {
+      connection = await pool.getConnection();
+      const name = (req.body && req.body.name) || "Anonymous";
 
-    // Check if this IP has visited before
-    const [existingVisits] = await connection.execute(
-      "SELECT id FROM visits WHERE ip = ?",
-      [ip]
-    );
+      const [existingVisits] = await connection.execute(
+        "SELECT id FROM visits WHERE ip = ?",
+        [ip]
+      );
+      const isNewVisitor = existingVisits.length === 0;
 
-    const isNewVisitor = existingVisits.length === 0;
+      await connection.execute(
+        "INSERT INTO visits (ip, name, visit_time) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE visit_time = ?, name = ?",
+        [ip, name, mysqlVisitTime, mysqlVisitTime, name]
+      );
 
-    // Always log the visit (for future analytics if needed)
-    await connection.execute(
-      "INSERT INTO visits (ip, name, visit_time) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE visit_time = ?, name = ?",
-      [ip, name, mysqlVisitTime, mysqlVisitTime, name]
-    );
-
-    // ONLY send email if it's a BRAND NEW visitor
-    if (isNewVisitor) {
-      const subject = "🌟 New Visitor Detected";
-      const text = `
-NEW VISITOR ALERT
-
-IP: ${ip}
-Name: ${name || "Anonymous"}
-Time: ${new Date().toLocaleString("en-GB", {
-        timeZone: "Africa/Lusaka",
-      })} (Zambia Time)
-
-A fresh lead just landed on the site. Empire expanding. Zambia rises. 🚀
-      `;
-
-      try {
-        await transporter.sendMail({
-          from: process.env.EMAIL_FROM,
-          to: process.env.EMAIL_FROM, // inbox:
-          subject: subject,
-          text: text,
-        });
-        console.log("New visitor email sent");
-      } catch (err) {
-        console.error("New visitor email error:", err);
+      if (isNewVisitor) {
+        await sendEmail({
+          to: process.env.EMAIL_FROM,
+          subject: "🌟 New Visitor Detected",
+          text: `NEW VISITOR\n\nIP: ${ip}\nTime: ${new Date().toLocaleString("en-GB", { timeZone: "Africa/Lusaka" })} (Zambia Time)\n\nEmpire expanding. 🚀`,
+        }).catch((err) => console.error("New visitor email error:", err));
       }
+    } catch (err) {
+      console.error("Visit tracking error:", err);
+    } finally {
+      if (connection) connection.release().catch(() => {});
     }
-  } catch (err) {
-    console.error("Visit tracking error:", err);
-  } finally {
-    if (connection) {
-      try {
-        await connection.release();
-      } catch (releaseErr) {
-        console.error("Connection release error:", releaseErr);
-      }
-    }
-  }
-  next();
+  })();
 });
 
 // Analytics endpoint
