@@ -19,7 +19,7 @@ const Home = () => {
     >
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-6">
+      <div className="relative z-10 flex flex-col items-center px-4 sm:px-6 md:px-8 pt-16 pb-10">
         <div className="w-full max-w-5xl text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]">
             NAMZEFORGE
@@ -35,8 +35,8 @@ const Home = () => {
 
           {/* ==================== FARM LINK SECTION ==================== */}
           <div className="my-6">
-            <div className="backdrop-blur-2xl bg-white/10 rounded-3xl p-8 sm:p-12 border border-white/30 shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 transition-all duration-700 max-w-4xl mx-auto">
-              <p className="text-gray-400 uppercase tracking-widest text-sm mb-6 text-center">
+            <div className="backdrop-blur-2xl bg-white/10 rounded-3xl p-6 border border-white/30 shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 transition-all duration-700 max-w-4xl mx-auto">
+              <p className="text-gray-400 uppercase tracking-widest text-sm mb-3 text-center">
                 Flagship Product
               </p>
 
@@ -44,7 +44,7 @@ const Home = () => {
                 FarmLink
               </h2>
 
-              <p className="text-base sm:text-lg text-gray-300 mb-10 leading-relaxed text-center">
+              <p className="text-base text-gray-300 mb-4 leading-relaxed text-center">
                 Bridging Fields and Markets — Connecting Zambian Farmers
                 directly to serious buyers for livestock, fresh produce, and dry
                 Produce.
