@@ -19,22 +19,22 @@ const Home = () => {
     >
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-12">
-        <div className="w-full max-w-6xl text-center">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-6">
+        <div className="w-full max-w-5xl text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#da6d20] via-[#fdba74] to-[#da6d20]">
             NAMZEFORGE
           </h1>
-          <p className="text-lg sm:text-xl text-gray-300 mb-4">
+          <p className="text-base sm:text-lg text-gray-300 mb-2">
             Digital Solutions
           </p>
 
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-12 px-4 leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6 px-4 leading-relaxed">
             We build beautiful, scalable technology that solves real African
             problems.
           </p>
 
           {/* ==================== FARM LINK SECTION ==================== */}
-          <div className="my-16">
+          <div className="my-6">
             <div className="backdrop-blur-2xl bg-white/10 rounded-3xl p-8 sm:p-12 border border-white/30 shadow-2xl shadow-black/60 hover:shadow-[#da6d20]/40 transition-all duration-700 max-w-4xl mx-auto">
               <p className="text-gray-400 uppercase tracking-widest text-sm mb-6 text-center">
                 Flagship Product
@@ -50,7 +50,7 @@ const Home = () => {
                 Produce.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                 <div className="bg-white/10 rounded-2xl p-6 text-center">
                   <span className="text-5xl mb-3 block">📱</span>
                   <p className="text-[#fdba74] font-bold">Easy Listing</p>
@@ -70,7 +70,7 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="my-10 text-center">
+              <div className="my-4 text-center">
                 <div className="inline-flex items-center gap-3 px-8 py-5 bg-gradient-to-r from-[#da6d20] to-[#fd923c] rounded-full shadow-2xl shadow-orange-900/60 border border-white/40 mx-auto">
                   <span className="text-white font-black text-xl">
                     LAUNCHING 2026
@@ -80,7 +80,7 @@ const Home = () => {
               </div>
 
               {/* Beta Signup Form */}
-              <div className="my-12">
+              <div className="my-6">
                 <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-8 border border-white/20">
                   <p className="text-gray-400 uppercase tracking-widest text-sm mb-4 text-center">
                     Closed Beta Testing
@@ -152,9 +152,9 @@ const Home = () => {
           </div>
 
           {/* FOUNDER */}
-          <div className="mt-24">
-            <p className="text-gray-400 text-lg">Founded & led by</p>
-            <p className="text-4xl sm:text-5xl font-bold text-[#fdba74] mt-3">
+          <div className="mt-10">
+            <p className="text-gray-400 text-base">Founded & led by</p>
+            <p className="text-3xl sm:text-4xl font-bold text-[#fdba74] mt-2">
               Catherine Sichone
             </p>
             <p className="text-gray-400 mt-2 text-lg">
@@ -163,7 +163,7 @@ const Home = () => {
           </div>
 
           {/* ORIGINAL FOOTER WITH SOCIAL LINKS */}
-          <footer className="w-full py-12 text-center mt-24">
+          <footer className="w-full py-6 text-center mt-8">
             <p className="text-gray-500 text-sm">
               © 2026 Namzeforge Digital Solutions Limited
             </p>
