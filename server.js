@@ -213,6 +213,8 @@ if (!process.env.RESEND_API_KEY || !process.env.EMAIL_FROM) {
 let pool;
 
 async function initializeDatabase() {
+  if (pool) return pool; // Already initialized — return existing pool
+
   console.log(
     "Initializing database with environment at:",
     new Date().toISOString()
@@ -377,8 +379,14 @@ async function initializeDatabase() {
 // Visit tracking middleware - Only email on NEW visitors
 app.use((req, res, next) => {
   next(); // serve immediately — tracking runs in background
-  const ip =
-    req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+
+  // Skip API routes and internal requests
+  if (req.path.startsWith("/api/") || req.path === "/health" || req.path === "/favicon.ico") return;
+
+  const ip = ((req.headers["x-forwarded-for"] || req.ip || req.connection.remoteAddress || "")).split(",")[0].trim();
+
+  // Skip private/internal IPs (AWS, localhost, etc.)
+  if (/^(::ffff:)?(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|127\.|::1$)/.test(ip)) return;
   const visitTime = new Date().toISOString();
   const mysqlVisitTime = new Date(visitTime)
     .toISOString()
