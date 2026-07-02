@@ -376,7 +376,7 @@ async function initializeDatabase() {
     }
   }
 })();
-// Visit tracking middleware - Only email on NEW visitors
+// Visit tracking middleware
 app.use((req, res, next) => {
   next(); // serve immediately — tracking runs in background
 
@@ -414,11 +414,7 @@ app.use((req, res, next) => {
       );
 
       if (isNewVisitor) {
-        await sendEmail({
-          to: process.env.EMAIL_FROM,
-          subject: "🌟 New Visitor Detected",
-          text: `NEW VISITOR\n\nIP: ${ip}\nTime: ${new Date().toLocaleString("en-GB", { timeZone: "Africa/Lusaka" })} (Zambia Time)\n\nEmpire expanding. 🚀`,
-        }).catch((err) => console.error("New visitor email error:", err));
+        console.log(`New visitor from IP: ${ip}`);
       }
     } catch (err) {
       console.error("Visit tracking error:", err);
